@@ -1,4 +1,5 @@
 package util;
 
 public enum ServiceType {
+        LOGIN,DASHBOARD,SALES,PRODUCT,INVENTORY,SUPPLIER,EMPLOYEE,REPORT
 }

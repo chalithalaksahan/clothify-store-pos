@@ -1,0 +1,50 @@
+/* ============================================================
+   JavaFX CSS - Login Form Styles
+   Matches the EMAIL / PASSWORD form from reference image
+   ============================================================ */
+
+/* ── Background ───────────────────────────────────────────── */
+.form-bg {
+    -fx-background-color: #eef3f5;
+}
+
+/* ── Text Field & Password Field ──────────────────────────── */
+.input-field {
+    -fx-border-color: #c8d8de;
+    -fx-border-radius: 8;
+    -fx-background-radius: 10;
+    -fx-border-width: 1.2;
+    -fx-padding: 10 15 10 15;
+    -fx-font-size: 20px;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #2c3e50;
+    -fx-prompt-text-fill: #b0bec5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 4, 0, 0, 1);
+}
+
+/* ── Focused state ─────────────────────────────────────────── */
+.input-field:focused {
+    -fx-border-color: #2F7A8B;
+    -fx-border-width: 1.8;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(47,122,139,0.18), 8, 0, 0, 2);
+}
+
+/* ── Hover state ───────────────────────────────────────────── */
+.input-field:hover {
+    -fx-border-color: #8ab8c4;
+    -fx-background-color: #ffffff;
+}
+
+/* ── Button Styles ─────────────────────────────────────────── */
+.login-button {
+    -fx-background-color: #133846;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-border-radius: 8;
+    -fx-background-radius: 10;
+}
+

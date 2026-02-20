@@ -9,7 +9,7 @@ public class Starter extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/dashboard.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("view/login.fxml"))));
         stage.setTitle("Clothify Store Pos");
         stage.setMaximized(true);
         stage.show();

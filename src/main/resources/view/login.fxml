@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #ADDBE3;" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+   <children>
+      <Rectangle height="1080.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1920.0">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.07450980693101883" green="0.21960784494876862" blue="0.27450981736183167" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5225077754133244">
+                     <color>
+                        <Color red="0.1764705926179886" green="0.47058823704719543" blue="0.5411764979362488" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.6784313917160034" green="0.8588235378265381" blue="0.8901960849761963" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="45.0" arcWidth="45.0" fill="WHITE" height="816.0" layoutX="658.0" layoutY="122.0" stroke="BLACK" strokeType="INSIDE" style="-fx-opacity: 0.2;" width="601.0" AnchorPane.bottomAnchor="142.0" AnchorPane.leftAnchor="658.0" AnchorPane.rightAnchor="661.0" AnchorPane.topAnchor="122.0" />
+      <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="792.0" layoutX="671.0" layoutY="134.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="577.0" />
+      <ImageView fitHeight="123.0" fitWidth="121.0" layoutX="904.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/clothify-logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="822.0" layoutY="348.0" text="Welcome back">
+         <font>
+            <Font name="Poppins SemiBold" size="36.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="722.0" layoutY="416.0" prefHeight="28.0" prefWidth="476.0" text="Enter your credentials to access your account" textFill="#2d788a">
+         <font>
+            <Font name="Poppins Medium" size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="725.0" layoutY="478.0" prefHeight="130.0" prefWidth="485.0" stylesheets="@../CSS/style.css">
+         <children>
+            <Label style="-fx-padding: 10px 0px;" text="EMAIL" textFill="#133846">
+               <font>
+                  <Font name="Poppins SemiBold" size="20.0" />
+               </font>
+            </Label>
+            <TextField prefHeight="62.0" prefWidth="485.0" promptText="name@company.com" styleClass="input-field" stylesheets="@../CSS/style.css">
+               <font>
+                  <Font name="Poppins Medium" size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox layoutX="723.0" layoutY="613.0" prefHeight="120.0" prefWidth="485.0" stylesheets="@../CSS/style.css">
+         <children>
+            <Label style="-fx-padding: 10px 0px;" text="PASSWORD" textFill="#133846">
+               <font>
+                  <Font name="Poppins SemiBold" size="20.0" />
+               </font>
+            </Label>
+            <PasswordField prefHeight="62.0" prefWidth="485.0" promptText="********" styleClass="input-field" stylesheets="@../CSS/style.css" />
+         </children>
+      </VBox>
+      <Button layoutX="722.0" layoutY="784.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="485.0" styleClass="login-button" stylesheets="@../CSS/style.css" text="Log in" textFill="WHITE">
+         <font>
+            <Font name="Poppins Black" size="20.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="722.0" layoutY="847.0" prefHeight="28.0" prefWidth="476.0" text="Forget password? Contact  admin" textFill="#a8a7aa">
+         <font>
+            <Font name="Poppins Medium" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

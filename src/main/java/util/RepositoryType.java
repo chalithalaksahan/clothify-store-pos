@@ -1,0 +1,5 @@
+package util;
+
+public enum RepositoryType {
+    LOGIN,DASHBOARD,SALES,PRODUCT,INVENTORY,SUPPLIER,EMPLOYEE,REPORT
+}

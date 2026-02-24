@@ -18,6 +18,7 @@ public class LoginController {
     @Inject
     LoginService loginService;
 
+    @FXML
     public void btnLoginOnAction(MouseEvent mouseEvent) {
         String email = txtEmail.getText();
         String password = txtPassword.getText();

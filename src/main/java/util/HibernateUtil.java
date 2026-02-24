@@ -1,6 +1,7 @@
 package util;
 
-import model.Login;
+import model.User;
+import model.UserCredential;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -16,8 +17,12 @@ public class HibernateUtil {
                builder.configure("hibernate.cfg.xml");
                builder.build();
 
+        System.out.println("✅ Hibernate connected successfully!");
+
+
         Metadata metadataSource = new MetadataSources()
-                .addAnnotatedClass(Login.class)
+                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(UserCredential.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();
@@ -28,5 +33,9 @@ public class HibernateUtil {
 
     public static Session getSession(){
         return session.openSession();
+    }
+
+    public static void shutdown() {
+        if (session != null) session.close();
     }
 }

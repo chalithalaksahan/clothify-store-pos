@@ -1,4 +1,4 @@
 package service.custom;
 
-public class UserCredentialService {
+public interface UserCredentialService {
 }

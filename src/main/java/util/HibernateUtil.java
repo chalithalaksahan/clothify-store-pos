@@ -7,20 +7,22 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
     private static SessionFactory session = createSessionFactory();
 
     private static  SessionFactory createSessionFactory(){
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-               builder.configure("hibernate.cfg.xml");
-               builder.build();
+        StandardServiceRegistry builder = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml")
+                .build();
+
+
 
         System.out.println("✅ Hibernate connected successfully!");
 
-
-        Metadata metadataSource = new MetadataSources()
+        Metadata metadataSource = new MetadataSources(builder)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(UserCredential.class)
                 .getMetadataBuilder()
@@ -32,6 +34,7 @@ public class HibernateUtil {
     }
 
     public static Session getSession(){
+
         return session.openSession();
     }
 

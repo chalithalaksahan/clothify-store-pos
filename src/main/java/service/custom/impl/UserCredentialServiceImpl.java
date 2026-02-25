@@ -1,14 +1,8 @@
 package service.custom.impl;
 
-import model.UserCredential;
-import repository.custom.UserCredentialRepository;
 
-import java.util.Optional;
+import service.custom.UserCredentialService;
 
-public class UserCredentialServiceImpl implements UserCredentialRepository {
+public class UserCredentialServiceImpl implements UserCredentialService {
 
-    @Override
-    public Optional<UserCredential> findByEmail(String email) {
-        return Optional.empty();
-    }
 }

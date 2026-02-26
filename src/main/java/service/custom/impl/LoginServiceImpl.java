@@ -3,7 +3,7 @@ package service.custom.impl;
 import dto.LoginResult;
 import jakarta.inject.Inject;
 import model.UserCredential;
-import repository.custom.UserCredentialRepository;
+import repository.custom.LoginRepository;
 import service.custom.LoginService;
 import util.PasswordUtil;
 
@@ -13,12 +13,11 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     @Inject
-    UserCredentialRepository userCredentialRepository;
+    LoginRepository loginRepository;
 
 
     @Override
     public LoginResult login(String email, String password) {
-        System.out.println("log service");
         //---Input Validation ---
         if(email ==null || email.trim().isEmpty()){
             return new LoginResult(false,"Email cannot be empty",null);
@@ -34,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         //- Find user in DB ---
-        Optional<UserCredential> optional = userCredentialRepository.findByEmail(email);
+        Optional<UserCredential> optional = loginRepository.findByEmail(email);
 
         if (optional.isEmpty()) {
             return new LoginResult(false, "Invalid username or password", null);
@@ -42,6 +41,11 @@ public class LoginServiceImpl implements LoginService {
 
 
         UserCredential credential = optional.get();
+
+        // -- Guard against missing user ---
+        if (credential.getUser() == null) {
+            return new LoginResult(false, "Account has no linked user profile. Contact admin.", null);
+        }
 
         // --Check if account is active ---
         if (!credential.getUser().isActive()) {

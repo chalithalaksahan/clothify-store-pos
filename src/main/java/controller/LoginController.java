@@ -4,9 +4,11 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.jfoenix.controls.JFXButton;
 import config.AppModule;
+import dto.LoginResult;
 import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +29,9 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField txtPassword;
 
+    @FXML
+    private Label lblMessage;
+
     private Injector injector;
 
     @Inject
@@ -34,23 +39,43 @@ public class LoginController implements Initializable {
     @Inject
     UserService userService;
 
-
     @FXML
     public void btnLoginOnAction(MouseEvent mouseEvent) {
         String email = txtEmail.getText();
         String password = txtPassword.getText();
 
-        loginService.login(email,password);
+        LoginResult result = loginService.login(email, password);
 
+        if (result.isSuccess()) {
+            showMessage(result.getMessage(), true);
+        } else {
+            showMessage(result.getMessage(), false);
+        }
+
+        System.out.println(result.isSuccess());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      injector = Guice.createInjector(new AppModule());
+        injector = Guice.createInjector(new AppModule());
+        injector.injectMembers(this);
     }
 
     @FXML
     public void btnAddUserOnAction(MouseEvent mouseEvent) {
-        userService.createUser("admin","12345678");
+        try {
+            userService.createUser("admin", "12345678");
+            showMessage("User created successfully!", true);
+        } catch (Exception e) {
+            showMessage("Failed to create user: " + e.getMessage(), false);
+        }
+    }
+
+    // -- green = success, red = error ---
+    private void showMessage(String message, boolean isSuccess) {
+        lblMessage.setText(message);
+        lblMessage.setStyle(isSuccess
+                ? "-fx-text-fill: #2e7d32; -fx-font-weight: bold;"   // green
+                : "-fx-text-fill: #c62828; -fx-font-weight: bold;");  // red
     }
 }

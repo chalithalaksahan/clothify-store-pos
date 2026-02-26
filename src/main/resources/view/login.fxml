@@ -86,7 +86,12 @@
             <Font name="Poppins Black" size="20.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="722.0" layoutY="817.0" prefHeight="28.0" prefWidth="476.0" text="Forget password? Contact  admin" textFill="#a8a7aa">
+      <Label fx:id="lblMessage" alignment="CENTER" layoutX="722.0" layoutY="800.0" prefHeight="28.0" prefWidth="485.0" text="" wrapText="true">
+         <font>
+            <Font name="Poppins Medium" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="722.0" layoutY="835.0" prefHeight="28.0" prefWidth="476.0" text="Forget password? Contact  admin" textFill="#a8a7aa">
          <font>
             <Font name="Poppins Medium" size="18.0" />
          </font>

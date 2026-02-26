@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import service.custom.LoginService;
@@ -44,25 +46,33 @@ public class LoginController implements Initializable {
 
     @FXML
     public void btnLoginOnAction(MouseEvent mouseEvent) {
+        handleLogin();
+    }
+    @FXML
+    public void btnLoginOnActionClick(MouseEvent mouseEvent) {
+        handleLogin();
+    }
+
+    private void handleLogin() {
         String email = txtEmail.getText();
         String password = txtPassword.getText();
 
         LoginResult result = loginService.login(email, password);
 
         if (result.isSuccess()) {
-            loadDashboard(mouseEvent);
+            loadDashboard();
         } else {
             showMessage(result.getMessage(), false);
         }
     }
 
-    private void loadDashboard(MouseEvent mouseEvent) {
+    private void loadDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
             loader.setControllerFactory(injector::getInstance);
             Scene dashboardScene = new Scene(loader.load());
 
-            Stage stage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();
+            Stage stage = (Stage) txtEmail.getScene().getWindow();
             stage.setScene(dashboardScene);
             stage.setMaximized(true);
         } catch (Exception e) {
@@ -74,6 +84,22 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         injector = Guice.createInjector(new AppModule());
         injector.injectMembers(this);
+
+        // Tab on email → move focus to password
+        txtEmail.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                txtPassword.requestFocus();
+                event.consume();
+            }
+        });
+
+        // Enter on password → trigger login
+        txtPassword.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleLogin();
+                event.consume();
+            }
+        });
     }
 
     @FXML
@@ -93,4 +119,6 @@ public class LoginController implements Initializable {
                 ? "-fx-text-fill: #2e7d32; -fx-font-weight: bold;"   // green
                 : "-fx-text-fill: #c62828; -fx-font-weight: bold;");  // red
     }
+
+
 }

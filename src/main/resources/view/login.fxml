@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #ADDBE3;" stylesheets="@../CSS/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <Rectangle height="1080.0" layoutX="-14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1920.0">
+      <Rectangle arcWidth="50.0" height="1090.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-background-radius: 15px;" width="1930.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -81,7 +81,7 @@
             <PasswordField fx:id="txtPassword" prefHeight="62.0" prefWidth="485.0" promptText="********" styleClass="input-field" stylesheets="@../CSS/style.css" />
          </children>
       </VBox>
-      <Button layoutX="722.0" layoutY="754.0" mnemonicParsing="false" onMouseClicked="#btnLoginOnAction" prefHeight="37.0" prefWidth="485.0" styleClass="login-button" stylesheets="@../CSS/style.css" text="Log in" textFill="WHITE">
+      <Button layoutX="722.0" layoutY="754.0" mnemonicParsing="false" onKeyPressed="#btnLoginOnAction" onMouseClicked="#btnLoginOnActionClick" prefHeight="37.0" prefWidth="485.0" styleClass="login-button" stylesheets="@../CSS/style.css" text="Log in" textFill="WHITE">
          <font>
             <Font name="Poppins Black" size="20.0" />
          </font>

@@ -7,11 +7,14 @@ import config.AppModule;
 import dto.LoginResult;
 import jakarta.inject.Inject;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import service.custom.LoginService;
 import service.custom.UserService;
 
@@ -47,12 +50,24 @@ public class LoginController implements Initializable {
         LoginResult result = loginService.login(email, password);
 
         if (result.isSuccess()) {
-            showMessage(result.getMessage(), true);
+            loadDashboard(mouseEvent);
         } else {
             showMessage(result.getMessage(), false);
         }
+    }
 
-        System.out.println(result.isSuccess());
+    private void loadDashboard(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
+            loader.setControllerFactory(injector::getInstance);
+            Scene dashboardScene = new Scene(loader.load());
+
+            Stage stage = (Stage) ((javafx.scene.Node) mouseEvent.getSource()).getScene().getWindow();
+            stage.setScene(dashboardScene);
+            stage.setMaximized(true);
+        } catch (Exception e) {
+            showMessage("Failed to load dashboard: " + e.getMessage(), false);
+        }
     }
 
     @Override

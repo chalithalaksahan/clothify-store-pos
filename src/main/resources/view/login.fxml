@@ -96,7 +96,7 @@
             <Font name="Poppins Medium" size="18.0" />
          </font>
       </Label>
-      <JFXButton layoutX="1016.0" layoutY="992.0" onMouseClicked="#btnAddUserOnAction" prefHeight="26.0" prefWidth="86.0" text="Add Userf" />
+      <JFXButton layoutX="1078.0" layoutY="245.0" onMouseClicked="#btnAddUserOnAction" prefHeight="26.0" prefWidth="86.0" text="Add Userf" />
     
 
    </children>

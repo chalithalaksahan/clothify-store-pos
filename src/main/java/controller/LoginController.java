@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import service.custom.LoginService;
 import service.custom.UserService;
@@ -27,6 +28,9 @@ public class LoginController implements Initializable {
 
     @FXML
     public JFXButton btnAddUserOnAction;
+
+    @FXML
+    public AnchorPane loginAnchorPane;
 
     @FXML
     private TextField txtEmail;
@@ -72,7 +76,7 @@ public class LoginController implements Initializable {
             loader.setControllerFactory(injector::getInstance);
             Scene dashboardScene = new Scene(loader.load());
 
-            Stage stage = (Stage) txtEmail.getScene().getWindow();
+            Stage stage = (Stage) loginAnchorPane.getScene().getWindow();
             stage.setScene(dashboardScene);
             stage.setMaximized(true);
         } catch (Exception e) {

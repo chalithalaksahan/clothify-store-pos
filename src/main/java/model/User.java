@@ -25,7 +25,7 @@ public class User {
     private String lastName;
 
     @Column(name = "user_role")
-    private String userRole;
+    private int userRole;
 
     @Column(name = "is_Active")
     private boolean isActive;

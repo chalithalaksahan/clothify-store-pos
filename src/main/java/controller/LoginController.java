@@ -63,10 +63,26 @@ public class LoginController implements Initializable {
 
         LoginResult result = loginService.login(email, password);
 
-        if (result.isSuccess()) {
+        if (result.isSuccess() && result.getUser() != null && result.getUser().getUserRole() == 1) {
             loadDashboard();
-        } else {
+        } else if (result.isSuccess() && result.getUser() != null && result.getUser().getUserRole() == 2){
+            loadStaffMainMenu();
+        }else{
             showMessage(result.getMessage(), false);
+        }
+    }
+
+    private void loadStaffMainMenu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/staff_main_menu.fxml"));
+            loader.setControllerFactory(injector::getInstance);
+            Scene dashboardScene = new Scene(loader.load());
+
+            Stage stage = (Stage) loginAnchorPane.getScene().getWindow();
+            stage.setScene(dashboardScene);
+            stage.setMaximized(true);
+        } catch (Exception e) {
+            showMessage("Failed to load staff Main menu: " + e.getMessage(), false);
         }
     }
 
@@ -83,6 +99,8 @@ public class LoginController implements Initializable {
             showMessage("Failed to load dashboard: " + e.getMessage(), false);
         }
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,7 +127,7 @@ public class LoginController implements Initializable {
     @FXML
     public void btnAddUserOnAction(MouseEvent mouseEvent) {
         try {
-            userService.createUser("admin", "12345678");
+            userService.createUser("Staff", "12345678");
             showMessage("User created successfully!", true);
         } catch (Exception e) {
             showMessage("Failed to create user: " + e.getMessage(), false);

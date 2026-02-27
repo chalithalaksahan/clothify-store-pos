@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,20 +34,22 @@ public class DashboardController implements Initializable {
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hmbIcon);
         transition.setRate(-1);
 
+        double morphSpeed = 0.3;
+
         hmbIcon.addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
             if (drawPane.isClosed() || drawPane.isClosing()) {
                 // opening → animate hamburger → arrow
-                transition.setRate(1);
-                transition.play();
-                drawPane.setDefaultDrawerSize(0);
+                transition.setRate(morphSpeed);
                 drawPane.open();
+                transition.play();
+
             } else {
                 // closing → animate arrow → hamburger
-                transition.setRate(-1);
-                transition.play();
+                transition.setRate(-morphSpeed);
                 drawPane.close();
+                transition.play();
+
                 drawPane.setOnDrawerClosed(event -> {
-                    drawPane.setDefaultDrawerSize(250);
                     drawPane.setOnDrawerClosed(null);
                 });
             }

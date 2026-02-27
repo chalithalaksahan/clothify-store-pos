@@ -16,9 +16,9 @@ public class UserServiceImpl implements UserService {
     public void createUser(String email, String rawPassword) {
         // Create and link a User first
         User user = new User();
-        user.setFirstName("Admin");
-        user.setLastName("User");
-        user.setUserRole("ADMIN");
+        user.setFirstName("Staff");
+        user.setLastName("Main");
+        user.setUserRole(2);
         user.setActive(true);
 
         UserCredential uc = new UserCredential();

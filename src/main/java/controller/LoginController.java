@@ -80,7 +80,7 @@ public class LoginController implements Initializable {
 
             Stage stage = (Stage) loginAnchorPane.getScene().getWindow();
             stage.setScene(dashboardScene);
-            stage.setMaximized(true);
+            stage.setFullScreen(true);
         } catch (Exception e) {
             showMessage("Failed to load staff Main menu: " + e.getMessage(), false);
         }
@@ -94,7 +94,7 @@ public class LoginController implements Initializable {
 
             Stage stage = (Stage) loginAnchorPane.getScene().getWindow();
             stage.setScene(dashboardScene);
-            stage.setMaximized(true);
+            stage.setFullScreen(true);
         } catch (Exception e) {
             showMessage("Failed to load dashboard: " + e.getMessage(), false);
         }

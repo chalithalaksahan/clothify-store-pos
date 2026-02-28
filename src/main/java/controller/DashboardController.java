@@ -11,48 +11,48 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
-
 
 public class DashboardController implements Initializable {
 
-    @FXML
-    private JFXButton exit;
-
-    @FXML
-    private Label menu;
-
-    @FXML
-    private Label menuBack;
-
-    @FXML
-    private AnchorPane slider;
+    @FXML private JFXButton btnDashboard;
+    @FXML private JFXButton btnEmployees;
+    @FXML private JFXButton btnInventory;
+    @FXML private JFXButton btnProducts;
+    @FXML private JFXButton btnReports;
+    @FXML private JFXButton btnSales;
+    @FXML private JFXButton btnSettings;
+    @FXML private JFXButton btnSuppliers;
+    @FXML private JFXButton exit;
+    @FXML private Label menu;
+    @FXML private Label menuBack;
+    @FXML private AnchorPane slider;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        exit.setOnMouseClicked(event->{
-            System.exit(0);
-        });
 
-        double iconOnlyWidth = 70;   // shows icons only
-        double expandedWidth = 280;  // shows icons + labels
+        exit.setOnMouseClicked(e -> System.exit(0));
 
-        // Clip to prevent overflow dots
+        final double iconOnlyWidth = 70;
+        final double expandedWidth = 280;
+
+        // Clip to prevent content overflow
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(slider.widthProperty());
         clip.heightProperty().bind(slider.heightProperty());
         slider.setClip(clip);
 
-        // Start in icon-only mode
+        // Start collapsed (icons only)
         slider.setMinWidth(iconOnlyWidth);
         slider.setMaxWidth(iconOnlyWidth);
         slider.setPrefWidth(iconOnlyWidth);
-        setLabelsVisible(false);  // hide labels, icons still show
+        setLabelsVisible(false);
         menuBack.setVisible(false);
 
-        menu.setOnMouseClicked(mouseEvent -> {
-            // Expand → show icons + labels
-            Timeline widthExpand = new Timeline(
+        // Expand sidebar
+        menu.setOnMouseClicked(e -> {
+            Timeline expand = new Timeline(
                     new KeyFrame(Duration.ZERO,
                             new KeyValue(slider.prefWidthProperty(), iconOnlyWidth, Interpolator.EASE_BOTH),
                             new KeyValue(slider.minWidthProperty(),  iconOnlyWidth, Interpolator.EASE_BOTH),
@@ -64,21 +64,18 @@ public class DashboardController implements Initializable {
                             new KeyValue(slider.maxWidthProperty(),  expandedWidth, Interpolator.EASE_BOTH)
                     )
             );
-            widthExpand.play();
-
-            // Show labels only after fully expanded
-            widthExpand.setOnFinished(e -> {
+            expand.setOnFinished(ev -> {
                 setLabelsVisible(true);
                 menu.setVisible(false);
                 menuBack.setVisible(true);
             });
+            expand.play();
         });
 
-        menuBack.setOnMouseClicked(mouseEvent -> {
-            // Hide labels immediately before collapsing
+        // Collapse sidebar
+        menuBack.setOnMouseClicked(e -> {
             setLabelsVisible(false);
-
-            Timeline widthCollapse = new Timeline(
+            Timeline collapse = new Timeline(
                     new KeyFrame(Duration.ZERO,
                             new KeyValue(slider.prefWidthProperty(), expandedWidth, Interpolator.EASE_BOTH),
                             new KeyValue(slider.minWidthProperty(),  expandedWidth, Interpolator.EASE_BOTH),
@@ -90,16 +87,30 @@ public class DashboardController implements Initializable {
                             new KeyValue(slider.maxWidthProperty(),  iconOnlyWidth, Interpolator.EASE_BOTH)
                     )
             );
-            widthCollapse.play();
-
-            widthCollapse.setOnFinished(e -> {
+            collapse.setOnFinished(ev -> {
                 menu.setVisible(true);
                 menuBack.setVisible(false);
             });
+            collapse.play();
         });
+
+        // Menu item highlight on click
+        List<JFXButton> menuItems = List.of(
+                btnDashboard, btnEmployees, btnInventory, btnProducts,
+                btnReports, btnSales, btnSuppliers, btnSettings
+        );
+
+        final String normalStyle   = "-fx-background-color: transparent; -fx-text-fill: white; -fx-font-family: 'Poppins SemiBold'; -fx-font-size: 24px; -fx-font-weight: 600;";
+        final String selectedStyle = "-fx-background-color: #2D788A; -fx-text-fill: #DAF3F7; -fx-background-radius: 8; -fx-font-family: 'Poppins SemiBold'; -fx-font-size: 24px;-fx-font-weight: 600;";
+
+        for (JFXButton item : menuItems) {
+            item.setOnMouseClicked(e -> {
+                menuItems.forEach(i -> i.setStyle(normalStyle));
+                item.setStyle(selectedStyle);
+            });
+        }
     }
 
-    // ── Recursively show/hide only Labels, not icons ──────────────────────────
     private void setLabelsVisible(boolean visible) {
         setLabelsVisibleInPane(slider, visible);
     }
@@ -110,10 +121,10 @@ public class DashboardController implements Initializable {
                 label.setVisible(visible);
                 label.setManaged(visible);
             } else if (node instanceof Pane pane) {
-                // recurse into nested panes but skip icons (ImageView, SVGPath etc)
                 setLabelsVisibleInPane(pane, visible);
             }
-            // ImageView, SVGPath, FontIcon etc are untouched → always visible
         }
     }
 }
+
+

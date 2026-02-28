@@ -17,7 +17,7 @@ public class Starter extends Application {
 
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.setTitle("Clothify Store Pos");
-        stage.setMaximized(true);
+        stage.setFullScreen(true);
         stage.show();
     }
 }

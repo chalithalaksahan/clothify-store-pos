@@ -62,7 +62,7 @@ public class LoginController implements Initializable {
         String password = txtPassword.getText();
 
         LoginResult result = loginService.login(email, password);
-
+            loadDashboard();
         if (result.isSuccess() && result.getUser() != null && result.getUser().getUserRole() == 1) {
             loadDashboard();
         } else if (result.isSuccess() && result.getUser() != null && result.getUser().getUserRole() == 2){

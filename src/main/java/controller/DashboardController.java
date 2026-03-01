@@ -136,22 +136,7 @@ public class DashboardController implements Initializable {
                 item.setStyle(selectedStyle);
             });
         }
-        try {
-
-            URL resource = this.getClass().getResource("/view/dashboard_form.fxml");
-
-            assert resource != null;
-
-            FXMLLoader fxmlLoader = new FXMLLoader(resource);
-            fxmlLoader.setControllerFactory(injector::getInstance);
-
-            Parent   parent = fxmlLoader.load() ;
-
-            dashRoot.getChildren().clear();
-            dashRoot.getChildren().add(parent);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        loadIntoRoot("/view/dashboard_form.fxml");
     }
 
     private final java.util.Map<JFXButton, String> buttonTextMap = new java.util.HashMap<>();
@@ -173,25 +158,25 @@ public class DashboardController implements Initializable {
     }
 
     public void btnDashboardOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/dashboard_form.fxml");
+    }
+    private void loadIntoRoot(String fxmlPath) {
         try {
-
-            URL resource = this.getClass().getResource("/view/dashboard_form.fxml");
-
-            assert resource != null;
-
+            URL resource = getClass().getResource(fxmlPath);
+            assert resource != null : "FXML not found: " + fxmlPath;
             FXMLLoader fxmlLoader = new FXMLLoader(resource);
             fxmlLoader.setControllerFactory(injector::getInstance);
-
             Parent parent = fxmlLoader.load();
-
-            dashRoot.getChildren().clear();
-            dashRoot.getChildren().add(parent);
+            AnchorPane.setTopAnchor(parent, 0.0);
+            AnchorPane.setBottomAnchor(parent, 0.0);
+            AnchorPane.setLeftAnchor(parent, 0.0);
+            AnchorPane.setRightAnchor(parent, 0.0);
+            dashRoot.getChildren().setAll(parent);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
     private void loadDateAndTime() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM dd, yyyy");
@@ -219,6 +204,7 @@ public class DashboardController implements Initializable {
     }
 
     public void btnSalesOnAction(MouseEvent mouseEvent) {
+
     }
 
     public void btnProductsOnAction(MouseEvent mouseEvent) {

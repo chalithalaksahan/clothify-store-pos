@@ -185,7 +185,7 @@
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane fx:id="dashRoot" prefHeight="138.0" prefWidth="1050.0" BorderPane.alignment="CENTER" />
+            <AnchorPane fx:id="dashRoot" style="-fx-background-color: #f0f4f7;" BorderPane.alignment="CENTER" />
          </center>
          <top>
             <HBox prefHeight="71.0" prefWidth="196.0" style="-fx-background-color: #133846;" BorderPane.alignment="CENTER">
@@ -212,10 +212,10 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="71.0" prefWidth="454.0">
+                  <Pane prefHeight="71.0" prefWidth="674.0">
                      <children>
-                        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="36.0" layoutX="85.0" layoutY="17.0" opacity="0.18" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="351.0" />
-                        <Label fx:id="lblDateAndTime" alignment="CENTER" layoutX="85.0" layoutY="20.0" prefHeight="30.0" prefWidth="350.0" text="Wednesday, Feb 17, 2026 15:55:16" textFill="WHITE">
+                        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="36.0" layoutX="236.0" layoutY="18.0" opacity="0.18" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="351.0" />
+                        <Label fx:id="lblDateAndTime" alignment="CENTER" layoutX="236.0" layoutY="21.0" prefHeight="30.0" prefWidth="350.0" text="Wednesday, Feb 17, 2026 15:55:16" textFill="WHITE">
                            <font>
                               <Font name="Poppins SemiBold" size="18.0" />
                            </font>

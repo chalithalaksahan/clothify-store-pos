@@ -130,12 +130,19 @@ public class DashboardController implements Initializable {
         final String normalStyle   = "-fx-background-color: transparent; -fx-text-fill: white; ";
         final String selectedStyle = "-fx-background-color: #2D788A; -fx-text-fill: #DAF3F7; -fx-background-radius: 8; ";
 
-        for (JFXButton item : menuItems) {
-            item.setOnMouseClicked(e -> {
-                menuItems.forEach(i -> i.setStyle(normalStyle));
-                item.setStyle(selectedStyle);
-            });
-        }
+        btnDashboard.setOnMouseClicked(e -> { menuItems.forEach(i -> i.setStyle(normalStyle)); btnDashboard.setStyle(selectedStyle); btnDashboardOnAction(e); });
+        btnSales.setOnMouseClicked(e ->     { menuItems.forEach(i -> i.setStyle(normalStyle)); btnSales.setStyle(selectedStyle);     btnSalesOnAction(e); });
+        btnProducts.setOnMouseClicked(e ->  { menuItems.forEach(i -> i.setStyle(normalStyle)); btnProducts.setStyle(selectedStyle);  btnProductsOnAction(e); });
+        btnInventory.setOnMouseClicked(e -> { menuItems.forEach(i -> i.setStyle(normalStyle)); btnInventory.setStyle(selectedStyle); btnInventoryOnAction(e); });
+        btnSuppliers.setOnMouseClicked(e -> { menuItems.forEach(i -> i.setStyle(normalStyle)); btnSuppliers.setStyle(selectedStyle); btnSuppliersOnAction(e); });
+        btnEmployees.setOnMouseClicked(e -> { menuItems.forEach(i -> i.setStyle(normalStyle)); btnEmployees.setStyle(selectedStyle); btnEmployeesOnAction(e); });
+        btnReports.setOnMouseClicked(e ->   { menuItems.forEach(i -> i.setStyle(normalStyle)); btnReports.setStyle(selectedStyle);   btnReportsOnAction(e); });
+        btnSettings.setOnMouseClicked(e ->  { menuItems.forEach(i -> i.setStyle(normalStyle)); btnSettings.setStyle(selectedStyle);  btnSettingsOnAction(e); });
+
+        // Shift dashRoot left anchor live as sidebar animates
+        slider.widthProperty().addListener((obs, oldVal, newVal) ->
+                AnchorPane.setLeftAnchor(dashRoot, newVal.doubleValue()));
+
         loadIntoRoot("/view/dashboard_form.fxml");
     }
 
@@ -163,7 +170,10 @@ public class DashboardController implements Initializable {
     private void loadIntoRoot(String fxmlPath) {
         try {
             URL resource = getClass().getResource(fxmlPath);
-            assert resource != null : "FXML not found: " + fxmlPath;
+            if (resource == null) {
+                System.err.println("FXML not found: " + fxmlPath);
+                return;
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(resource);
             fxmlLoader.setControllerFactory(injector::getInstance);
             Parent parent = fxmlLoader.load();
@@ -172,8 +182,8 @@ public class DashboardController implements Initializable {
             AnchorPane.setLeftAnchor(parent, 0.0);
             AnchorPane.setRightAnchor(parent, 0.0);
             dashRoot.getChildren().setAll(parent);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -214,6 +224,8 @@ public class DashboardController implements Initializable {
     }
 
     public void btnSuppliersOnAction(MouseEvent mouseEvent) {
+        System.out.println("Loading Supplier Form...");
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnEmployeesOnAction(MouseEvent mouseEvent) {

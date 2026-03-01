@@ -1,5 +1,6 @@
 package util;
 
+import model.Supplier;
 import model.User;
 import model.UserCredential;
 import org.hibernate.Session;
@@ -25,6 +26,7 @@ public class HibernateUtil {
         Metadata metadataSource = new MetadataSources(builder)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(UserCredential.class)
+                .addAnnotatedClass(Supplier.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

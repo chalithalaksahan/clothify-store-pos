@@ -17,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -70,12 +69,13 @@ public class DashboardController implements Initializable {
         // Store original button texts
         storeButtonTexts();
 
-        // Start collapsed (icons only)
-        slider.setMinWidth(iconOnlyWidth);
-        slider.setMaxWidth(iconOnlyWidth);
-        slider.setPrefWidth(iconOnlyWidth);
-        setButtonTextsVisible(false);
-        menuBack.setVisible(false);
+        // Start expanded
+        slider.setMinWidth(expandedWidth);
+        slider.setMaxWidth(expandedWidth);
+        slider.setPrefWidth(expandedWidth);
+        setButtonTextsVisible(true);
+        menu.setVisible(false);
+        menuBack.setVisible(true);
 
         // Expand sidebar
         menu.setOnMouseClicked(e -> {
@@ -206,11 +206,11 @@ public class DashboardController implements Initializable {
         String userName = result.getUser().getFirstName() + " " + result.getUser().getLastName();
         int userRole = result.getUser().getUserRole();
         lblUserName.setText(userName);
-        lblUserRole.setText(switch (userRole) {
-            case 1 -> "Admin";
-            case 2 -> "Cashier";
-            default -> "Unknown Role";
-        });
+       switch (userRole) {
+           case 1 : lblUserRole.setText("Admin"); break;
+           case 2 : lblUserRole.setText("Cashier"); break;
+       }
+
     }
 
     public void btnSalesOnAction(MouseEvent mouseEvent) {

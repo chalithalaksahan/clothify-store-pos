@@ -11,7 +11,7 @@ import service.custom.impl.LoginServiceImpl;
 import service.custom.impl.UserServiceImpl;
 
 
-public class AppModule  extends AbstractModule {
+public class AppModule extends AbstractModule {
 
     @Override
     protected void configure(){
@@ -19,7 +19,6 @@ public class AppModule  extends AbstractModule {
         bind(LoginRepository.class).to(LoginRepositoryImpl.class);
         bind(UserService.class).to(UserServiceImpl.class);
         bind(UserRepository.class).to(UserRepositoryImpl.class);
-
     }
 
 }

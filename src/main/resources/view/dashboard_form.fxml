@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashboardFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="-1.0" layoutY="991.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="1613.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="1613.0" layoutY="991.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

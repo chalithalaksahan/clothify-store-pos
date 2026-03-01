@@ -62,35 +62,28 @@ public class LoginController implements Initializable {
         String password = txtPassword.getText();
 
         LoginResult result = loginService.login(email, password);
-            loadDashboard();
+
+        String admin = "/view/dashboard.fxml";
+     //   String staff = "/view/staff_main_menu.fxml";
+
+
         if (result.isSuccess() && result.getUser() != null && result.getUser().getUserRole() == 1) {
-            loadDashboard();
+            loadDashboardMenu(result,admin);
         } else if (result.isSuccess() && result.getUser() != null && result.getUser().getUserRole() == 2){
-            loadStaffMainMenu();
+            loadDashboardMenu(result,admin);
         }else{
             showMessage(result.getMessage(), false);
         }
     }
 
-    private void loadStaffMainMenu() {
+    private void loadDashboardMenu(LoginResult result, String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/staff_main_menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             loader.setControllerFactory(injector::getInstance);
             Scene dashboardScene = new Scene(loader.load());
 
-            Stage stage = (Stage) loginAnchorPane.getScene().getWindow();
-            stage.setScene(dashboardScene);
-            stage.setFullScreen(true);
-        } catch (Exception e) {
-            showMessage("Failed to load staff Main menu: " + e.getMessage(), false);
-        }
-    }
-
-    private void loadDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/dashboard.fxml"));
-            loader.setControllerFactory(injector::getInstance);
-            Scene dashboardScene = new Scene(loader.load());
+            DashboardController dashboardController = loader.getController();
+            dashboardController.setLoginResult(result);
 
             Stage stage = (Stage) loginAnchorPane.getScene().getWindow();
             stage.setScene(dashboardScene);

@@ -47,7 +47,7 @@
             <Image url="@../img/clothify-logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="822.0" layoutY="318.0" text="Welcome back">
+      <Label layoutX="822.0" layoutY="318.0" text="Welcome Back">
          <font>
             <Font name="Poppins SemiBold" size="36.0" />
          </font>

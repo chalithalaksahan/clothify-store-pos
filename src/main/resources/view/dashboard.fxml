@@ -42,7 +42,7 @@
                            </children></Pane>
                         <JFXButton fx:id="btnDashboard" alignment="BASELINE_LEFT" onMouseClicked="#btnDashboardOnAction" prefHeight="70.0" prefWidth="380.0" stylesheets="@../CSS/style.css" text="     Dashboard" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -60,7 +60,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnSales" alignment="BASELINE_LEFT" onMouseClicked="#btnSalesOnAction" prefHeight="70.0" prefWidth="380.0" text="     Sales" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -75,7 +75,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnProducts" alignment="BASELINE_LEFT" onMouseClicked="#btnProductsOnAction" prefHeight="70.0" prefWidth="380.0" text="     Products" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -90,7 +90,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnInventory" alignment="BASELINE_LEFT" onMouseClicked="#btnInventoryOnAction" prefHeight="70.0" prefWidth="380.0" text="     Inventory" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -105,7 +105,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnSuppliers" alignment="BASELINE_LEFT" onMouseClicked="#btnSuppliersOnAction" prefHeight="70.0" prefWidth="380.0" text="     Suppliers" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -120,7 +120,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnEmployees" alignment="BASELINE_LEFT" onMouseClicked="#btnEmployeesOnAction" prefHeight="70.0" prefWidth="380.0" text="     Employees" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -135,7 +135,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnReports" alignment="BASELINE_LEFT" onMouseClicked="#btnReportsOnAction" prefHeight="70.0" prefWidth="380.0" text="     Reports" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -150,7 +150,7 @@
                         </JFXButton>
                         <JFXButton fx:id="btnSettings" alignment="BASELINE_LEFT" onMouseClicked="#btnSettingsOnAction" prefHeight="70.0" prefWidth="380.0" text="     Settings" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -166,7 +166,7 @@
                         <Pane prefHeight="58.0" prefWidth="280.0" />
                         <JFXButton fx:id="exit" alignment="BASELINE_LEFT" prefHeight="90.0" prefWidth="380.0" text="     Log out" textFill="WHITE">
                            <font>
-                              <Font name="Poppins SemiBold" size="24.0" />
+                              <Font name="Poppins Medium" size="24.0" />
                            </font>
                            <graphic>
                               <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
@@ -202,7 +202,7 @@
                               <Image url="@../img/icon/Menu.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="menuBack1" contentDisplay="BOTTOM" layoutX="101.0" layoutY="20.0" prefHeight="31.0" prefWidth="222.0" text="Welcome back!" textFill="WHITE">
+                        <Label fx:id="menuBack1" contentDisplay="BOTTOM" layoutX="101.0" layoutY="20.0" prefHeight="31.0" prefWidth="222.0" text="Welcome Back!" textFill="WHITE">
                            <font>
                               <Font name="Poppins SemiBold" size="24.0" />
                            </font>

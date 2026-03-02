@@ -14,9 +14,8 @@ import lombok.*;
 public class Supplier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supplier_id")
-    private int supplierId;
+    private String supplierId;
 
     @Column(name = "company_name")
     private String companyName;
@@ -41,4 +40,5 @@ public class Supplier {
 
     @Column(name = "is_active")
     private boolean active;
+
 }

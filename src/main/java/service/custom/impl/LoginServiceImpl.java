@@ -13,7 +13,7 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     @Inject
-    LoginRepository loginRepository;
+    LoginRepository repositoryType;
 
 
     @Override
@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
         }
 
         //- Find user in DB ---
-        Optional<UserCredential> optional = loginRepository.findByEmail(email);
+        Optional<UserCredential> optional = repositoryType.findByEmail(email);
 
         if (optional.isEmpty()) {
             return new LoginResult(false, "Invalid username or password", null);

@@ -45,8 +45,10 @@ public class SupplierServiceImpl implements SupplierService {
         if (rowCount == null || rowCount == 0) {
             return "SUP-0001";
         } else {
-            int newIdNum = rowCount.intValue() + 1;
+            int newIdNum = rowCount.intValue()+1 ;
             return String.format("SUP-%04d", newIdNum);
         }
     }
+
+
 }

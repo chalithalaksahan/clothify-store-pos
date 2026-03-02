@@ -5,22 +5,14 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 import model.Supplier;
 import service.custom.SupplierService;
 
@@ -84,7 +76,13 @@ public class SupplierFormController implements Initializable {
             setTextToValues(t1);
         });
 
-        txtSupplierId.setText(serviceType.getSupplierId());
+         generateId();
+
+    }
+    String genId = serviceType.getSupplierId();
+
+    private void generateId(){
+        txtSupplierId.setText(genId);
     }
 
     private void setTextToValues(Supplier supplier) {
@@ -131,11 +129,12 @@ public class SupplierFormController implements Initializable {
 
 
     public void btnAddSupplierOnAction(ActionEvent actionEvent) {
-        String id = txtSupplierId.getText();
+        String id = genId;
         if (id == null || id.isEmpty()) {
             showMessage("Supplier ID cannot be empty.", false);
             return;
         }
+
         String companyName = txtCompanyName.getText();
         String email = txtEmail.getText();
         String contactPerson = txtContactPerson.getText();
@@ -158,6 +157,7 @@ public class SupplierFormController implements Initializable {
 
         if (serviceType.addSupplier(supplier)) {
             showMessage("Supplier added successfully!", true);
+            generateId();
 
         } else {
             showMessage("Failed to add supplier.", false);

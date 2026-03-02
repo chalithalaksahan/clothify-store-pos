@@ -79,5 +79,11 @@
     -fx-text-fill: rgb(54, 49, 49);
 }
 
+.combo-box{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 21px;
+    -fx-background-color: white;
+}
+
 
 

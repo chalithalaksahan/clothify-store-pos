@@ -33,12 +33,12 @@
                   <Font name="Times New Roman" size="21.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtContactNo" layoutX="486.0" layoutY="227.0" prefHeight="49.0" prefWidth="218.0" promptText="Contact No" style="-fx-background-color: #FFFFFF;">
+            <JFXTextField fx:id="txtContactNo" layoutX="486.0" layoutY="227.0" onKeyTyped="#txtContactNoOnKeyTyped" prefHeight="49.0" prefWidth="218.0" promptText="Contact No" style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtEmail" layoutX="1071.0" layoutY="145.0" prefHeight="49.0" prefWidth="408.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
+            <JFXTextField fx:id="txtEmail" layoutX="1071.0" layoutY="145.0" onKeyTyped="#txtEmailOnKeyPressed" prefHeight="49.0" prefWidth="408.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>

@@ -5,14 +5,22 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import model.Supplier;
 import service.custom.SupplierService;
 
@@ -26,8 +34,8 @@ import java.util.ResourceBundle;
 
 public class SupplierFormController implements Initializable {
 
-
-
+    @FXML
+    private Label lblMessage;
     @FXML private JFXCheckBox chkBoxStatus;
     @FXML private JFXComboBox<String> cmbPaymentType;
     @FXML private TableView<Supplier> tblSupplier;
@@ -75,6 +83,8 @@ public class SupplierFormController implements Initializable {
             if (t1 == null) return;
             setTextToValues(t1);
         });
+
+        txtSupplierId.setText(serviceType.getSupplierId());
     }
 
     private void setTextToValues(Supplier supplier) {
@@ -122,19 +132,23 @@ public class SupplierFormController implements Initializable {
 
     public void btnAddSupplierOnAction(ActionEvent actionEvent) {
         String id = txtSupplierId.getText();
+        if (id == null || id.isEmpty()) {
+            showMessage("Supplier ID cannot be empty.", false);
+            return;
+        }
         String companyName = txtCompanyName.getText();
         String email = txtEmail.getText();
         String contactPerson = txtContactPerson.getText();
         String contactNoText = txtContactNo.getText();
         if (contactNoText == null || contactNoText.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Contact No cannot be empty.").show();
+            showMessage("Contact No cannot be empty.", false);
             return;
         }
         int contactNo = Integer.parseInt(contactNoText);
         String city = txtCity.getText();
         String country = txtCountry.getText();
         if (cmbPaymentType.getValue() == null) {
-            new Alert(Alert.AlertType.WARNING, "Please select a payment type.").show();
+            showMessage("Please select a payment type.", false);
             return;
         }
         String paymentType = cmbPaymentType.getValue();
@@ -143,9 +157,10 @@ public class SupplierFormController implements Initializable {
         Supplier supplier = new Supplier(id, companyName, email, contactPerson, contactNo, city, country, paymentType, activeStatus);
 
         if (serviceType.addSupplier(supplier)) {
-            new Alert(Alert.AlertType.INFORMATION, "Supplier added successfully!").show();
+            showMessage("Supplier added successfully!", true);
+
         } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to add supplier").show();
+            showMessage("Failed to add supplier.", false);
         }
         loadTable();
     }
@@ -153,7 +168,7 @@ public class SupplierFormController implements Initializable {
     public void btnUpdateOnAction(ActionEvent actionEvent) {
         String id = txtSupplierId.getText();
         if (id == null || id.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please select a supplier to update.").show();
+            showMessage("Please select a supplier to update.", false);
             return;
         }
         String companyName = txtCompanyName.getText();
@@ -161,14 +176,14 @@ public class SupplierFormController implements Initializable {
         String contactPerson = txtContactPerson.getText();
         String contactNoText = txtContactNo.getText();
         if (contactNoText == null || contactNoText.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Contact No cannot be empty.").show();
+            showMessage("Contact No cannot be empty.", false);
             return;
         }
         int contactNo = Integer.parseInt(contactNoText);
         String city = txtCity.getText();
         String country = txtCountry.getText();
         if (cmbPaymentType.getValue() == null) {
-            new Alert(Alert.AlertType.WARNING, "Please select a payment type.").show();
+            showMessage("Please select a payment type.", false);
             return;
         }
         String paymentType = cmbPaymentType.getValue();
@@ -177,9 +192,9 @@ public class SupplierFormController implements Initializable {
         Supplier supplier = new Supplier(id, companyName, email, contactPerson, contactNo, city, country, paymentType, activeStatus);
 
         if (serviceType.updateSupplier(supplier)) {
-            new Alert(Alert.AlertType.INFORMATION, "Supplier updated successfully!").show();
+            showMessage("Supplier updated successfully!", true);
         } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to update supplier").show();
+            showMessage("Failed to update supplier.", false);
         }
         loadTable();
     }
@@ -187,14 +202,14 @@ public class SupplierFormController implements Initializable {
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String id = txtSupplierId.getText();
         if (id == null || id.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please select a supplier to delete.").show();
+            showMessage("Please select a supplier to delete.", false);
             return;
         }
 
         if (serviceType.deleteSupplier(id)) {
-            new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully!").show();
+            showMessage("Supplier deleted successfully!", true);
         } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to delete supplier").show();
+            showMessage("Failed to delete supplier.", false);
         }
         loadTable();
     }
@@ -202,7 +217,7 @@ public class SupplierFormController implements Initializable {
     public void btnSearchOnAction(ActionEvent actionEvent) {
         String id = txtSupplierId.getText();
         if (id == null || id.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please enter a supplier ID to search.").show();
+            showMessage("Please enter a supplier ID to search.", false);
             return;
         }
 
@@ -212,13 +227,23 @@ public class SupplierFormController implements Initializable {
             if (supplier != null) {
 
                 setTextToValues(supplier);
-                new Alert(Alert.AlertType.INFORMATION, "Supplier found!").show();
+                showMessage("Supplier found!", true);
             } else {
-                new Alert(Alert.AlertType.ERROR, "Supplier not found!").show();
+                showMessage("Supplier not found!", false);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
     }
+
+    private void showMessage(String message, boolean isSuccess) {
+        lblMessage.setText(message);
+        lblMessage.setStyle( "-fx-font-size: 16px;" + "-fx-font-weight: bold;" + "-fx-padding: 10px;" +
+                "-fx-background-radius: 6px;" + "-fx-background-color:" + (isSuccess
+                ? "linear-gradient(to right, #133846, #2D788A, #133846);"
+                :"linear-gradient(to right, #632222, #9E3020, #632222);") + "-fx-text-fill:white");
+    }
+
+
 }

@@ -15,4 +15,6 @@ public interface SupplierService {
     boolean deleteSupplier(String id);
 
     Supplier searchSupplier(String id) throws SQLException;
+
+    String getSupplierId();
 }

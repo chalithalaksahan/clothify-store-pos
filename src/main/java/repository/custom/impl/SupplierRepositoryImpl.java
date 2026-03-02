@@ -61,4 +61,12 @@ public class SupplierRepositoryImpl implements SupplierRepository {
         session.close();
         return suppliers;
     }
+
+    @Override
+    public Long getRowCount() {
+        Session session = HibernateUtil.getSession();
+        Long count = session.createQuery("SELECT COUNT(s) FROM Supplier s", Long.class).uniqueResult();
+        session.close();
+        return count;
+    }
 }

@@ -1,8 +1,256 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboardController">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+   <children>
+      <BorderPane layoutX="-12.0" layoutY="-8.0" prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane fx:id="slider" prefHeight="978.0" prefWidth="280.0" style="-fx-background-color: #133846;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="94.0" layoutY="152.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Pane prefHeight="112.0" prefWidth="280.0">
+                           <children>
+                              <ImageView fitHeight="59.0" fitWidth="64.0" layoutX="19.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/clothify-logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutX="75.0" layoutY="25.0" prefHeight="55.0" prefWidth="183.0" text="CLOTHIFY" textAlignment="CENTER" textFill="#00ddff">
+                                 <font>
+                                    <Font name="System Bold" size="22.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="78.0" layoutY="51.0" prefHeight="55.0" prefWidth="183.0" text="CLOTH STORE" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="9.0" />
+                                 </font>
+                              </Label>
+                           </children></Pane>
+                        <JFXButton fx:id="btnDashboard" alignment="BASELINE_LEFT" onMouseClicked="#btnDashboardOnAction" prefHeight="70.0" prefWidth="380.0" stylesheets="@../CSS/style.css" text="     Dashboard" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Combo%20Chart.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnSales" alignment="BASELINE_LEFT" onMouseClicked="#btnSalesOnAction" prefHeight="70.0" prefWidth="380.0" text="     Sales" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Shopping%20Cart.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnProducts" alignment="BASELINE_LEFT" onMouseClicked="#btnProductsOnAction" prefHeight="70.0" prefWidth="380.0" text="     Products" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/New%20Product.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnInventory" alignment="BASELINE_LEFT" onMouseClicked="#btnInventoryOnAction" prefHeight="70.0" prefWidth="380.0" text="     Inventory" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Warehouse.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnSuppliers" alignment="BASELINE_LEFT" onMouseClicked="#btnSuppliersOnAction" prefHeight="70.0" prefWidth="380.0" text="     Suppliers" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Online%20Store.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnEmployees" alignment="BASELINE_LEFT" onMouseClicked="#btnEmployeesOnAction" prefHeight="70.0" prefWidth="380.0" text="     Employees" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Collaborator.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnReports" alignment="BASELINE_LEFT" onMouseClicked="#btnReportsOnAction" prefHeight="70.0" prefWidth="380.0" text="     Reports" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Analyze.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btnSettings" alignment="BASELINE_LEFT" onMouseClicked="#btnSettingsOnAction" prefHeight="70.0" prefWidth="380.0" text="     Settings" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Settings.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                        <Pane prefHeight="58.0" prefWidth="280.0" />
+                        <JFXButton fx:id="exit" alignment="BASELINE_LEFT" prefHeight="90.0" prefWidth="380.0" text="     Log out" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icon/Power%20Off%20Button.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+            <AnchorPane fx:id="dashRoot" style="-fx-background-color: #f0f4f7;" BorderPane.alignment="CENTER" />
+         </center>
+         <top>
+            <HBox prefHeight="71.0" prefWidth="196.0" style="-fx-background-color: #133846;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane prefHeight="71.0" prefWidth="281.0" style="-fx-background-color: #133846;" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fx:id="menu" fitHeight="57.0" fitWidth="52.0" layoutX="15.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/Menu.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="menuBack" fitHeight="57.0" fitWidth="52.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/Menu.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="menuBack1" contentDisplay="BOTTOM" layoutX="101.0" layoutY="20.0" prefHeight="31.0" prefWidth="222.0" text="Welcome back!" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="71.0" prefWidth="674.0">
+                     <children>
+                        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="36.0" layoutX="236.0" layoutY="18.0" opacity="0.18" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="351.0" />
+                        <Label fx:id="lblDateAndTime" alignment="CENTER" layoutX="236.0" layoutY="21.0" prefHeight="30.0" prefWidth="350.0" text="Wednesday, Feb 17, 2026 15:55:16" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins SemiBold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="71.0" prefWidth="154.0" HBox.hgrow="ALWAYS" />
+                  <Pane prefHeight="71.0" prefWidth="306.0">
+                     <children>
+                        <Circle fill="#daf3f7" layoutX="83.0" layoutY="35.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="20.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/Notification.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lblUserName" layoutX="115.0" layoutY="21.0" text="Kamal Perera" textFill="WHITE">
+                           <font>
+                              <Font name="Poppins Medium" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblUserRole" layoutX="117.0" layoutY="47.0" text="Admin" textFill="#a8a7aa">
+                           <font>
+                              <Font name="Poppins SemiBold" size="10.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="255.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon/Expand%20Arrow.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
 </AnchorPane>

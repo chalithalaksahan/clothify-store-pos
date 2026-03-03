@@ -142,5 +142,11 @@
     -fx-background-color: white;
 }
 
+.date-picker{
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 21px;
+    -fx-background-color: white;
+}
+
 
 

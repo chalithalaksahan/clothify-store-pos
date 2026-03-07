@@ -215,13 +215,15 @@ public class DashboardController implements Initializable {
     }
 
     public void btnSalesOnAction(MouseEvent mouseEvent) {
-
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnProductsOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnInventoryOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnSuppliersOnAction(MouseEvent mouseEvent) {
@@ -233,10 +235,12 @@ public class DashboardController implements Initializable {
     }
 
     public void btnReportsOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
 
     }
 
     public void btnSettingsOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
 

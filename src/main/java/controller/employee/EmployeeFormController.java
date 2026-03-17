@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import jakarta.inject.Inject;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
+import service.custom.EmployeeService;
+import util.ServiceType;
 
 
 import java.net.URL;
@@ -19,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class EmployeeFormController implements Initializable {
 
+    public TableColumn colHireDate;
     @FXML
     private JFXCheckBox chkBoxStatus;
 
@@ -79,6 +83,9 @@ public class EmployeeFormController implements Initializable {
     @FXML
     private JFXTextField txtSalary;
 
+    @Inject
+    EmployeeService serviceType;
+
     @FXML
     void btnAddCustomerOnAction(ActionEvent event) {
 
@@ -114,5 +121,11 @@ public class EmployeeFormController implements Initializable {
         cmbUserRole.setItems(
               FXCollections.observableArrayList("Admin", "Staff")
         );
+
+        genarateId();
+    }
+
+    private void genarateId() {
+        txtEmployeeId.setText(serviceType.getEmployeeId());
     }
 }

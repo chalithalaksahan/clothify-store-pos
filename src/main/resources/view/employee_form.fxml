@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,130 +13,156 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1620.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.employee.EmployeeFormController">
    <children>
-      <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="926.0" prefWidth="1620.0" style="-fx-background-color: #DAF3F7;" AnchorPane.bottomAnchor="-49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane style="-fx-background-color: #DAF3F7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Rectangle arcHeight="18.0" arcWidth="18.0" fill="WHITE" height="330.0" layoutX="84.0" layoutY="101.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1471.0" AnchorPane.leftAnchor="84.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="101.0" />
-            <JFXTextField fx:id="txtEmployeeId" layoutX="154.0" layoutY="145.0" prefHeight="49.0" prefWidth="160.0" promptText="Employee ID" style="-fx-background-color: #FFFFFF;">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="txtFirstName" layoutX="496.0" layoutY="145.0" prefHeight="49.0" prefWidth="310.0" promptText="Name" style="-fx-background-color: #FFFFFF;">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="txtContactNo" layoutX="889.0" layoutY="140.0" onKeyTyped="#txtContactNoOnKeyTyped" prefHeight="49.0" prefWidth="310.0" promptText="Contact No" style="-fx-background-color: #FFFFFF;">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="txtEmail" layoutX="154.0" layoutY="227.0" onKeyTyped="#txtEmailOnKeyPressed" prefHeight="49.0" prefWidth="268.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXTextField>
-            <JFXTextField fx:id="txtSalary" layoutX="1279.0" layoutY="227.0" prefHeight="49.0" prefWidth="218.0" promptText="Salary" style="-fx-background-color: #FFFFFF;">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXTextField>
-            <JFXComboBox fx:id="cmbUserRole" layoutX="154.0" layoutY="312.0" prefHeight="53.0" prefWidth="268.0" promptText="User Role" stylesheets="@../CSS/style.css" />
-            <JFXCheckBox fx:id="chkBoxStatus" layoutX="496.0" layoutY="322.0" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #FFFFFF;" text="Active">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXCheckBox>
-            <Label layoutX="89.0" layoutY="30.0" prefHeight="40.0" prefWidth="292.0" text="Employee Details" textFill="#133846">
-               <font>
-                  <Font name="Times New Roman Bold" size="36.0" />
-               </font>
-            </Label>
-            <JFXButton alignment="CENTER" layoutX="936.0" layoutY="358.0" onAction="#btnAddCustomerOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Add Supplier" textFill="WHITE">
-               <font>
-                  <Font name="Poppins SemiBold" size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icon/Add%20Folder.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutX="1143.0" layoutY="358.0" onAction="#btnUpdateOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Update" textFill="WHITE">
-               <font>
-                  <Font name="Poppins SemiBold" size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icon/Synchronize.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutX="1348.0" layoutY="358.0" onAction="#btnDeleteOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Delete" textFill="WHITE">
-               <font>
-                  <Font name="Poppins SemiBold" size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icon/Trash.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton alignment="CENTER" layoutX="726.0" layoutY="358.0" onAction="#btnSearchOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Search" textFill="WHITE">
-               <font>
-                  <Font name="Poppins SemiBold" size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/icon/Search%20Property.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <TableView fx:id="tblEmployee" layoutX="83.0" layoutY="468.0" prefHeight="389.0" prefWidth="1448.0" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="468.0">
-              <columns>
-                <TableColumn fx:id="colEmployeeId" prefWidth="104.33332824707031" text="Emp ID" />
-                <TableColumn fx:id="colName" prefWidth="251.33334350585938" text="Name" />
-                  <TableColumn fx:id="colContactNo" prefWidth="180.3333740234375" text="Contact No" />
-                  <TableColumn fx:id="colEmail" prefWidth="188.0" text="Email" />
-                  <TableColumn fx:id="colPassword" prefWidth="171.0" text="Password" />
-                  <TableColumn fx:id="colSalary" prefWidth="144.0" text="Salary" />
-                  <TableColumn fx:id="colUserRole" prefWidth="131.0" text="User Role" />
-                  <TableColumn fx:id="colContactNo1" prefWidth="180.3333740234375" text="Hire Date" />
-                  <TableColumn fx:id="colActiveStatus" prefWidth="120.666748046875" text="Active Status" />
-              </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <Label fx:id="lblMessage" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1229.0" layoutY="29.0" maxWidth="1.7976931348623157E308" prefHeight="52.0" prefWidth="323.0" textAlignment="RIGHT" textFill="#00b265" wrapText="true">
-               <font>
-                  <Font name="Poppins SemiBold" size="24.0" />
-               </font>
-            </Label>
-            <JFXPasswordField fx:id="txtPassword" layoutX="496.0" layoutY="227.0" prefHeight="49.0" prefWidth="310.0" promptText="Password">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXPasswordField>
-            <JFXPasswordField fx:id="txtConfirmPassword" layoutX="889.0" layoutY="227.0" prefHeight="49.0" prefWidth="310.0" promptText="Confirm Password">
-               <font>
-                  <Font name="Times New Roman" size="21.0" />
-               </font>
-            </JFXPasswordField>
-            <DatePicker layoutX="1279.0" layoutY="140.0" prefHeight="49.0" prefWidth="218.0" promptText="Hire Date" stylesheets="@../CSS/style.css" />
+            <VBox spacing="25.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+               <children>
+
+                  <AnchorPane prefHeight="50.0">
+                     <children>
+                        <Label text="Employee Details" textFill="#133846" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="Times New Roman Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblMessage" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textFill="#00b265" wrapText="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="Poppins SemiBold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+
+                  <VBox spacing="30.0" style="-fx-background-color: WHITE; -fx-background-radius: 18px;">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <children>
+
+                        <FlowPane hgap="25.0" vgap="25.0">
+                           <children>
+                              <JFXTextField fx:id="txtEmployeeId" minWidth="150.0" prefHeight="49.0" prefWidth="160.0" promptText="Employee ID" style="-fx-background-color: #FFFFFF;">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="txtFirstName" minWidth="200.0" prefHeight="49.0" prefWidth="310.0" promptText="Name" style="-fx-background-color: #FFFFFF;">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXTextField fx:id="txtContactNo" minWidth="200.0" onKeyTyped="#txtContactNoOnKeyTyped" prefHeight="49.0" prefWidth="310.0" promptText="Contact No" style="-fx-background-color: #FFFFFF;">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXTextField>
+                              <DatePicker minWidth="150.0" prefHeight="49.0" prefWidth="218.0" promptText="Hire Date" stylesheets="@../CSS/style.css" />
+                              <JFXTextField fx:id="txtEmail" minWidth="200.0" onKeyTyped="#txtEmailOnKeyPressed" prefHeight="49.0" prefWidth="268.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXPasswordField fx:id="txtPassword" minWidth="200.0" prefHeight="49.0" prefWidth="310.0" promptText="Password">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXPasswordField>
+                              <JFXPasswordField fx:id="txtConfirmPassword" minWidth="200.0" prefHeight="49.0" prefWidth="310.0" promptText="Confirm Password">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXPasswordField>
+                              <JFXTextField fx:id="txtSalary" minWidth="150.0" prefHeight="49.0" prefWidth="218.0" promptText="Salary" style="-fx-background-color: #FFFFFF;">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXComboBox fx:id="cmbUserRole" minWidth="150.0" prefHeight="53.0" prefWidth="268.0" promptText="User Role" stylesheets="@../CSS/style.css" />
+                              <JFXCheckBox fx:id="chkBoxStatus" minWidth="100.0" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #FFFFFF;" text="Active">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXCheckBox>
+                           </children>
+                        </FlowPane>
+
+                        <FlowPane alignment="CENTER_RIGHT" hgap="15.0" vgap="15.0">
+                           <children>
+                              <JFXButton alignment="CENTER" onAction="#btnSearchOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Search" textFill="WHITE">
+                                 <font>
+                                    <Font name="Poppins SemiBold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/icon/Search%20Property.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" onAction="#btnAddCustomerOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Add Supplier" textFill="WHITE">
+                                 <font>
+                                    <Font name="Poppins SemiBold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/icon/Add%20Folder.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" onAction="#btnUpdateOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Update" textFill="WHITE">
+                                 <font>
+                                    <Font name="Poppins SemiBold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/icon/Synchronize.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton alignment="CENTER" onAction="#btnDeleteOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Delete" textFill="WHITE">
+                                 <font>
+                                    <Font name="Poppins SemiBold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/icon/Trash.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </VBox>
+
+                  <TableView fx:id="tblEmployee" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="colEmployeeId" prefWidth="104.33" text="Emp ID" />
+                        <TableColumn fx:id="colName" prefWidth="251.33" text="Name" />
+                        <TableColumn fx:id="colContactNo" prefWidth="180.33" text="Contact No" />
+                        <TableColumn fx:id="colEmail" prefWidth="188.0" text="Email" />
+                        <TableColumn fx:id="colPassword" prefWidth="171.0" text="Password" />
+                        <TableColumn fx:id="colSalary" prefWidth="144.0" text="Salary" />
+                        <TableColumn fx:id="colUserRole" prefWidth="131.0" text="User Role" />
+                        <TableColumn fx:id="colHireDate" prefWidth="180.33" text="Hire Date" />
+                        <TableColumn fx:id="colActiveStatus" prefWidth="120.66" text="Active Status" />
+                     </columns>
+                  </TableView>
+
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>

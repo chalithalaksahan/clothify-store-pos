@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import model.Supplier;
 import service.custom.SupplierService;
 
@@ -79,10 +80,9 @@ public class SupplierFormController implements Initializable {
          generateId();
 
     }
-    String genId = serviceType.getSupplierId();
 
     private void generateId(){
-        txtSupplierId.setText(genId);
+        txtSupplierId.setText(serviceType.getSupplierId());
     }
 
     private void setTextToValues(Supplier supplier) {
@@ -129,7 +129,7 @@ public class SupplierFormController implements Initializable {
 
 
     public void btnAddSupplierOnAction(ActionEvent actionEvent) {
-        String id = genId;
+        String id = serviceType.getSupplierId();
         if (id == null || id.isEmpty()) {
             showMessage("Supplier ID cannot be empty.", false);
             return;
@@ -143,6 +143,7 @@ public class SupplierFormController implements Initializable {
             showMessage("Contact No cannot be empty.", false);
             return;
         }
+
         int contactNo = Integer.parseInt(contactNoText);
         String city = txtCity.getText();
         String country = txtCountry.getText();
@@ -246,6 +247,37 @@ public class SupplierFormController implements Initializable {
     }
 
 
+    public void txtContactNoOnKeyTyped(KeyEvent keyEvent) {
+        String contact = txtContactNo.getText();
+        if (!contact.isEmpty()) {
+            int last = contact.charAt(contact.length() - 1);
+            // ✅ fixed: was (< 47 AND > 58) which can NEVER be true — correct is OR
+            if (last < 47 || last > 58) {
+                showMessage("Contact No must be numeric!", false);
+            } else if (contact.length()-1>10) {
+                showMessage("Contact No cannot exceed 10 digits!", false);
+            } else {
+                lblMessage.setText("");
+                lblMessage.setStyle("");
+                if (contact.length() == 10) {
+                    txtCity.requestFocus();
+                }
 
+            }
 
+        }
+    }
+
+    public void txtEmailOnKeyPressed(KeyEvent e) {
+        String email = txtEmail.getText();
+        char ch = email.charAt(email.length()-1);
+        System.out.println(ch);
+        if(email.contains("@") && email.contains(".")){
+            lblMessage.setText("");
+            lblMessage.setStyle("");
+
+        } else{
+            showMessage("Please enter a valid email address!", false);
+        }
+    }
 }

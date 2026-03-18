@@ -171,7 +171,7 @@ public class DashboardController implements Initializable {
         try {
             URL resource = getClass().getResource(fxmlPath);
             if (resource == null) {
-                System.err.println("FXML not found: " + fxmlPath);
+                System.out.println("FXML not found: " + fxmlPath);
                 return;
             }
             FXMLLoader fxmlLoader = new FXMLLoader(resource);
@@ -209,32 +209,38 @@ public class DashboardController implements Initializable {
        switch (userRole) {
            case 1 : lblUserRole.setText("Admin"); break;
            case 2 : lblUserRole.setText("Cashier"); break;
+           default: lblUserRole.setText("Guest");
        }
 
     }
 
     public void btnSalesOnAction(MouseEvent mouseEvent) {
-
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnProductsOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnInventoryOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnSuppliersOnAction(MouseEvent mouseEvent) {
-        System.out.println("Loading Supplier Form...");
         loadIntoRoot("/view/supplier_form.fxml");
     }
 
     public void btnEmployeesOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/employee_form.fxml");
     }
 
     public void btnReportsOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
+
     }
 
     public void btnSettingsOnAction(MouseEvent mouseEvent) {
+        loadIntoRoot("/view/supplier_form.fxml");
     }
 
 

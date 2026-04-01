@@ -1,7 +1,7 @@
 package repository.custom;
 
-import model.UserCredential;
+import model.User;
 
 public interface UserRepository {
-    void save(UserCredential uc);
+    void save(User user);
 }

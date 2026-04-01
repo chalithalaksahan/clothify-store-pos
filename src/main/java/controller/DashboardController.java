@@ -203,7 +203,7 @@ public class DashboardController implements Initializable {
         timeline.play();
     }
     public void setLoginResult(LoginResult result) {
-        String userName = result.getUser().getFirstName() + " " + result.getUser().getLastName();
+        String userName = result.getUser().getFirstName();
         int userRole = result.getUser().getUserRole();
         lblUserName.setText(userName);
        switch (userRole) {

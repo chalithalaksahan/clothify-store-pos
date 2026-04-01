@@ -1,5 +1,10 @@
 package repository.custom;
 
-public interface EmployeeRepository {
+import model.Employee;
+import repository.CrudRepository;
+
+public interface EmployeeRepository extends CrudRepository<Employee, String> {
+
     Long getRowCount();
+
 }

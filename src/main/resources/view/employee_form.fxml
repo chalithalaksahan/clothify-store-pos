@@ -52,7 +52,7 @@
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtFirstName" minWidth="200.0" prefHeight="49.0" prefWidth="310.0" promptText="Name" style="-fx-background-color: #FFFFFF;">
+                              <JFXTextField fx:id="txtName" minWidth="200.0" prefHeight="49.0" prefWidth="310.0" promptText="Name" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
@@ -62,7 +62,7 @@
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXTextField>
-                              <DatePicker minWidth="150.0" prefHeight="49.0" prefWidth="218.0" promptText="Hire Date" stylesheets="@../CSS/style.css" />
+                              <DatePicker fx:id="dpHireDate" minWidth="150.0" prefHeight="49.0" prefWidth="218.0" promptText="Hire Date" stylesheets="@../CSS/style.css" />
                               <JFXTextField fx:id="txtEmail" minWidth="200.0" onKeyTyped="#txtEmailOnKeyPressed" prefHeight="49.0" prefWidth="268.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
@@ -106,7 +106,7 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <JFXButton alignment="CENTER" onAction="#btnAddCustomerOnAction" prefHeight="57.0" prefWidth="189.0" style="-fx-background-color: #2D788A;" text="Add Supplier" textFill="WHITE">
+                              <JFXButton alignment="CENTER" onAction="#btnAddEmployeeOnAction" prefHeight="57.0" prefWidth="214.0" style="-fx-background-color: #2D788A;" text="Add Employee" textFill="WHITE">
                                  <font>
                                     <Font name="Poppins SemiBold" size="18.0" />
                                  </font>

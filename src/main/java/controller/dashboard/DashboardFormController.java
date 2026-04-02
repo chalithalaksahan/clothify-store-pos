@@ -1,17 +1,60 @@
 package controller.dashboard;
 
-import com.google.inject.Inject;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class DashboardFormController {
 
-public class DashboardFormController implements Initializable {
+    @FXML
+    private AreaChart<?, ?> areaChartSales;
 
-    @Inject
-    public DashboardFormController() {}
+    @FXML
+    private TableColumn<?, ?> colRevAmount;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
+    @FXML
+    private TableColumn<?, ?> colRevCustomer;
+
+    @FXML
+    private TableColumn<?, ?> colRevDate;
+
+    @FXML
+    private TableColumn<?, ?> colRevInvoiceNo;
+
+    @FXML
+    private TableColumn<?, ?> colRevStatus;
+
+    @FXML
+    private TableColumn<?, ?> colUserName;
+
+    @FXML
+    private TableColumn<?, ?> colUserRole;
+
+    @FXML
+    private TableColumn<?, ?> colUserSales;
+
+    @FXML
+    private Label lblConversion;
+
+    @FXML
+    private Label lblTodayVisit;
+
+    @FXML
+    private Label lblTotalRevenue;
+
+    @FXML
+    private Label lblTotalSales;
+
+    @FXML
+    private PieChart pieChartRevenue;
+
+    @FXML
+    private TableView<?> tblRevenueHistory;
+
+    @FXML
+    private TableView<?> tblTopUsers;
+
 }

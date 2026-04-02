@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1620.0" style="-fx-background-color: #DAF3F7;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.product.ProductFormController">
+   <children>
+
+      <VBox spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Product Management" textFill="#133846">
+                     <font>
+                        <Font name="Times New Roman Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <TabPane layoutY="60.0" prefHeight="817.0" prefWidth="1620.0" stylesheets="@../CSS/style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+         <tabs>
+
+            <Tab text="All Product">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+                           <children>
+
+                              <HBox alignment="CENTER_LEFT" spacing="25.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                                 <padding>
+                                    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                                 </padding>
+                                 <children>
+                                    <JFXTextField fx:id="txtSearchProduct" prefHeight="35.0" prefWidth="500.0" promptText="Search by Name, SKU, or Category..." unFocusColor="#a6a6a6">
+                                       <font><Font name="Times New Roman" size="18.0" /></font>
+                                    </JFXTextField>
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Search" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Search%20Property.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+
+                              <TableView fx:id="tblAllProducts" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="colAllProdName" prefWidth="250.0" text="Name" />
+                                    <TableColumn fx:id="colAllProdSku" prefWidth="150.0" text="SKU" />
+                                    <TableColumn fx:id="colAllProdSupplier" prefWidth="200.0" text="Supplier" />
+                                    <TableColumn fx:id="colAllProdCategory" prefWidth="200.0" text="Category" />
+                                    <TableColumn fx:id="colAllProdCost" prefWidth="150.0" text="Cost" />
+                                    <TableColumn fx:id="colAllProdPrice" prefWidth="150.0" text="Price" />
+                                    <TableColumn fx:id="colAllProdQty" prefWidth="233.3333740234375" text="Qty" />
+                                    <TableColumn fx:id="colAllProdStatus" prefWidth="219.6666259765625" text="Status" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="Add Product">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+                           <children>
+
+                              <VBox spacing="30.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                                 <padding>
+                                    <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                                 </padding>
+                                 <children>
+                                    <FlowPane hgap="60.0" vgap="40.0">
+                                       <children>
+                                          <JFXTextField fx:id="txtProdName" prefWidth="300.0" promptText="Product Name" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXComboBox fx:id="cmbProdCategory" prefWidth="300.0" promptText="Category" unFocusColor="#a6a6a6" />
+                                          <JFXComboBox fx:id="cmbProdSupplier" prefWidth="300.0" promptText="Supplier" unFocusColor="#a6a6a6" />
+
+                                          <JFXTextField fx:id="txtCostPrice" prefWidth="300.0" promptText="Cost Price" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtSellingPrice" prefWidth="300.0" promptText="Selling Price" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtSkuCode" prefWidth="300.0" promptText="SKU / Code" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+
+                                          <JFXTextField fx:id="txtMinQty" prefWidth="300.0" promptText="Minimum Qty" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtReorderLevel" prefWidth="300.0" promptText="Reorder Level" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtProdDesc" prefWidth="300.0" promptText="Description" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+
+                                          <JFXTextField fx:id="txtColor" prefWidth="300.0" promptText="Color" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtSize" prefWidth="300.0" promptText="Size" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                       </children>
+                                    </FlowPane>
+
+                                    <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
+                                       <children>
+                                          <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save Product" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Add%20Folder.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Synchronize.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Clear" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Trash.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </VBox>
+
+                              <TableView fx:id="tblAddProducts" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="colAddName" prefWidth="250.0" text="Name" />
+                                    <TableColumn fx:id="colAddSku" prefWidth="150.0" text="SKU" />
+                                    <TableColumn fx:id="colAddSupplier" prefWidth="200.0" text="Supplier" />
+                                    <TableColumn fx:id="colAddCategory" prefWidth="200.0" text="Category" />
+                                    <TableColumn fx:id="colAddCost" prefWidth="150.0" text="Cost" />
+                                    <TableColumn fx:id="colAddPrice" prefWidth="150.0" text="Price" />
+                                    <TableColumn fx:id="colAddQty" prefWidth="234.666748046875" text="Qty" />
+                                    <TableColumn fx:id="colAddStatus" prefWidth="218.333251953125" text="Status" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="Add Category">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+                           <children>
+
+                              <VBox spacing="30.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                                 <padding>
+                                    <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                                 </padding>
+                                 <children>
+                                    <FlowPane hgap="60.0" vgap="40.0">
+                                       <children>
+                                          <JFXTextField fx:id="txtCatCode" prefWidth="350.0" promptText="Category Code" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtCatName" prefWidth="350.0" promptText="Category Name" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+
+                                          <JFXComboBox fx:id="cmbParentCat" prefWidth="350.0" promptText="Parent Category" unFocusColor="#a6a6a6" />
+
+                                          <HBox alignment="CENTER_LEFT" prefWidth="350.0" spacing="30.0">
+                                             <children>
+                                                <Label text="Status :" textFill="#133846">
+                                                   <font><Font name="Times New Roman" size="18.0" /></font>
+                                                </Label>
+                                                <JFXRadioButton fx:id="rbtnActive" selected="true" text="Active" textFill="#133846">
+                                                   <font><Font name="Times New Roman" size="16.0" /></font>
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="categoryStatus" />
+                                                   </toggleGroup>
+                                                </JFXRadioButton>
+                                                <JFXRadioButton fx:id="rbtnInactive" text="Inactive" textFill="#133846" toggleGroup="$categoryStatus">
+                                                   <font><Font name="Times New Roman" size="16.0" /></font>
+                                                </JFXRadioButton>
+                                             </children>
+                                          </HBox>
+
+                                          <JFXTextField fx:id="txtCatDesc" prefWidth="350.0" promptText="Description" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                       </children>
+                                    </FlowPane>
+
+                                    <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
+                                       <children>
+                                          <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Add%20Folder.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Synchronize.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Clear" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Trash.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </VBox>
+
+                              <TableView fx:id="tblCategoryList" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="colCatListCode" prefWidth="150.0" text="Code" />
+                                    <TableColumn fx:id="colCatListName" prefWidth="360.6666564941406" text="Name" />
+                                    <TableColumn fx:id="colCatListParent" prefWidth="308.3333435058594" text="Parent Category" />
+                                    <TableColumn fx:id="colCatListStatus" prefWidth="258.33331298828125" text="Status" />
+                                    <TableColumn fx:id="colCatListDesc" prefWidth="476.33331298828125" text="Description" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1620.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.inventory.InventoryFormManagementController">
+   <children>
+      <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" stylesheets="@../CSS/style.css">
+         <tabs>
+            <Tab text="Inventory">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+                           <children>
+                              <AnchorPane prefHeight="50.0">
+                                 <children>
+                                    <Label text="Inventory table" textFill="#133846" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="36.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+
+                              <VBox spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label text="Search" textFill="#133846">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtSearch" prefHeight="40.0" prefWidth="800.0" style="-fx-background-color: WHITE; -fx-background-radius: 8px;" unFocusColor="#4d4d4d00" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label text="Category :" textFill="#133846">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <JFXComboBox fx:id="cmbCategory" prefHeight="40.0" prefWidth="250.0" promptText="All" style="-fx-background-color: WHITE; -fx-background-radius: 8px;" />
+                                          <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <JFXButton alignment="CENTER" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: WHITE; -fx-background-radius: 8px;" text="Search" textFill="#133846">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="18.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="80.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+
+                              <TableView fx:id="tblInventory" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                                 <columns>
+                                    <TableColumn fx:id="colProductName" prefWidth="350.0" text="Product Name" />
+                                    <TableColumn fx:id="colCategory" prefWidth="300.0" text="Category" />
+                                    <TableColumn fx:id="colAvailableQty" prefWidth="250.0" text="Available Qty" />
+                                    <TableColumn fx:id="colCost" prefWidth="250.0" text="Cost" />
+                                    <TableColumn fx:id="colStockValue" prefWidth="250.0" text="Stock Value" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="PO Create">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <HBox spacing="30.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+                           <children>
+                              <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="PO List" textFill="#133846">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="tblPoList" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="colPoId" prefWidth="150.0" text="PO ID" />
+                                          <TableColumn fx:id="colPoSupplier" prefWidth="200.0" text="Supplier" />
+                                          <TableColumn fx:id="colPoDateList" prefWidth="150.0" text="Date" />
+                                          <TableColumn fx:id="colPoTotalList" prefWidth="150.0" text="Total" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="650.0" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Supplier" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </Label>
+                                          <JFXComboBox fx:id="cmbSupplier" prefHeight="40.0" prefWidth="250.0" promptText="Drop down" style="-fx-background-color: WHITE;" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label prefWidth="100.0" text="PO date:" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </Label>
+                                          <DatePicker fx:id="dpPoDate" prefHeight="40.0" prefWidth="250.0" promptText="Date Picker" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Item" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </Label>
+                                          <JFXComboBox fx:id="cmbItem" prefHeight="40.0" prefWidth="250.0" promptText="Select Item" style="-fx-background-color: WHITE;" />
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="tblPoItems" prefHeight="300.0" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css">
+                                       <columns>
+                                          <TableColumn fx:id="colPoItem" prefWidth="200.0" text="Item" />
+                                          <TableColumn fx:id="colPoQty" prefWidth="100.0" text="Qty" />
+                                          <TableColumn fx:id="colPoUnitPrice" prefWidth="150.0" text="Unit Price" />
+                                          <TableColumn fx:id="colPoTotal" prefWidth="150.0" text="Total" />
+                                       </columns>
+                                    </TableView>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                       <children>
+                                          <JFXButton onAction="#btnAddPoItem" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: WHITE;" text="Add" textFill="#133846" />
+                                          <JFXButton onAction="#btnUpdatePoItem" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: WHITE;" text="Update" textFill="#133846" />
+                                          <JFXButton onAction="#btnDeletePoItem" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: WHITE;" text="Delete" textFill="#133846" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="30.0">
+                                       <children>
+                                          <VBox spacing="10.0">
+                                             <children>
+                                                <Label fx:id="lblSubTotal" text="Sub total : 0.0" textFill="#133846">
+                                                   <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                                </Label>
+                                                <Label fx:id="lblTax" text="Tax : 0.0" textFill="#133846">
+                                                   <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                                </Label>
+                                                <Label fx:id="lblGrandTotal" text="Grand Total : 0.0" textFill="#133846">
+                                                   <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Remarks :" textFill="#133846">
+                                                   <font><Font name="Poppins SemiBold" size="14.0" /></font>
+                                                </Label>
+                                                <JFXTextArea fx:id="txtRemarks" prefHeight="60.0" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                       <children>
+                                          <JFXButton onAction="#btnPrintPo" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="Print PO" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </JFXButton>
+                                          <JFXButton onAction="#btnSavePo" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="Save PO" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </JFXButton>
+                                          <JFXButton onAction="#btnCancelPo" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="Cancel" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </JFXButton>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="60.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="GRN Create">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <HBox spacing="30.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+                           <children>
+                              <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="GRN List" textFill="#133846">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="36.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="tblGrnList" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn fx:id="colGrnId" prefWidth="150.0" text="GRN ID" />
+                                          <TableColumn fx:id="colGrnPoId" prefWidth="150.0" text="PO ID" />
+                                          <TableColumn fx:id="colGrnSupplier" prefWidth="200.0" text="Supplier" />
+                                          <TableColumn fx:id="colGrnDateList" prefWidth="150.0" text="Date" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="650.0" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Select Po" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </Label>
+                                          <JFXComboBox fx:id="cmbSelectPoForGrn" prefHeight="40.0" prefWidth="250.0" promptText="PO-001" style="-fx-background-color: WHITE;" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label prefWidth="100.0" text="Supplier" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </Label>
+                                          <JFXTextField fx:id="txtGrnSupplier" disable="true" prefHeight="40.0" prefWidth="250.0" promptText="Auto loaded" style="-fx-background-color: WHITE;" unFocusColor="#4d4d4d00" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <Label prefWidth="100.0" text="GRN date" textFill="#133846">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                          </Label>
+                                          <DatePicker fx:id="dpGrnDate" prefHeight="40.0" prefWidth="250.0" promptText="Date Picker" />
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="tblGrnItems" prefHeight="350.0" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css">
+                                       <columns>
+                                          <TableColumn fx:id="colGrnItem" prefWidth="180.0" text="Item" />
+                                          <TableColumn fx:id="colGrnOrdered" prefWidth="100.0" text="Ordererd" />
+                                          <TableColumn fx:id="colGrnReceived" prefWidth="100.0" text="Received" />
+                                          <TableColumn fx:id="colGrnPrice" prefWidth="120.0" text="Price" />
+                                          <TableColumn fx:id="colGrnTotal" prefWidth="120.0" text="Total" />
+                                       </columns>
+                                    </TableView>
+                                    <Label text="Difference Alert (Auto Highlight If Qty &lt; Ordered)" textFill="#c0392b">
+                                       <font>
+                                          <Font name="Poppins SemiBold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox spacing="20.0">
+                                       <children>
+                                          <Label fx:id="lblGrnTotal" text="Total : 0.0" textFill="#133846">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox alignment="CENTER_RIGHT">
+                                             <children>
+                                                <JFXButton onAction="#btnApproveAndUpdateGrn" prefHeight="55.0" prefWidth="220.0" style="-fx-background-color: WHITE;" text="Approve &amp; Update" textFill="#133846">
+                                                   <font>
+                                                      <Font name="Poppins SemiBold" size="16.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets top="60.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

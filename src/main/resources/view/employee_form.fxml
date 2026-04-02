@@ -39,37 +39,31 @@
                      </children>
                   </AnchorPane>
 
-                  <VBox spacing="30.0" style="-fx-background-color: WHITE; -fx-background-radius: 18px;">
+                  <VBox prefHeight="391.0" prefWidth="1540.0" spacing="30.0" style="-fx-background-color: WHITE; -fx-background-radius: 18px;">
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </padding>
                      <children>
 
-                        <FlowPane hgap="25.0" vgap="25.0">
+                        <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="25.0" prefHeight="215.0" prefWidth="1480.0" vgap="25.0">
                            <children>
-                              <JFXTextField fx:id="txtEmployeeId" minWidth="150.0" prefHeight="49.0" prefWidth="160.0" promptText="Employee ID" style="-fx-background-color: #FFFFFF;">
+                              <JFXTextField fx:id="txtEmployeeId" minWidth="150.0" prefHeight="49.0" prefWidth="276.0" promptText="Employee ID" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtFirstName" minWidth="150.0" prefHeight="49.0" prefWidth="220.0" promptText="First Name" style="-fx-background-color: #FFFFFF;">
+                              <JFXTextField fx:id="txtFirstName" minWidth="150.0" prefHeight="49.0" prefWidth="287.0" promptText="First Name" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtLastName" minWidth="150.0" prefHeight="49.0" prefWidth="220.0" promptText="Last Name" style="-fx-background-color: #FFFFFF;">
+                              <JFXTextField fx:id="txtLastName" minWidth="150.0" prefHeight="49.0" prefWidth="331.0" promptText="Last Name" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXTextField>
 
-                              <JFXTextField fx:id="txtContactNo" minWidth="200.0" onKeyTyped="#txtContactNoOnKeyTyped" prefHeight="49.0" prefWidth="260.0" promptText="Contact No" style="-fx-background-color: #FFFFFF;">
-                                 <font>
-                                    <Font name="Times New Roman" size="21.0" />
-                                 </font>
-                              </JFXTextField>
-                              <DatePicker fx:id="dpHireDate" minWidth="150.0" prefHeight="49.0" prefWidth="218.0" promptText="Hire Date" stylesheets="@../CSS/style.css" />
-                              <JFXTextField fx:id="txtEmail" minWidth="200.0" onKeyTyped="#txtEmailOnKeyPressed" prefHeight="49.0" prefWidth="268.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
+                              <JFXTextField fx:id="txtContactNo" minWidth="200.0" onKeyTyped="#txtContactNoOnKeyTyped" prefHeight="49.0" prefWidth="403.0" promptText="Contact No" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
@@ -79,18 +73,24 @@
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXPasswordField>
-                              <JFXPasswordField fx:id="txtConfirmPassword" minWidth="200.0" prefHeight="49.0" prefWidth="280.0" promptText="Confirm Password">
+                              <JFXPasswordField fx:id="txtConfirmPassword" minWidth="200.0" prefHeight="49.0" prefWidth="288.0" promptText="Confirm Password">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXPasswordField>
-                              <JFXTextField fx:id="txtSalary" minWidth="150.0" prefHeight="49.0" prefWidth="218.0" promptText="Salary" style="-fx-background-color: #FFFFFF;">
+                              <JFXTextField fx:id="txtEmail" minWidth="200.0" onKeyTyped="#txtEmailOnKeyPressed" prefHeight="49.0" prefWidth="321.0" promptText="Email" style="-fx-background-color: #FFFFFF;">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
                               </JFXTextField>
-                              <JFXComboBox fx:id="cmbUserRole" minWidth="150.0" prefHeight="53.0" prefWidth="268.0" promptText="User Role" stylesheets="@../CSS/style.css" />
-                              <JFXCheckBox fx:id="chkBoxStatus" minWidth="100.0" prefHeight="32.0" prefWidth="114.0" style="-fx-background-color: #FFFFFF;" text="Active">
+                              <JFXTextField fx:id="txtSalary" minWidth="150.0" prefHeight="49.0" prefWidth="402.0" promptText="Salary" style="-fx-background-color: #FFFFFF;">
+                                 <font>
+                                    <Font name="Times New Roman" size="21.0" />
+                                 </font>
+                              </JFXTextField>
+                              <DatePicker fx:id="dpHireDate" minWidth="150.0" prefHeight="49.0" prefWidth="235.0" promptText="Hire Date" stylesheets="@../CSS/style.css" />
+                              <JFXComboBox fx:id="cmbUserRole" minWidth="150.0" prefHeight="53.0" prefWidth="201.0" promptText="User Role" stylesheets="@../CSS/style.css" />
+                              <JFXCheckBox fx:id="chkBoxStatus" minWidth="100.0" prefHeight="32.0" prefWidth="194.0" style="-fx-background-color: #FFFFFF;" text="Active">
                                  <font>
                                     <Font name="Times New Roman" size="21.0" />
                                  </font>
@@ -153,19 +153,19 @@
                      </children>
                   </VBox>
 
-                  <TableView fx:id="tblEmployee" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tblEmployee" prefHeight="386.0" prefWidth="1540.0" style="-fx-background-radius: 10px;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="colEmployeeId" prefWidth="80.0" text="Emp ID" />
-                        <TableColumn fx:id="colFirstName" prefWidth="150.0" text="First Name" />
-                        <TableColumn fx:id="colLastName" prefWidth="150.0" text="Last Name" />
+                        <TableColumn fx:id="colEmployeeId" prefWidth="101.33333587646484" text="Emp ID" />
+                        <TableColumn fx:id="colFirstName" prefWidth="151.66666412353516" text="First Name" />
+                        <TableColumn fx:id="colLastName" prefWidth="150.33334350585938" text="Last Name" />
 
-                        <TableColumn fx:id="colContactNo" prefWidth="150.0" text="Contact No" />
-                        <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email" />
-                        <TableColumn fx:id="colPassword" prefWidth="150.0" text="Password" />
-                        <TableColumn fx:id="colSalary" prefWidth="120.0" text="Salary" />
-                        <TableColumn fx:id="colUserRole" prefWidth="110.0" text="User Role" />
-                        <TableColumn fx:id="colHireDate" prefWidth="140.0" text="Hire Date" />
-                        <TableColumn fx:id="colActiveStatus" prefWidth="100.0" text="Active" />
+                        <TableColumn fx:id="colContactNo" prefWidth="181.33331298828125" text="Contact No" />
+                        <TableColumn fx:id="colEmail" prefWidth="196.66668701171875" text="Email" />
+                        <TableColumn fx:id="colPassword" prefWidth="142.6666259765625" text="Password" />
+                        <TableColumn fx:id="colSalary" prefWidth="140.66668701171875" text="Salary" />
+                        <TableColumn fx:id="colUserRole" prefWidth="139.6666259765625" text="User Role" />
+                        <TableColumn fx:id="colHireDate" prefWidth="197.3333740234375" text="Hire Date" />
+                        <TableColumn fx:id="colActiveStatus" prefWidth="135.0" text="Active" />
                      </columns>
                   </TableView>
 

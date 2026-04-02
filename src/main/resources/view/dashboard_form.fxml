@@ -1,13 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashboardFormController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1620.0" style="-fx-background-color: #DAF3F7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashboardFormController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="-1.0" layoutY="991.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="1613.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="1613.0" layoutY="991.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" stroke="BLACK" strokeType="INSIDE" width="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+         <children>
+
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="Dashboard &amp; Analytics" textFill="#133846">
+                     <font>
+                        <Font name="Times New Roman Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </HBox>
+
+            <HBox spacing="20.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="10.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Total Revenue" textFill="#7f8c8d">
+                           <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                        </Label>
+                        <Label fx:id="lblTotalRevenue" text="Rs. 0.00" textFill="#133846">
+                           <font><Font name="Times New Roman Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+
+                  <VBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="10.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Total Sales" textFill="#7f8c8d">
+                           <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                        </Label>
+                        <Label fx:id="lblTotalSales" text="0" textFill="#133846">
+                           <font><Font name="Times New Roman Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+
+                  <VBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="10.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Conversion" textFill="#7f8c8d">
+                           <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                        </Label>
+                        <Label fx:id="lblConversion" text="0%" textFill="#133846">
+                           <font><Font name="Times New Roman Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+
+                  <VBox alignment="CENTER_LEFT" prefHeight="120.0" spacing="10.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Today Visit" textFill="#7f8c8d">
+                           <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                        </Label>
+                        <Label fx:id="lblTodayVisit" text="0" textFill="#133846">
+                           <font><Font name="Times New Roman Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefWidth="450.0" spacing="15.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Total Revenue" textFill="#133846">
+                           <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                        </Label>
+                        <PieChart fx:id="pieChartRevenue" labelsVisible="false" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="15.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Sales Analytics" textFill="#133846">
+                           <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                        </Label>
+                        <AreaChart fx:id="areaChartSales" legendVisible="false" VBox.vgrow="ALWAYS">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </AreaChart>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefWidth="550.0" spacing="15.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Top 5 Users" textFill="#133846">
+                           <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                        </Label>
+                        <TableView fx:id="tblTopUsers" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colUserName" prefWidth="250.0" text="User Name" />
+                              <TableColumn fx:id="colUserRole" prefWidth="150.0" text="Role" />
+                              <TableColumn fx:id="colUserSales" prefWidth="100.0" text="Sales" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+
+                  <VBox spacing="15.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Revenue History" textFill="#133846">
+                           <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                        </Label>
+                        <TableView fx:id="tblRevenueHistory" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="colRevDate" prefWidth="150.0" text="Date" />
+                              <TableColumn fx:id="colRevInvoiceNo" prefWidth="200.0" text="Invoice No" />
+                              <TableColumn fx:id="colRevCustomer" prefWidth="250.0" text="Customer" />
+                              <TableColumn fx:id="colRevAmount" prefWidth="200.0" text="Amount" />
+                              <TableColumn fx:id="colRevStatus" prefWidth="150.0" text="Status" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1620.0" style="-fx-background-color: #DAF3F7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.report.ReportFormController">
+   <children>
+      <HBox spacing="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <children>
+
+            <VBox prefWidth="300.0" spacing="15.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+               <padding>
+                  <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+               </padding>
+               <children>
+                  <Label text="Reports" textFill="#133846">
+                     <font>
+                        <Font name="Times New Roman Bold" size="28.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                  </Label>
+
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="260.0" style="-fx-background-color: #2D788A; -fx-background-radius: 8px;" text="Sales Report" textFill="WHITE">
+                     <font>
+                        <Font name="Poppins SemiBold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </JFXButton>
+
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="260.0" style="-fx-background-radius: 8px;" text="Purchase Report" textFill="#133846">
+                     <font>
+                        <Font name="Poppins SemiBold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </JFXButton>
+
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="260.0" style="-fx-background-radius: 8px;" text="Employee Report" textFill="#133846">
+                     <font>
+                        <Font name="Poppins SemiBold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </JFXButton>
+
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="260.0" style="-fx-background-radius: 8px;" text="Stock Report" textFill="#133846">
+                     <font>
+                        <Font name="Poppins SemiBold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </JFXButton>
+
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="260.0" style="-fx-background-radius: 8px;" text="Profit Report" textFill="#133846">
+                     <font>
+                        <Font name="Poppins SemiBold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </JFXButton>
+
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="260.0" style="-fx-background-radius: 8px;" text="Supplier Report" textFill="#133846">
+                     <font>
+                        <Font name="Poppins SemiBold" size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+            </VBox>
+
+            <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+               <children>
+
+                  <VBox spacing="20.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                     <padding>
+                        <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                     </padding>
+                     <children>
+                        <Label fx:id="lblReportTitle" text="Sales Report Overview" textFill="#133846">
+                           <font>
+                              <Font name="Times New Roman Bold" size="24.0" />
+                           </font>
+                        </Label>
+
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                           <children>
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <Label text="Start Date:" textFill="#7f8c8d">
+                                       <font><Font name="Poppins SemiBold" size="14.0" /></font>
+                                    </Label>
+                                    <DatePicker fx:id="dpStartDate" prefHeight="35.0" prefWidth="180.0" promptText="Select Date" />
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <Label text="End Date:" textFill="#7f8c8d">
+                                       <font><Font name="Poppins SemiBold" size="14.0" /></font>
+                                    </Label>
+                                    <DatePicker fx:id="dpEndDate" prefHeight="35.0" prefWidth="180.0" promptText="Select Date" />
+                                 </children>
+                              </VBox>
+
+                              <VBox spacing="5.0">
+                                 <children>
+                                    <Label text="Filter By:" textFill="#7f8c8d">
+                                       <font><Font name="Poppins SemiBold" size="14.0" /></font>
+                                    </Label>
+                                    <JFXComboBox fx:id="cmbFilterBy" prefHeight="35.0" prefWidth="200.0" promptText="All Categories" style="-fx-background-color: #F0F3F4; -fx-padding: 0 10 0 10; -fx-background-radius: 4px;" unFocusColor="#4d4d4d00" />
+                                 </children>
+                              </VBox>
+
+                              <Region HBox.hgrow="ALWAYS" />
+
+                              <HBox alignment="BOTTOM_RIGHT" spacing="15.0">
+                                 <children>
+                                    <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Generate" textFill="WHITE">
+                                       <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                    </JFXButton>
+                                    <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #27ae60; -fx-background-radius: 6px;" text="Export CSV" textFill="WHITE">
+                                       <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                       <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Accept%20Property.png" /></image></ImageView></graphic>
+                                    </JFXButton>
+                                    <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #c0392b; -fx-background-radius: 6px;" text="Export PDF" textFill="WHITE">
+                                       <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                       <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Print.png" /></image></ImageView></graphic>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+
+                  <TableView fx:id="tblReportData" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="col1" prefWidth="150.0" text="Date" />
+                        <TableColumn fx:id="col2" prefWidth="200.0" text="Reference ID" />
+                        <TableColumn fx:id="col3" prefWidth="300.0" text="Description / Entity" />
+                        <TableColumn fx:id="col4" prefWidth="150.0" text="Quantity" />
+                        <TableColumn fx:id="col5" prefWidth="200.0" text="Unit Price" />
+                        <TableColumn fx:id="col6" prefWidth="200.0" text="Total Amount" />
+                     </columns>
+                  </TableView>
+
+                  <HBox alignment="CENTER_RIGHT" spacing="40.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                     <padding>
+                        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <Label text="Total Records :" textFill="#7f8c8d">
+                                 <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                              </Label>
+                              <Label fx:id="lblTotalRecords" text="0" textFill="#133846">
+                                 <font><Font name="Times New Roman Bold" size="20.0" /></font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="15.0">
+                           <children>
+                              <Label fx:id="lblSummaryTotalText" text="Total Amount :" textFill="#7f8c8d">
+                                 <font><Font name="Poppins SemiBold" size="18.0" /></font>
+                              </Label>
+                              <Label fx:id="lblSummaryTotalValue" text="Rs. 0.00" textFill="#27ae60">
+                                 <font><Font name="Times New Roman Bold" size="24.0" /></font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -170,7 +170,6 @@ public class SupplierFormController implements Initializable {
         String id = txtSupplierId.getText();
         if (id == null || id.isEmpty()) {
             showMessage("Please select a supplier to update.", false);
-            return;
         }
         String companyName = txtCompanyName.getText();
         String email = txtEmail.getText();
@@ -178,7 +177,6 @@ public class SupplierFormController implements Initializable {
         String contactNoText = txtContactNo.getText();
         if (contactNoText == null || contactNoText.isEmpty()) {
             showMessage("Contact No cannot be empty.", false);
-            return;
         }
         int contactNo = Integer.parseInt(contactNoText);
         String city = txtCity.getText();

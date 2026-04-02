@@ -203,7 +203,7 @@ public class DashboardController implements Initializable {
         timeline.play();
     }
     public void setLoginResult(LoginResult result) {
-        String userName = result.getUser().getFirstName() + " " + result.getUser().getLastName();
+        String userName = result.getUser().getFirstName();
         int userRole = result.getUser().getUserRole();
         lblUserName.setText(userName);
        switch (userRole) {
@@ -215,15 +215,15 @@ public class DashboardController implements Initializable {
     }
 
     public void btnSalesOnAction(MouseEvent mouseEvent) {
-        loadIntoRoot("/view/supplier_form.fxml");
+        loadIntoRoot("/view/POS_form.fxml");
     }
 
     public void btnProductsOnAction(MouseEvent mouseEvent) {
-        loadIntoRoot("/view/supplier_form.fxml");
+        loadIntoRoot("/view/product_form.fxml");
     }
 
     public void btnInventoryOnAction(MouseEvent mouseEvent) {
-        loadIntoRoot("/view/supplier_form.fxml");
+        loadIntoRoot("/view/Inventory_form.fxml");
     }
 
     public void btnSuppliersOnAction(MouseEvent mouseEvent) {
@@ -235,12 +235,12 @@ public class DashboardController implements Initializable {
     }
 
     public void btnReportsOnAction(MouseEvent mouseEvent) {
-        loadIntoRoot("/view/supplier_form.fxml");
+        loadIntoRoot("/view/report_form.fxml");
 
     }
 
     public void btnSettingsOnAction(MouseEvent mouseEvent) {
-        loadIntoRoot("/view/supplier_form.fxml");
+        loadIntoRoot("/view/setting_form.fxml");
     }
 
 

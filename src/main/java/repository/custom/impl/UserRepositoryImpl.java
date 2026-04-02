@@ -1,5 +1,6 @@
 package repository.custom.impl;
 
+import model.User;
 import model.UserCredential;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,19 +10,18 @@ import util.HibernateUtil;
 public class UserRepositoryImpl implements UserRepository {
 
     @Override
-    public void save(UserCredential uc) {
-        Transaction tx = null;
-        try (Session session = HibernateUtil.getSession()) {
-            tx = session.beginTransaction();
-            // Persist the User first so it gets an ID, then persist the credential
-            if (uc.getUser() != null) {
-                session.persist(uc.getUser());
-            }
-            session.persist(uc);
-            tx.commit();
+    public void save(User user) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.persist(user);
+            transaction.commit();
         } catch (Exception e) {
-            if (tx != null) tx.rollback();
-            throw e;
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 }

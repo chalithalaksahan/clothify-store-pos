@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="877.0" prefWidth="1620.0" style="-fx-background-color: #DAF3F7;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.settings.SettingsFormController">
+   <children>
+
+      <VBox spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="System Settings" textFill="#133846">
+                     <font><Font name="Times New Roman Bold" size="24.0" /></font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <TabPane layoutY="60.0" prefHeight="817.0" prefWidth="1620.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" stylesheets="@../CSS/style.css">
+         <tabs>
+
+            <Tab text="Store Information">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+                           <children>
+
+                              <VBox spacing="40.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                                 <padding>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Company / Store Details" textFill="#133846">
+                                       <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                                    </Label>
+
+                                    <FlowPane hgap="60.0" vgap="40.0">
+                                       <children>
+                                          <JFXTextField fx:id="txtStoreName" prefWidth="400.0" promptText="Store Name" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtContactNumber" prefWidth="400.0" promptText="Contact Number" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtEmailAddress" prefWidth="400.0" promptText="Email Address" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextField fx:id="txtVatTin" prefWidth="400.0" promptText="VAT / TIN Number" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXTextArea fx:id="txtStoreAddress" prefHeight="100.0" prefWidth="860.0" promptText="Full Business Address" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextArea>
+                                       </children>
+                                    </FlowPane>
+
+                                    <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
+                                       <children>
+                                          <JFXButton prefHeight="45.0" prefWidth="180.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save Changes" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Accept%20Property.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="Account &amp; Security">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+                           <children>
+
+                              <VBox spacing="40.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                                 <padding>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Change Password &amp; Profile" textFill="#133846">
+                                       <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                                    </Label>
+
+                                    <FlowPane hgap="60.0" vgap="40.0">
+                                       <children>
+                                          <JFXTextField fx:id="txtUsername" disable="true" prefWidth="400.0" promptText="Username (Logged In)" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                          <JFXPasswordField fx:id="txtCurrentPassword" prefWidth="400.0" promptText="Current Password" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXPasswordField>
+                                          <JFXPasswordField fx:id="txtNewPassword" prefWidth="400.0" promptText="New Password" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXPasswordField>
+                                          <JFXPasswordField fx:id="txtConfirmPassword" prefWidth="400.0" promptText="Confirm New Password" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXPasswordField>
+                                       </children>
+                                    </FlowPane>
+
+                                    <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
+                                       <children>
+                                          <JFXButton prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update Security" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Synchronize.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="System Preferences">
+               <content>
+                  <AnchorPane style="-fx-background-color: #DAF3F7;">
+                     <children>
+                        <VBox spacing="25.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
+                           <children>
+
+                              <VBox spacing="40.0" style="-fx-background-color: WHITE; -fx-background-radius: 12px;">
+                                 <padding>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Invoice &amp; Inventory Defaults" textFill="#133846">
+                                       <font><Font name="Poppins SemiBold" size="20.0" /></font>
+                                    </Label>
+
+                                    <FlowPane hgap="60.0" vgap="40.0">
+                                       <children>
+                                          <JFXComboBox fx:id="cmbCurrency" prefWidth="400.0" promptText="Currency Symbol (e.g. Rs. / $ / €)" unFocusColor="#a6a6a6" />
+
+                                          <JFXTextField fx:id="txtTaxRate" prefWidth="400.0" promptText="Default Tax Rate (%)" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+
+                                          <JFXTextField fx:id="txtInvoicePrefix" prefWidth="400.0" promptText="Invoice Prefix (e.g. INV-)" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+
+                                          <JFXTextField fx:id="txtLowStockAlert" prefWidth="400.0" promptText="Default Low Stock Alert Level" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
+                                       </children>
+                                    </FlowPane>
+
+                                    <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
+                                       <children>
+                                          <JFXButton prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save Preferences" textFill="WHITE">
+                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
+                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Accept%20Property.png" /></image></ImageView></graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

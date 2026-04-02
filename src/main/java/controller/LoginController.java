@@ -120,7 +120,7 @@ public class LoginController implements Initializable {
     @FXML
     public void btnAddUserOnAction(MouseEvent mouseEvent) {
         try {
-            userService.createUser("Staff", "12345678");
+            userService.createUser("admin", "12345678");
             showMessage("User created successfully!", true);
         } catch (Exception e) {
             showMessage("Failed to create user: " + e.getMessage(), false);

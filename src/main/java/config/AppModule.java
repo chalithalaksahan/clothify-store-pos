@@ -1,9 +1,11 @@
 package config;
 
 import com.google.inject.AbstractModule;
+import repository.custom.EmployeeRepository;
 import repository.custom.LoginRepository;
 import repository.custom.SupplierRepository;
 import repository.custom.UserRepository;
+import repository.custom.impl.EmployeeRepositoryImpl;
 import repository.custom.impl.LoginRepositoryImpl;
 import repository.custom.impl.SupplierRepositoryImpl;
 import repository.custom.impl.UserRepositoryImpl;
@@ -28,6 +30,7 @@ public class AppModule extends AbstractModule {
         bind(SupplierService.class).to(SupplierServiceImpl.class);
         bind(SupplierRepository.class).to(SupplierRepositoryImpl.class);
         bind(EmployeeService.class).to(EmployeeServiceImpl.class);
+        bind(EmployeeRepository.class).to(EmployeeRepositoryImpl.class);
     }
 
 }

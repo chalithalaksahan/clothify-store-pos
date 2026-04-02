@@ -13,11 +13,20 @@ public class SupplierRepositoryImpl implements SupplierRepository {
     @Override
     public boolean create(Supplier supplier) {
         Session session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.persist(supplier);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            session.persist(supplier);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -64,9 +73,9 @@ public class SupplierRepositoryImpl implements SupplierRepository {
 
     @Override
     public Long getRowCount() {
-        Session session = HibernateUtil.getSession();
-        Long count = session.createQuery("SELECT COUNT(s) FROM Supplier s", Long.class).uniqueResult();
-        session.close();
-        return count;
+       Session session = HibernateUtil.getSession();
+       Long count = session.createQuery("SELECT COUNT(s) FROM Supplier s", Long.class).uniqueResult();
+       session.close();
+       return count;
     }
 }

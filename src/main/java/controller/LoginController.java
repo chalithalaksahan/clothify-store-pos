@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import config.AppModule;
 import dto.LoginResult;
 import jakarta.inject.Inject;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -118,7 +119,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void btnAddUserOnAction(MouseEvent mouseEvent) {
+    public void btnAddUserOnAction() {
         try {
             userService.createUser("admin", "12345678");
             showMessage("User created successfully!", true);

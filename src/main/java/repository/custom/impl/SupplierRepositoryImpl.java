@@ -1,6 +1,6 @@
 package repository.custom.impl;
 
-import model.Supplier;
+import Entity.Supplier;
 import org.hibernate.Session;
 import repository.custom.SupplierRepository;
 import util.HibernateUtil;

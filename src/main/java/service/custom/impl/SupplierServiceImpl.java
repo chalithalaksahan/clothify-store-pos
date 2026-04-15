@@ -1,7 +1,7 @@
 package service.custom.impl;
 
 import jakarta.inject.Inject;
-import model.Supplier;
+import Entity.Supplier;
 import repository.custom.SupplierRepository;
 import service.custom.SupplierService;
 

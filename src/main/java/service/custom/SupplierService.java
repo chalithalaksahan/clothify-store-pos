@@ -1,6 +1,6 @@
 package service.custom;
 
-import model.Supplier;
+import Entity.Supplier;
 
 import java.sql.SQLException;
 import java.util.List;

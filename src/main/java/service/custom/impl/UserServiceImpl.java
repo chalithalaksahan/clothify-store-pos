@@ -1,9 +1,8 @@
 package service.custom.impl;
 
 import jakarta.inject.Inject;
-import model.User;
-import model.UserCredential;
-import repository.custom.EmployeeRepository;
+import Entity.User;
+import Entity.UserCredential;
 import repository.custom.UserRepository;
 import service.custom.UserService;
 import util.PasswordUtil;

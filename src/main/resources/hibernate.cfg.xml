@@ -12,7 +12,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="model.User"/>
-        <mapping class="model.UserCredential"/>
+        <mapping class="Entity.User"/>
+        <mapping class="Entity.UserCredential"/>
     </session-factory>
 </hibernate-configuration>

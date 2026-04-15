@@ -2,16 +2,14 @@ package service.custom.impl;
 
 import dto.EmployeeDTO;
 import jakarta.inject.Inject;
-import model.User;
-import model.UserCredential;
+import Entity.User;
+import Entity.UserCredential;
 import repository.custom.EmployeeRepository; // Assuming this now handles User entities
 import service.custom.EmployeeService;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

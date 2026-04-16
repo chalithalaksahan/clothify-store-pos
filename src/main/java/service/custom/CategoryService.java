@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CategoryService {
     boolean creatCategory(CategoryDTO categoryDTO);
-    boolean updateCategory(CategoryDTO categoryDTO);
+    boolean updateCategory(CategoryDTO categoryDTO) throws SQLException;
     boolean deleteCategory(String categoryCode);
     CategoryDTO searchCategory(String categoryCode) throws SQLException;
     List<CategoryDTO> getAllCategories() throws SQLException;

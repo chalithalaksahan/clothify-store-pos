@@ -2,7 +2,9 @@ package config;
 
 import com.google.inject.AbstractModule;
 import mapper.CategoryMapper;
+import mapper.ProductMapper;
 import mapper.impl.CategoryMapperImpl;
+import mapper.impl.ProductMapperImpl;
 import repository.custom.*;
 import repository.custom.impl.*;
 import service.custom.*;
@@ -28,7 +30,13 @@ public class AppModule extends AbstractModule {
         bind(CategoryService.class).to(CategoryServiceImpl.class);
         bind(CategoryRepository.class).to(CategoryRepositoryImpl.class);
 
+        bind(ProductService.class).to(ProductServiceImpl.class);
+        bind(ProductRepository.class).to(ProductRepositoryImpl.class);
+
+        bind(VariantRepository.class).to(VariantRepositoryImpl.class);
+
         bind(CategoryMapper.class).to(CategoryMapperImpl.class);
+        bind(ProductMapper.class).to(ProductMapperImpl.class);
 
     }
 }

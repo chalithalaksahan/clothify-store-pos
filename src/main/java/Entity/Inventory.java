@@ -1,50 +1,50 @@
 package Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 
 @Entity
-@Table(name="inventory")
+@Table(name = "inventory")
 public class Inventory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inventory_id")
     private Long id;
 
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
+    // The actual amount of this specific variant you currently have in the store
+    @Column(name = "qty_on_hand", nullable = false)
+    private Integer qtyOnHand;
 
-    @Column(name = "re_order_lvl")
-    private int reorderLevel;
+    // Matches 'minQty' from your ProductDTO
+    @Column(name = "min_qty")
+    private Integer minQty;
 
-    @Column(name = "supplier_id")
-    private String supplierId; // Could be a @ManyToOne to a Supplier entity later
+    // Matches 'reOrderLvl' from your ProductDTO
+    @Column(name = "reorder_level")
+    private Integer reorderLevel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
-    private Location location;
+    // Hibernate will automatically stamp this with the exact time
+    // every single time the qtyOnHand goes up or down!
+    @UpdateTimestamp
+    @Column(name = "last_updated_at")
+    private LocalDateTime lastUpdate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_update")
-    private Date lastUpdate;
-
-    // Bidirectional link back to Variant (optional, but helpful for queries)
+    // Bidirectional link back to the Variant (Optional, but highly recommended)
     @OneToOne(mappedBy = "inventory")
     private Variant variant;
 
-    // Methods to safely add/remove stock
-    public void addStock(int amount) {
-        this.quantity += amount;
-        this.lastUpdate = new Date();
-    }
-
-    public void reduceStock(int amount) {
-        if (this.quantity >= amount) {
-            this.quantity -= amount;
-            this.lastUpdate = new Date();
-        } else {
-            throw new IllegalArgumentException("Insufficient stock for this sale!");
-        }
-    }
+    // 1. ADD THIS: This is the exact variable Hibernate is looking for!
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id") // The physical foreign key column in the database
+    private Location location;
 }

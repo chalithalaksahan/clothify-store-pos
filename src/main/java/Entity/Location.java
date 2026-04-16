@@ -28,8 +28,8 @@ public class Location {
     @Column(name = "city")
     private String city;
 
-    // Optional: If you ever want to get a list of ALL inventory at this specific location
-    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
+    // 2. The "mappedBy" string MUST match the exact variable name "location" from above.
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Inventory> inventoryList;
 
 }

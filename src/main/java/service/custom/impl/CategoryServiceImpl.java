@@ -26,9 +26,27 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean updateCategory(CategoryDTO categoryDTO) {
-        Category category = categoryMapper.toEntity(categoryDTO);
-        return categoryRepository.update(category);
+    public boolean updateCategory(CategoryDTO categoryDTO) throws SQLException {
+        // 1. FETCH the existing category from the database using the unique code
+        // This pulls the object WITH its hidden @Id intact!
+        Category existingCategory = categoryRepository.getById(categoryDTO.getCategoryCode());
+
+        if (existingCategory == null) {
+            System.out.println("Update failed: Category not found.");
+            return false;
+        }
+
+        // 2. OVERWRITE ONLY the fields you want to change
+        existingCategory.setCategoryName(categoryDTO.getCategoryName());
+        existingCategory.setDescription(categoryDTO.getDescription());
+        existingCategory.setParentCategory(categoryDTO.getParentCategory());
+        existingCategory.setStatus(categoryDTO.getStatus());
+
+        // Notice we do NOT touch the categoryCode or the @Id!
+
+        // 3. Send the fully loaded object to your fixed repository method
+        // Because this object has its @Id, Hibernate will know to run an UPDATE, not an INSERT.
+        return categoryRepository.update(existingCategory);
     }
 
     @Override

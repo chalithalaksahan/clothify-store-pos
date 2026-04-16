@@ -107,6 +107,9 @@
                                  <children>
                                     <FlowPane hgap="60.0" vgap="40.0">
                                        <children>
+                                          <JFXTextField fx:id="txtSkuCode" prefWidth="300.0" promptText="SKU / Code" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
                                           <JFXTextField fx:id="txtProdName" prefWidth="300.0" promptText="Product Name" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
@@ -117,9 +120,6 @@
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
                                           <JFXTextField fx:id="txtSellingPrice" prefWidth="300.0" promptText="Selling Price" unFocusColor="#a6a6a6">
-                                             <font><Font name="Times New Roman" size="18.0" /></font>
-                                          </JFXTextField>
-                                          <JFXTextField fx:id="txtSkuCode" prefWidth="300.0" promptText="SKU / Code" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
 
@@ -144,15 +144,27 @@
 
                                     <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
                                        <children>
-                                          <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save Product" textFill="WHITE">
+                                          <JFXButton onAction="#btnSearchProductOnAction" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Search" textFill="WHITE">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="16.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/icon/Search%20Property.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton onAction="#btnAddProductOnAction" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Add Product" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Add%20Folder.png" /></image></ImageView></graphic>
                                           </JFXButton>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
+                                          <JFXButton onAction="#btnUpdateProductOnAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Synchronize.png" /></image></ImageView></graphic>
                                           </JFXButton>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Clear" textFill="WHITE">
+                                          <JFXButton onAction="#btnDeleteProductOnAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Delete" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Trash.png" /></image></ImageView></graphic>
                                           </JFXButton>

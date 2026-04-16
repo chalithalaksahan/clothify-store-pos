@@ -29,29 +29,19 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     @Override
     public boolean update(Category category) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSession()) {
-            transaction = session.beginTransaction();
-            String hql = "UPDATE Category c SET " +
-                    "c.categoryName = :categoryName, " +
-                    "c.parentCategory = :parentCategory, " +
-                    "c.status = :status, " +
-                    "c.description = :description " +
-                    "WHERE c.categoryCode = :categoryCode";
-            int updatedEntities = session.createQuery(hql)
-                    .setParameter("categoryName", category.getCategoryName())
-                    .setParameter("parentCategory", category.getParentCategory())
-                    .setParameter("status", category.getStatus())
-                    .setParameter("description", category.getDescription())
-                    .setParameter("categoryCode", category.getCategoryCode())
-                    .executeUpdate();
-            transaction.commit();
-            return updatedEntities > 0;
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
-            return false;
-        }
+       Session session = HibernateUtil.getSession();
+       try {
+           session.beginTransaction();
+           session.merge(category);
+           session.getTransaction().commit();
+           return true;
+       } catch (Exception e) {
+           if (session.getTransaction() != null) session.getTransaction().rollback();
+           e.printStackTrace();
+           return false;
+       } finally {
+           session.close();
+       }
     }
 
 

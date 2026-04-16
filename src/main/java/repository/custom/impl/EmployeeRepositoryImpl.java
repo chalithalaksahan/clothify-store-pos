@@ -57,33 +57,12 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public boolean update(User user) {
-        Transaction transaction=null;
-        try (Session session = HibernateUtil.getSession()) {
-            transaction = session.beginTransaction();
-            String hql = "UPDATE User u SET u.contactNo = :contactNo, " +
-                    "u.firstName = :firstName, " +
-                    "u.lastName = :lastName, " +
-                    "u.hireDate = :hireDate, " +
-                    "u.isActive = :isActive, " +
-                    "u.salary = :salary, " +
-                    "u.userRole = :userRole " + // <-- Removed the trailing comma here
-                    "WHERE u.userId = :userId";
-
-            int updatedEntities = session.createQuery(hql) // In newer Hibernate versions, you might need session.createMutationQuery(hql)
-                    .setParameter("contactNo", user.getContactNo())
-                    .setParameter("firstName", user.getFirstName())
-                    .setParameter("lastName", user.getLastName())
-                    .setParameter("hireDate", user.getHireDate())
-                    .setParameter("isActive", user.isActive())
-                    .setParameter("salary", user.getSalary())
-                    .setParameter("userRole", user.getUserRole())
-                    .setParameter("userId", user.getUserId())
-                    .executeUpdate();
-
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSession();){
+           transaction = session.beginTransaction();
+            session.merge(user);
             transaction.commit();
-
-            // Returns true if 1 or more rows were successfully updated
-            return updatedEntities > 0;
+            return true;
 
         } catch (Exception e) {
             if (transaction != null) {
@@ -119,10 +98,12 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public User getById(String id) throws SQLException {
-        Session session = HibernateUtil.getSession();
-        User user = session.find(User.class, id);
-        session.close();
-        return user;
+    public User getById(String id) {
+      Session session = HibernateUtil.getSession();
+        try {
+            return session.find(User.class, id);
+        } finally {
+            session.close();
+        }
     }
 }

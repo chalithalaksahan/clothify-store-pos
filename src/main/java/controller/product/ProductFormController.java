@@ -1,17 +1,25 @@
 package controller.product;
 
+import Entity.Supplier;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import dto.CategoryDTO;
+import dto.ProductDTO;
 import jakarta.inject.Inject;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import service.custom.CategoryService;
+import service.custom.ProductService;
+import service.custom.SupplierService;
 import util.CategoryType;
 
 import java.net.URL;
@@ -19,6 +27,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 public class ProductFormController implements Initializable {
 
@@ -30,10 +39,10 @@ public class ProductFormController implements Initializable {
     private JFXComboBox<String> cmbParentCat;
 
     @FXML
-    private JFXComboBox<?> cmbProdCategory;
+    private JFXComboBox<CategoryDTO> cmbProdCategory;
 
     @FXML
-    private JFXComboBox<?> cmbProdSupplier;
+    private JFXComboBox<Supplier> cmbProdSupplier;
 
     @FXML
     private TableColumn<?, ?> colAddCategory;
@@ -153,20 +162,26 @@ public class ProductFormController implements Initializable {
     private JFXTextField txtSkuCode;
 
     @Inject
-    CategoryService serviceType;
+    CategoryService catServiceType;
+
+    @Inject
+    SupplierService supServiceType;
+
+    @Inject
+    ProductService proServiceType;
 
     public void btnSearchCategoryOnAction(ActionEvent actionEvent) {
         String code = txtCatCode.getText();
 
         CategoryDTO category = null;
         try {
-            category = serviceType.searchCategory(code);
+            category = catServiceType.searchCategory(code);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         if (category != null){
-            setTextToValues(category);
+            setTextToValuesForCat(category);
             showMessage("Category found: " + category.getCategoryName(), true);
         }else {
             showMessage("Category not found with code: " + code, false);
@@ -174,7 +189,7 @@ public class ProductFormController implements Initializable {
 
     }
 
-    private void setTextToValues(CategoryDTO category) {
+    private void setTextToValuesForCat(CategoryDTO category) {
         txtCatCode.setText(category.getCategoryCode());
         txtCatName.setText(category.getCategoryName());
         cmbParentCat.setValue(category.getParentCategory());
@@ -196,7 +211,7 @@ public class ProductFormController implements Initializable {
 
         CategoryDTO category = new CategoryDTO(code, name, parent, status, desc);
 
-        if (serviceType.creatCategory(category)) {
+        if (catServiceType.creatCategory(category)) {
             loadCategoryTable();
             clearCategoryFields();
             showMessage("Category created successfully", true);
@@ -207,7 +222,7 @@ public class ProductFormController implements Initializable {
 
     public void btnDeleteCategoryOnAction(ActionEvent actionEvent) {
         String code = txtCatCode.getText();
-        if (serviceType.deleteCategory(code)) {
+        if (catServiceType.deleteCategory(code)) {
             loadCategoryTable();
             clearCategoryFields();
             showMessage("Category deleted successfully", true);
@@ -228,12 +243,16 @@ public class ProductFormController implements Initializable {
 
         CategoryDTO category = new CategoryDTO(code, name, parent, status, desc);
 
-        if(serviceType.updateCategory(category)) {
-            loadCategoryTable();
-            clearCategoryFields();
-            showMessage("Category updated successfully", true);
-        } else {
-            showMessage("Failed to update category", false);
+        try {
+            if(catServiceType.updateCategory(category)) {
+                loadCategoryTable();
+                clearCategoryFields();
+                showMessage("Category updated successfully", true);
+            } else {
+                showMessage("Failed to update category", false);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
     private void showMessage(String message, boolean isSuccess) {
@@ -246,6 +265,8 @@ public class ProductFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadCategories();
+        loadSuppliers();
 
         colCatListCode.setCellValueFactory(new PropertyValueFactory<>("categoryCode"));
         colCatListName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
@@ -262,14 +283,14 @@ public class ProductFormController implements Initializable {
 
         tblCategoryList.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
             if (t1 != null) {
-                setTextToValues(t1);
+                setTextToValuesForCat(t1);
             }
         });
     }
 
     private void loadCategoryTable() {
         try {
-            List<CategoryDTO> categories = serviceType.getAllCategories();
+            List<CategoryDTO> categories = catServiceType.getAllCategories();
             tblCategoryList.setItems(FXCollections.observableArrayList(categories));
         } catch (Exception e) {
             showMessage("Failed to load categories: " + e.getMessage(), false);
@@ -281,5 +302,167 @@ public class ProductFormController implements Initializable {
         cmbParentCat.setValue("");
         rbtnActive.setSelected(true);
         txtCatDesc.setText("");
+    }
+
+    public void btnSearchProductOnAction(ActionEvent actionEvent) {
+        String skuCode = txtSkuCode.getText();
+
+        if (skuCode == null || skuCode.isEmpty()) {
+            showMessage("Please enter a SKU code to search.", false);
+            return;
+        }
+        if (proServiceType.searchProduct(skuCode) != null){
+            ProductDTO product = proServiceType.searchProduct(skuCode);
+            setTextToValuesForProduct(product);
+            showMessage("Product found: " + product.getName(), true);
+        }else {
+            showMessage("Product not found with SKU code: " + skuCode, false);
+        }
+
+    }
+
+    private void setTextToValuesForProduct(ProductDTO product) {
+        txtProdName.setText(product.getName());
+        cmbProdCategory.setValue(product.getCategory());
+        cmbProdSupplier.setValue(product.getSupplier());
+        txtCostPrice.setText(product.getCostPrice());
+        txtSellingPrice.setText(product.getSellingPrice());
+        txtMinQty.setText(product.getMinQty());
+        txtReorderLevel.setText(product.getReOrderLvl());
+        txtProdDesc.setText(product.getDescription());
+        txtColor.setText(product.getColor());
+        txtSize.setText(product.getSize());
+    }
+
+    public void btnAddProductOnAction(ActionEvent actionEvent) {
+        String skuCode = txtSkuCode.getText();
+        String proName = txtProdName.getText();
+        CategoryDTO category = cmbProdCategory.getValue();
+        Supplier supplier = cmbProdSupplier.getValue();
+        String costPrice = txtCostPrice.getText();
+        String sellingPrice = txtSellingPrice.getText();
+        String minQty = txtMinQty.getText();
+        String reOrderLvl = txtReorderLevel.getText();
+        String proDesc = txtProdDesc.getText();
+        String color = txtColor.getText();
+        String size = txtSize.getText();
+
+        ProductDTO product = new ProductDTO(skuCode, proName, category, supplier, costPrice, sellingPrice, minQty, reOrderLvl, proDesc, color, size);
+
+        if(proServiceType.createProduct(product)){
+            showMessage("Product created successfully", true);
+        }else{
+            showMessage("Failed to create product", false);
+        }
+    }
+
+    public void btnUpdateProductOnAction(ActionEvent actionEvent) {
+        String proName = txtProdName.getText();
+        CategoryDTO category = cmbProdCategory.getValue();
+        Supplier supplier = cmbProdSupplier.getValue();
+        String costPrice = txtCostPrice.getText();
+        String sellingPrice = txtSellingPrice.getText();
+        String minQty = txtMinQty.getText();
+        String reOrderLvl = txtReorderLevel.getText();
+        String proDesc = txtProdDesc.getText();
+        String color = txtColor.getText();
+        String size = txtSize.getText();
+        String skuCode = txtSkuCode.getText();
+
+        ProductDTO product = new ProductDTO(skuCode, proName, category, supplier, costPrice, sellingPrice, minQty, reOrderLvl, proDesc, color, size);
+
+        if (proServiceType.updateProduct(product)){
+            showMessage("Product updated successfully", true);
+        }else{
+            showMessage("Failed to update product", false);
+        }
+    }
+
+    public void btnDeleteProductOnAction(ActionEvent actionEvent) {
+        String skuCode = txtSkuCode.getText();
+
+        if (proServiceType.deleteProduct(skuCode)){
+            showMessage("Product deleted successfully", true);
+        }else {
+            showMessage("Failed to delete product", false);
+        }
+    }
+
+
+    //---------------------------------------------------------------------- universal combo box for entity or DTO -------------------------------------------------
+    public class ComboBoxSearchUtil {
+        public static <T> void makeSearchable(ComboBox<T> comboBox, ObservableList<T> items, Function<T, String> stringMapper) {
+
+            // 1. Wrap the list
+            FilteredList<T> filteredList = new FilteredList<>(items, p -> true);
+            comboBox.setItems(filteredList);
+            comboBox.setEditable(true);
+
+            // 2. Set the String Converter dynamically using your Function
+            comboBox.setConverter(new StringConverter<T>() {
+                @Override
+                public String toString(T object) {
+                    // Extracts the string using the getter you pass in
+                    return object == null ? "" : stringMapper.apply(object);
+                }
+
+                @Override
+                public T fromString(String string) {
+                    if (string == null || string.isEmpty()) return null;
+                    return items.stream()
+                            .filter(item -> {
+                                String itemString = stringMapper.apply(item);
+                                return itemString != null && itemString.equalsIgnoreCase(string);
+                            })
+                            .findFirst()
+                            .orElse(null);
+                }
+            });
+
+            // 3. Add the Universal Search Listener
+            comboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+                if (comboBox.getSelectionModel().getSelectedItem() != null) {
+                    return; // Prevent text deletion upon selection
+                }
+
+                Platform.runLater(() -> {
+                    filteredList.setPredicate(item -> {
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
+                        // Search dynamically using the getter
+                        String itemString = stringMapper.apply(item);
+                        return itemString != null && itemString.toLowerCase().contains(newValue.toLowerCase());
+                    });
+
+                    if (!filteredList.isEmpty() && !comboBox.isShowing()) {
+                        comboBox.show();
+                    }
+                });
+            });
+        }
+    }
+//----------------------------------------------------------------------------------- universal cmd End ------------------------------------------------------------------------------
+    public void loadCategories() {
+        ObservableList<CategoryDTO> list = null;
+        try {
+            list = FXCollections.observableArrayList(catServiceType.getAllCategories());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // ONE LINE: Make it searchable by Category Name!
+        ComboBoxSearchUtil.makeSearchable(cmbProdCategory, list, CategoryDTO::getCategoryName);
+    }
+    public void loadSuppliers() {
+        ObservableList<Supplier> list = null;
+        try {
+            list = FXCollections.observableArrayList(supServiceType.getAll());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        // ONE LINE: Make it searchable by Category Name!
+        ComboBoxSearchUtil.makeSearchable(cmbProdSupplier, list, Supplier::getCompanyName);
     }
 }

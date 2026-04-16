@@ -1,5 +1,6 @@
 package repository.custom.impl;
 
+import Entity.Supplier;
 import Entity.Variant;
 import org.hibernate.Session;
 import repository.custom.VariantRepository;

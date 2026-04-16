@@ -1,17 +1,18 @@
 package service.custom.impl;
 
-import Entity.Inventory;
-import Entity.Product;
-import Entity.Variant;
+import Entity.*;
 import dto.ProductDTO;
 import jakarta.inject.Inject;
 import mapper.ProductMapper;
+import repository.custom.CategoryRepository;
 import repository.custom.ProductRepository;
 import repository.custom.VariantRepository;
 import service.custom.ProductService;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -24,11 +25,22 @@ public class ProductServiceImpl implements ProductService {
     @Inject
     VariantRepository variantRepository;
 
+    @Inject
+    CategoryRepository categoryRepository;
+
     @Override
-    public boolean createProduct(ProductDTO product) {
+    public boolean createProduct(ProductDTO product) throws SQLException {
         Product productEntity = productMapper.toProductEntity(product);
         Variant variantEntity = productMapper.toVariantEntity(product, productEntity);
         Inventory inventoryEntity = productMapper.toInventoryEntity(product, variantEntity);
+
+        Category realCategory = categoryRepository.getById(product.getCategory().getCategoryCode());
+        if (realCategory == null) {
+            System.out.println("Save failed: Category not found in database.");
+            return false;
+        }
+
+        productEntity.setCategory(realCategory);
 
         variantEntity.setInventory(inventoryEntity);
         productEntity.getVariants().add(variantEntity);

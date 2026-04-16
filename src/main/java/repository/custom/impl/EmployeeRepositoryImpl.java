@@ -1,5 +1,6 @@
 package repository.custom.impl;
 
+import Entity.Supplier;
 import Entity.User;
 import Entity.UserCredential;
 import org.hibernate.Session;
@@ -7,7 +8,6 @@ import org.hibernate.Transaction;
 import repository.custom.EmployeeRepository;
 import util.HibernateUtil;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {

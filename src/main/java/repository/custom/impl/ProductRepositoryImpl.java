@@ -38,7 +38,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             return true;
         } catch (Exception e) {
         if (transaction != null) {
-            transaction.rollback(); // Undo the changes if it crashes
+            transaction.rollback();
         }
         e.printStackTrace();
         return false;
@@ -47,16 +47,42 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public boolean deleteById(String id) {
-        return false;
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            Product product = session.find(Product.class, id);
+            if (product == null) {
+                return false;
+            }
+            session.remove(product);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) session.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public Product getById(String s) throws SQLException {
-        return null;
+    public Product getById(String id) throws SQLException {
+        Session session = HibernateUtil.getSession();
+        try {
+            return session.find(Product.class, id);
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public List<Product> getAll() throws SQLException {
-        return List.of();
+        Session session = HibernateUtil.getSession();
+        try {
+            return session.createQuery("FROM Product", Product.class).list();
+        } finally {
+            session.close();
+        }
     }
 }

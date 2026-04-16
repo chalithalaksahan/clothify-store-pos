@@ -113,8 +113,8 @@
                                           <JFXTextField fx:id="txtProdName" prefWidth="300.0" promptText="Product Name" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
-                                          <JFXComboBox fx:id="cmbProdCategory" prefWidth="300.0" promptText="Category" unFocusColor="#a6a6a6" />
                                           <JFXComboBox fx:id="cmbProdSupplier" prefWidth="300.0" promptText="Supplier" unFocusColor="#a6a6a6" />
+                                          <JFXComboBox fx:id="cmbProdCategory" prefWidth="300.0" promptText="Category" unFocusColor="#a6a6a6" />
 
                                           <JFXTextField fx:id="txtCostPrice" prefWidth="300.0" promptText="Cost Price" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
@@ -175,14 +175,17 @@
 
                               <TableView fx:id="tblAddProducts" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
                                  <columns>
-                                    <TableColumn fx:id="colAddName" prefWidth="250.0" text="Name" />
-                                    <TableColumn fx:id="colAddSku" prefWidth="150.0" text="SKU" />
-                                    <TableColumn fx:id="colAddSupplier" prefWidth="200.0" text="Supplier" />
-                                    <TableColumn fx:id="colAddCategory" prefWidth="200.0" text="Category" />
-                                    <TableColumn fx:id="colAddCost" prefWidth="150.0" text="Cost" />
-                                    <TableColumn fx:id="colAddPrice" prefWidth="150.0" text="Price" />
-                                    <TableColumn fx:id="colAddQty" prefWidth="234.666748046875" text="Qty" />
-                                    <TableColumn fx:id="colAddStatus" prefWidth="218.333251953125" text="Status" />
+                                    <TableColumn fx:id="colAddSku" prefWidth="90.93331003189087" text="SKU" />
+                                    <TableColumn fx:id="colAddName" prefWidth="177.86666107177734" text="Name" />
+                                    <TableColumn fx:id="colAddSupplier" prefWidth="228.79998779296875" text="Supplier" />
+                                    <TableColumn fx:id="colAddCategory" prefWidth="126.66665649414062" text="Category" />
+                                    <TableColumn fx:id="colAddCost" prefWidth="131.73333740234375" text="Cost Price" />
+                                    <TableColumn fx:id="colAddPrice" prefWidth="161.33331298828125" text=" Selling Price" />
+                                    <TableColumn fx:id="colAddMinQty" prefWidth="109.06671142578125" text="Min Qty" />
+                                    <TableColumn fx:id="colAddReOrderLvl" prefWidth="231.73333740234375" text="Re Order Level" />
+                                    <TableColumn fx:id="colAddColor" prefWidth="93.066650390625" text="Color" />
+                                    <TableColumn fx:id="colAddSize" prefWidth="133.8663330078125" text="Size" />
+                                    <TableColumn fx:id="colAddDescription" prefWidth="166.9337158203125" text="Description" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

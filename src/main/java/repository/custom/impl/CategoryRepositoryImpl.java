@@ -2,8 +2,8 @@ package repository.custom.impl;
 
 import Entity.Category;
 // ...existing imports...
+import Entity.Supplier;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import repository.custom.CategoryRepository;
 import util.HibernateUtil;

@@ -7,20 +7,19 @@ import com.jfoenix.controls.JFXTextField;
 import dto.CategoryDTO;
 import dto.ProductDTO;
 import jakarta.inject.Inject;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.StringConverter;
 import service.custom.CategoryService;
 import service.custom.ProductService;
 import service.custom.SupplierService;
 import util.CategoryType;
+import util.ComboBoxSearchUtil;
+import util.ValidationUtil;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -30,10 +29,23 @@ import java.util.ResourceBundle;
 import java.util.function.Function;
 
 public class ProductFormController implements Initializable {
-
-    public Label lblMessage;
     @FXML
-    private ToggleGroup categoryStatus;
+    public Label lblMessage;
+
+    @FXML
+    public TableColumn<?, ?> colAddMinQty;
+
+    @FXML
+    public TableColumn<?, ?> colAddReOrderLvl;
+
+    @FXML
+    public TableColumn<?, ?> colAddColor;
+
+    @FXML
+    public TableColumn<?, ?> colAddSize;
+
+    @FXML
+    public TableColumn<?, ?> colAddDescription;
 
     @FXML
     private JFXComboBox<String> cmbParentCat;
@@ -57,16 +69,13 @@ public class ProductFormController implements Initializable {
     private TableColumn<?, ?> colAddPrice;
 
     @FXML
-    private TableColumn<?, ?> colAddQty;
-
-    @FXML
     private TableColumn<?, ?> colAddSku;
 
     @FXML
-    private TableColumn<?, ?> colAddStatus;
+    private TableColumn<?, ?> colAddSupplier;
 
     @FXML
-    private TableColumn<?, ?> colAddSupplier;
+    private JFXTextField txtSearchProduct;
 
     @FXML
     private TableColumn<?, ?> colAllProdCategory;
@@ -93,6 +102,9 @@ public class ProductFormController implements Initializable {
     private TableColumn<?, ?> colAllProdSupplier;
 
     @FXML
+    private TableView<ProductDTO> tblAllProducts;
+
+    @FXML
     private TableColumn<CategoryDTO, String> colCatListCode;
 
     @FXML
@@ -114,10 +126,7 @@ public class ProductFormController implements Initializable {
     private JFXRadioButton rbtnInactive;
 
     @FXML
-    private TableView<CategoryDTO> tblAddProducts;
-
-    @FXML
-    private TableView<CategoryDTO> tblAllProducts;
+    private TableView<ProductDTO> tblAddProducts;
 
     @FXML
     private TableView<CategoryDTO> tblCategoryList;
@@ -148,9 +157,6 @@ public class ProductFormController implements Initializable {
 
     @FXML
     private JFXTextField txtReorderLevel;
-
-    @FXML
-    private JFXTextField txtSearchProduct;
 
     @FXML
     private JFXTextField txtSellingPrice;
@@ -193,6 +199,7 @@ public class ProductFormController implements Initializable {
         txtCatCode.setText(category.getCategoryCode());
         txtCatName.setText(category.getCategoryName());
         cmbParentCat.setValue(category.getParentCategory());
+
         if ("Active".equalsIgnoreCase(category.getStatus())) {
             rbtnActive.setSelected(true);
         } else {
@@ -202,14 +209,11 @@ public class ProductFormController implements Initializable {
     }
 
     public void btnAddCategoryOnAction(ActionEvent actionEvent) {
-        String code = txtCatCode.getText();
-        String name = txtCatName.getText();
-        String parent = cmbParentCat.getValue();
-        boolean isActive = rbtnActive.isSelected();
-        String status = isActive ? "Active" : "Inactive";
-        String desc = txtCatDesc.getText();
+        CategoryDTO category = extracrDtoFromCategoryFields();
 
-        CategoryDTO category = new CategoryDTO(code, name, parent, status, desc);
+        if (category == null) {
+            return;
+        }
 
         if (catServiceType.creatCategory(category)) {
             loadCategoryTable();
@@ -233,15 +237,10 @@ public class ProductFormController implements Initializable {
     }
 
     public void btnUpdateCategoryOnAction(ActionEvent actionEvent) {
-
-        String name = txtCatName.getText();
-        String parent = cmbParentCat.getValue().toString();
-        boolean isActive = rbtnActive.isSelected();
-        String status = isActive ? "Active" : "Inactive";
-        String desc = txtCatDesc.getText();
-        String code = txtCatCode.getText();
-
-        CategoryDTO category = new CategoryDTO(code, name, parent, status, desc);
+        CategoryDTO category = extracrDtoFromCategoryFields();
+        if (category == null) {
+            return;
+        }
 
         try {
             if(catServiceType.updateCategory(category)) {
@@ -263,29 +262,13 @@ public class ProductFormController implements Initializable {
                 :"linear-gradient(to right, #632222, #9E3020, #632222);") + "-fx-text-fill:white");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadCategories();
-        loadSuppliers();
-
-        colCatListCode.setCellValueFactory(new PropertyValueFactory<>("categoryCode"));
-        colCatListName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
-        colCatListParent.setCellValueFactory(new PropertyValueFactory<>("parentCategory"));
-        colCatListStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        colCatListDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-
-        loadCategoryTable();
-
-        cmbParentCat.setItems(
-                FXCollections.observableArrayList(Arrays.stream(CategoryType.values()).map(Enum::name).toList())
-        );
-        loadCategoryTable();
-
-        tblCategoryList.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
-            if (t1 != null) {
-                setTextToValuesForCat(t1);
-            }
-        });
+    private void loadProductTable() {
+        try {
+            List<ProductDTO> products = proServiceType.getAllProducts();
+            tblAddProducts.setItems(FXCollections.observableArrayList(products));
+        }catch (Exception e){
+            showMessage("Failed to load products: " + e.getMessage(), false);
+        }
     }
 
     private void loadCategoryTable() {
@@ -302,6 +285,20 @@ public class ProductFormController implements Initializable {
         cmbParentCat.setValue("");
         rbtnActive.setSelected(true);
         txtCatDesc.setText("");
+    }
+
+    private void clearProductFields() {
+        txtSkuCode.setText("");
+        txtProdName.setText("");
+        cmbProdSupplier.setValue(null);
+        cmbProdCategory.setValue(null);
+        txtCostPrice.setText("");
+        txtSellingPrice.setText("");
+        txtMinQty.setText("");
+        txtReorderLevel.setText("");
+        txtProdDesc.setText("");
+        txtColor.setText("");
+        txtSize.setText("");
     }
 
     public void btnSearchProductOnAction(ActionEvent actionEvent) {
@@ -335,42 +332,29 @@ public class ProductFormController implements Initializable {
     }
 
     public void btnAddProductOnAction(ActionEvent actionEvent) {
-        String skuCode = txtSkuCode.getText();
-        String proName = txtProdName.getText();
-        CategoryDTO category = cmbProdCategory.getValue();
-        Supplier supplier = cmbProdSupplier.getValue();
-        String costPrice = txtCostPrice.getText();
-        String sellingPrice = txtSellingPrice.getText();
-        String minQty = txtMinQty.getText();
-        String reOrderLvl = txtReorderLevel.getText();
-        String proDesc = txtProdDesc.getText();
-        String color = txtColor.getText();
-        String size = txtSize.getText();
+        ProductDTO product = extractDtoFromProductFields();
+        if (product == null) {
+            return;
+        }
 
-        ProductDTO product = new ProductDTO(skuCode, proName, category, supplier, costPrice, sellingPrice, minQty, reOrderLvl, proDesc, color, size);
-
-        if(proServiceType.createProduct(product)){
-            showMessage("Product created successfully", true);
-        }else{
-            showMessage("Failed to create product", false);
+        try {
+            if(proServiceType.createProduct(product)){
+                showMessage("Product created successfully", true);
+                clearProductFields();
+                loadProductTable();
+            }else{
+                showMessage("Failed to create product", false);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void btnUpdateProductOnAction(ActionEvent actionEvent) {
-        String proName = txtProdName.getText();
-        CategoryDTO category = cmbProdCategory.getValue();
-        Supplier supplier = cmbProdSupplier.getValue();
-        String costPrice = txtCostPrice.getText();
-        String sellingPrice = txtSellingPrice.getText();
-        String minQty = txtMinQty.getText();
-        String reOrderLvl = txtReorderLevel.getText();
-        String proDesc = txtProdDesc.getText();
-        String color = txtColor.getText();
-        String size = txtSize.getText();
-        String skuCode = txtSkuCode.getText();
-
-        ProductDTO product = new ProductDTO(skuCode, proName, category, supplier, costPrice, sellingPrice, minQty, reOrderLvl, proDesc, color, size);
-
+        ProductDTO product = extractDtoFromProductFields();
+        if (product == null) {
+            return;
+        }
         if (proServiceType.updateProduct(product)){
             showMessage("Product updated successfully", true);
         }else{
@@ -388,70 +372,15 @@ public class ProductFormController implements Initializable {
         }
     }
 
-
-    //---------------------------------------------------------------------- universal combo box for entity or DTO -------------------------------------------------
-    public class ComboBoxSearchUtil {
-        public static <T> void makeSearchable(ComboBox<T> comboBox, ObservableList<T> items, Function<T, String> stringMapper) {
-
-            // 1. Wrap the list
-            FilteredList<T> filteredList = new FilteredList<>(items, p -> true);
-            comboBox.setItems(filteredList);
-            comboBox.setEditable(true);
-
-            // 2. Set the String Converter dynamically using your Function
-            comboBox.setConverter(new StringConverter<T>() {
-                @Override
-                public String toString(T object) {
-                    // Extracts the string using the getter you pass in
-                    return object == null ? "" : stringMapper.apply(object);
-                }
-
-                @Override
-                public T fromString(String string) {
-                    if (string == null || string.isEmpty()) return null;
-                    return items.stream()
-                            .filter(item -> {
-                                String itemString = stringMapper.apply(item);
-                                return itemString != null && itemString.equalsIgnoreCase(string);
-                            })
-                            .findFirst()
-                            .orElse(null);
-                }
-            });
-
-            // 3. Add the Universal Search Listener
-            comboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-                if (comboBox.getSelectionModel().getSelectedItem() != null) {
-                    return; // Prevent text deletion upon selection
-                }
-
-                Platform.runLater(() -> {
-                    filteredList.setPredicate(item -> {
-                        if (newValue == null || newValue.isEmpty()) {
-                            return true;
-                        }
-                        // Search dynamically using the getter
-                        String itemString = stringMapper.apply(item);
-                        return itemString != null && itemString.toLowerCase().contains(newValue.toLowerCase());
-                    });
-
-                    if (!filteredList.isEmpty() && !comboBox.isShowing()) {
-                        comboBox.show();
-                    }
-                });
-            });
-        }
-    }
-//----------------------------------------------------------------------------------- universal cmd End ------------------------------------------------------------------------------
     public void loadCategories() {
         ObservableList<CategoryDTO> list = null;
         try {
             list = FXCollections.observableArrayList(catServiceType.getAllCategories());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            showMessage("Failed to load categories: " + e.getMessage(), false);
         }
 
-        // ONE LINE: Make it searchable by Category Name!
+
         ComboBoxSearchUtil.makeSearchable(cmbProdCategory, list, CategoryDTO::getCategoryName);
     }
     public void loadSuppliers() {
@@ -459,10 +388,104 @@ public class ProductFormController implements Initializable {
         try {
             list = FXCollections.observableArrayList(supServiceType.getAll());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            showMessage("Failed to load suppliers: " + e.getMessage(), false);
         }
 
-        // ONE LINE: Make it searchable by Category Name!
+
         ComboBoxSearchUtil.makeSearchable(cmbProdSupplier, list, Supplier::getCompanyName);
+    }
+    private CategoryDTO extracrDtoFromCategoryFields(){
+        try{
+            CategoryDTO category = new CategoryDTO();
+
+            category.setCategoryCode(ValidationUtil.requireText(txtCatCode.getText(), "Category Code"));
+            category.setCategoryName(ValidationUtil.requireText(txtCatName.getText(), "Category Name"));
+            category.setDescription(ValidationUtil.requireText(txtCatDesc.getText(), "Category Description"));
+            category.setParentCategory(ValidationUtil.requireSelection(cmbParentCat.getValue(), "parent category"));
+            boolean isActive = rbtnActive.isSelected();
+            category.setStatus(isActive ? "Active" : "Inactive");
+
+            return category;
+
+        }catch (ValidationUtil.ValidationException e) {
+            // Notice we catch the exception from the util class!
+            showMessage(e.getMessage(), false);
+            return null;
+        }
+
+    }
+
+    private ProductDTO extractDtoFromProductFields(){
+
+        try {
+            ProductDTO product = new ProductDTO();
+
+            // Use ValidationUtil.methodName()
+            product.setSkuCode(ValidationUtil.requireText(txtSkuCode.getText(), "SKU Code"));
+            product.setName(ValidationUtil.requireText(txtProdName.getText(), "Product Name"));
+            product.setDescription(ValidationUtil.requireText(txtProdDesc.getText(), "Product Description"));
+            product.setColor(ValidationUtil.requireText(txtColor.getText(), "Color"));
+            product.setSize(ValidationUtil.requireText(txtSize.getText(), "Size"));
+
+            product.setCategory(ValidationUtil.requireSelection(cmbProdCategory.getValue(), "category"));
+            product.setSupplier(ValidationUtil.requireSelection(cmbProdSupplier.getValue(), "supplier"));
+
+            product.setCostPrice(ValidationUtil.requireNumber(txtCostPrice.getText(), "Cost Price"));
+            product.setSellingPrice(ValidationUtil.requireNumber(txtSellingPrice.getText(), "Selling Price"));
+            product.setMinQty(ValidationUtil.requireNumber(txtMinQty.getText(), "Minimum Quantity"));
+            product.setReOrderLvl(ValidationUtil.requireNumber(txtReorderLevel.getText(), "Reorder Level"));
+
+            return product;
+
+        } catch (ValidationUtil.ValidationException e) {
+            // Notice we catch the exception from the util class!
+            showMessage(e.getMessage(), false);
+            return null;
+        }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadCategories();
+        loadSuppliers();
+        loadProductTable();
+        loadCategoryTable();
+
+        colCatListCode.setCellValueFactory(new PropertyValueFactory<>("categoryCode"));
+        colCatListName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
+        colCatListParent.setCellValueFactory(new PropertyValueFactory<>("parentCategory"));
+        colCatListStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colCatListDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        colAddSku.setCellValueFactory(new PropertyValueFactory<>("sku"));
+        colAddName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddSupplier.setCellValueFactory(new PropertyValueFactory<>("company_name"));
+        colAddCategory.setCellValueFactory(new PropertyValueFactory<>("category_name"));
+        colAddCost.setCellValueFactory(new PropertyValueFactory<>("unit_cost"));
+        colAddPrice.setCellValueFactory(new PropertyValueFactory<>("unit_price"));
+        colAddMinQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colAddReOrderLvl.setCellValueFactory(new PropertyValueFactory<>("reorder_level"));
+        colAddDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colAddColor.setCellValueFactory(new PropertyValueFactory<>("color"));
+        colAddSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+
+
+
+
+        cmbParentCat.setItems(
+                FXCollections.observableArrayList(Arrays.stream(CategoryType.values()).map(Enum::name).toList())
+        );
+
+        tblCategoryList.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            if (t1 != null) {
+                setTextToValuesForCat(t1);
+            }
+        });
+        tblAddProducts.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> {
+            if (t1 != null) {
+                setTextToValuesForProduct(t1);
+            }
+        });
     }
 }

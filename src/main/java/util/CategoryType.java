@@ -1,5 +1,5 @@
 package util;
 
-public enum categoryType {
+public enum CategoryType {
     MEN,WOMEN,KIDS,ACCESSORIES
 }

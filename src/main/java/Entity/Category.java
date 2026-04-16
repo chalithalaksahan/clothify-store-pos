@@ -18,7 +18,7 @@ public class Category {
         @Column(name="category_id")
         private Long categoryId;
 
-        @Column(name="category_code")
+        @Column(name="category_code", nullable = false, unique = true)
         private String categoryCode;
 
         @Column(name="category_name")
@@ -28,7 +28,7 @@ public class Category {
         private String parentCategory;
 
         @Column(name="status")
-        private Boolean status;
+        private String status;
 
         @Column(name="description")
         private String description;

@@ -2,16 +2,15 @@ package service.custom.impl;
 
 import dto.EmployeeDTO;
 import jakarta.inject.Inject;
-import model.User;
-import model.UserCredential;
+import Entity.User;
+import Entity.UserCredential;
 import repository.custom.EmployeeRepository; // Assuming this now handles User entities
 import service.custom.EmployeeService;
+import util.PasswordUtil;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,15 +45,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean updateEmployee(EmployeeDTO dto) {
-        User user = convertToEntity(dto, new User());
-        user.setUserId(dto.getEmployeeId()); // Ensure ID is set for the update/merge
-        try {
-            return repositoryType.update(user);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to update employee", e);
-            return false;
+    public boolean updateEmployee(EmployeeDTO dto) throws SQLException {
+        User user = repositoryType.getById(dto.getEmployeeId());
+
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setContactNo(dto.getContactNo());
+        user.setSalary(dto.getSalary());
+        user.setUserRole("Admin".equalsIgnoreCase(dto.getUserRole()) ? 1 : 2);
+        if (dto.getHireDate() != null) {
+            user.setHireDate(dto.getHireDate());
         }
+        user.setActive(dto.isActive());
+
+        if (dto.getPassword() != null && !dto.getPassword().trim().isEmpty()) {
+            if (user.getUserCredential() == null) {
+                user.setUserCredential(new UserCredential());
+            }
+            user.getUserCredential().setPassword(PasswordUtil.encrypt(dto.getPassword()));
+        }
+        user.getUserCredential().setEmail(dto.getEmail());
+        return repositoryType.update(user);
     }
 
     @Override

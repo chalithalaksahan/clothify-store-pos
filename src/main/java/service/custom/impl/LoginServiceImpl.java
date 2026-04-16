@@ -2,7 +2,7 @@ package service.custom.impl;
 
 import dto.LoginResult;
 import jakarta.inject.Inject;
-import model.UserCredential;
+import Entity.UserCredential;
 import repository.custom.LoginRepository;
 import service.custom.LoginService;
 import util.PasswordUtil;

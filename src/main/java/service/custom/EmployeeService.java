@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmployeeService {
     boolean addEmployee(EmployeeDTO employeeDTO);
-    boolean updateEmployee(EmployeeDTO employeeDTO);
+    boolean updateEmployee(EmployeeDTO employeeDTO) throws SQLException;
     List<EmployeeDTO> getAllEmployees() throws SQLException;
     EmployeeDTO searchEmployee(String id) throws SQLException;
     boolean deleteEmployee(String id);

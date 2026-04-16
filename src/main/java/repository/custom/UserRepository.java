@@ -1,6 +1,6 @@
 package repository.custom;
 
-import model.User;
+import Entity.User;
 
 public interface UserRepository {
     void save(User user);

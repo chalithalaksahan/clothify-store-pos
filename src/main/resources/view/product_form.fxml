@@ -24,11 +24,17 @@
 
       <VBox spacing="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1555.0" spacing="5.0">
                <children>
                   <Label text="Product Management" textFill="#133846">
                      <font>
                         <Font name="Times New Roman Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lblMessage" alignment="CENTER_RIGHT" contentDisplay="RIGHT" textFill="#00b265" wrapText="true">
+                     <font>
+                        <Font name="Poppins SemiBold" size="24.0" />
                      </font>
                   </Label>
                </children>
@@ -76,6 +82,9 @@
                                     <TableColumn fx:id="colAllProdQty" prefWidth="233.3333740234375" text="Qty" />
                                     <TableColumn fx:id="colAllProdStatus" prefWidth="219.6666259765625" text="Status" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>
@@ -98,19 +107,19 @@
                                  <children>
                                     <FlowPane hgap="60.0" vgap="40.0">
                                        <children>
+                                          <JFXTextField fx:id="txtSkuCode" prefWidth="300.0" promptText="SKU / Code" unFocusColor="#a6a6a6">
+                                             <font><Font name="Times New Roman" size="18.0" /></font>
+                                          </JFXTextField>
                                           <JFXTextField fx:id="txtProdName" prefWidth="300.0" promptText="Product Name" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
-                                          <JFXComboBox fx:id="cmbProdCategory" prefWidth="300.0" promptText="Category" unFocusColor="#a6a6a6" />
                                           <JFXComboBox fx:id="cmbProdSupplier" prefWidth="300.0" promptText="Supplier" unFocusColor="#a6a6a6" />
+                                          <JFXComboBox fx:id="cmbProdCategory" prefWidth="300.0" promptText="Category" unFocusColor="#a6a6a6" />
 
                                           <JFXTextField fx:id="txtCostPrice" prefWidth="300.0" promptText="Cost Price" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
                                           <JFXTextField fx:id="txtSellingPrice" prefWidth="300.0" promptText="Selling Price" unFocusColor="#a6a6a6">
-                                             <font><Font name="Times New Roman" size="18.0" /></font>
-                                          </JFXTextField>
-                                          <JFXTextField fx:id="txtSkuCode" prefWidth="300.0" promptText="SKU / Code" unFocusColor="#a6a6a6">
                                              <font><Font name="Times New Roman" size="18.0" /></font>
                                           </JFXTextField>
 
@@ -135,15 +144,27 @@
 
                                     <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
                                        <children>
-                                          <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save Product" textFill="WHITE">
+                                          <JFXButton onAction="#btnSearchProductOnAction" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Search" textFill="WHITE">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="16.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/icon/Search%20Property.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton onAction="#btnAddProductOnAction" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Add Product" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Add%20Folder.png" /></image></ImageView></graphic>
                                           </JFXButton>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
+                                          <JFXButton onAction="#btnUpdateProductOnAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Synchronize.png" /></image></ImageView></graphic>
                                           </JFXButton>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Clear" textFill="WHITE">
+                                          <JFXButton onAction="#btnDeleteProductOnAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Delete" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Trash.png" /></image></ImageView></graphic>
                                           </JFXButton>
@@ -154,15 +175,21 @@
 
                               <TableView fx:id="tblAddProducts" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
                                  <columns>
-                                    <TableColumn fx:id="colAddName" prefWidth="250.0" text="Name" />
-                                    <TableColumn fx:id="colAddSku" prefWidth="150.0" text="SKU" />
-                                    <TableColumn fx:id="colAddSupplier" prefWidth="200.0" text="Supplier" />
-                                    <TableColumn fx:id="colAddCategory" prefWidth="200.0" text="Category" />
-                                    <TableColumn fx:id="colAddCost" prefWidth="150.0" text="Cost" />
-                                    <TableColumn fx:id="colAddPrice" prefWidth="150.0" text="Price" />
-                                    <TableColumn fx:id="colAddQty" prefWidth="234.666748046875" text="Qty" />
-                                    <TableColumn fx:id="colAddStatus" prefWidth="218.333251953125" text="Status" />
+                                    <TableColumn fx:id="colAddSku" prefWidth="90.93331003189087" text="SKU" />
+                                    <TableColumn fx:id="colAddName" prefWidth="177.86666107177734" text="Name" />
+                                    <TableColumn fx:id="colAddSupplier" prefWidth="228.79998779296875" text="Supplier" />
+                                    <TableColumn fx:id="colAddCategory" prefWidth="126.66665649414062" text="Category" />
+                                    <TableColumn fx:id="colAddCost" prefWidth="131.73333740234375" text="Cost Price" />
+                                    <TableColumn fx:id="colAddPrice" prefWidth="161.33331298828125" text=" Selling Price" />
+                                    <TableColumn fx:id="colAddMinQty" prefWidth="109.06671142578125" text="Min Qty" />
+                                    <TableColumn fx:id="colAddReOrderLvl" prefWidth="231.73333740234375" text="Re Order Level" />
+                                    <TableColumn fx:id="colAddColor" prefWidth="93.066650390625" text="Color" />
+                                    <TableColumn fx:id="colAddSize" prefWidth="133.8663330078125" text="Size" />
+                                    <TableColumn fx:id="colAddDescription" prefWidth="166.9337158203125" text="Description" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>
@@ -219,15 +246,27 @@
 
                                     <FlowPane alignment="CENTER_RIGHT" hgap="15.0">
                                        <children>
-                                          <JFXButton prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Save" textFill="WHITE">
+                                          <JFXButton onAction="#btnSearchCategoryOnAction" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Search" textFill="WHITE">
+                                             <font>
+                                                <Font name="Poppins SemiBold" size="16.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/icon/Search%20Property.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton onAction="#btnAddCategoryOnAction" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Add" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Add%20Folder.png" /></image></ImageView></graphic>
                                           </JFXButton>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
+                                          <JFXButton onAction="#btnUpdateCategoryOnAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Update" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Synchronize.png" /></image></ImageView></graphic>
                                           </JFXButton>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Clear" textFill="WHITE">
+                                          <JFXButton onAction="#btnDeleteCategoryOnAction" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Delete" textFill="WHITE">
                                              <font><Font name="Poppins SemiBold" size="16.0" /></font>
                                              <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Trash.png" /></image></ImageView></graphic>
                                           </JFXButton>
@@ -239,11 +278,14 @@
                               <TableView fx:id="tblCategoryList" style="-fx-background-radius: 12px; -fx-background-color: WHITE;" stylesheets="@../CSS/style.css" VBox.vgrow="ALWAYS">
                                  <columns>
                                     <TableColumn fx:id="colCatListCode" prefWidth="150.0" text="Code" />
-                                    <TableColumn fx:id="colCatListName" prefWidth="360.6666564941406" text="Name" />
-                                    <TableColumn fx:id="colCatListParent" prefWidth="308.3333435058594" text="Parent Category" />
-                                    <TableColumn fx:id="colCatListStatus" prefWidth="258.33331298828125" text="Status" />
-                                    <TableColumn fx:id="colCatListDesc" prefWidth="476.33331298828125" text="Description" />
+                                    <TableColumn fx:id="colCatListName" prefWidth="382.0" text="Name" />
+                                    <TableColumn fx:id="colCatListParent" prefWidth="327.0" text="Parent Category" />
+                                    <TableColumn fx:id="colCatListStatus" prefWidth="380.0" text="Status" />
+                                    <TableColumn fx:id="colCatListDesc" prefWidth="314.0" text="Description" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>

@@ -1,6 +1,6 @@
 package repository.custom;
 
-import model.UserCredential;
+import Entity.UserCredential;
 import repository.SuperRepository;
 
 import java.util.Optional;

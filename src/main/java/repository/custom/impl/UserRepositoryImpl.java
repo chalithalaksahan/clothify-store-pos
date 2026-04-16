@@ -1,7 +1,6 @@
 package repository.custom.impl;
 
-import model.User;
-import model.UserCredential;
+import Entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repository.custom.UserRepository;

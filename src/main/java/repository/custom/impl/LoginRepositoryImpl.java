@@ -1,6 +1,6 @@
 package repository.custom.impl;
 
-import model.UserCredential;
+import Entity.UserCredential;
 import org.hibernate.Session;
 import repository.custom.LoginRepository;
 import util.HibernateUtil;

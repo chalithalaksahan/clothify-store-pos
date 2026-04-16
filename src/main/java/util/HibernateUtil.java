@@ -1,8 +1,6 @@
 package util;
 
-import model.Supplier;
-import model.User;
-import model.UserCredential;
+import Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -19,14 +17,20 @@ public class HibernateUtil {
                 .configure("hibernate.cfg.xml")
                 .build();
 
-
-
         System.out.println("✅ Hibernate connected successfully!");
 
         Metadata metadataSource = new MetadataSources(builder)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(UserCredential.class)
                 .addAnnotatedClass(Supplier.class)
+                .addAnnotatedClass(Category.class)
+                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(Inventory.class)
+                .addAnnotatedClass(Variant.class)
+                .addAnnotatedClass(Location.class)
+                .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(OrderItem.class)
+                .addAnnotatedClass(InventoryTransaction.class)
                 .getMetadataBuilder()
                 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE)
                 .build();

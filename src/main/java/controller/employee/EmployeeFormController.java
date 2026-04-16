@@ -92,8 +92,6 @@ public class EmployeeFormController implements Initializable {
         txtLastName.setText(dto.getLastName());
         txtContactNo.setText(String.valueOf(dto.getContactNo()));
         txtEmail.setText(dto.getEmail());
-        txtPassword.setText(dto.getPassword());
-        txtConfirmPassword.setText(dto.getPassword());
         txtSalary.setText(String.valueOf(dto.getSalary()));
         cmbUserRole.setValue(dto.getUserRole());
         dpHireDate.setValue(dto.getHireDate());
@@ -146,11 +144,12 @@ public class EmployeeFormController implements Initializable {
             dto.setEmployeeId(id);
             if (serviceType != null && serviceType.updateEmployee(dto)) {
                 showMessage("Employee updated successfully!", true);
+                clearFields();
                 loadTable();
             } else {
                 showMessage("Failed to update employee.", false);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | SQLException e) {
             showMessage("Invalid Employee ID.", false);
         }
     }
@@ -193,16 +192,14 @@ public class EmployeeFormController implements Initializable {
             } else {
                 showMessage("Employee not found.", false);
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | SQLException e) {
             showMessage("Employee ID must be a number.", false);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
     private EmployeeDTO extractDTOFromFields() {
         EmployeeDTO dto = new EmployeeDTO();
-        dto.setEmployeeId(txtEmployeeId.getId());
+        dto.setEmployeeId(txtEmployeeId.getText());
 
         dto.setFirstName(txtFirstName.getText() == null ? "" : txtFirstName.getText().trim());
         if (dto.getFirstName().isEmpty()) {
@@ -223,14 +220,18 @@ public class EmployeeFormController implements Initializable {
             return null;
         }
 
-
+        if(txtPassword.getText() == null || txtPassword.getText().trim().length() < 6){
+            showMessage("Password must be at least 6 characters long.", false);
+            return null;
+        }
         dto.setPassword(txtPassword.getText() == null ? "" : txtPassword.getText());
         dto.setConfirmPassword(txtConfirmPassword.getText() == null ? "" : txtConfirmPassword.getText());
 
-        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+        if (!dto.getPassword().equalsIgnoreCase(dto.getConfirmPassword())) {
             showMessage("Passwords do not match.", false);
             return null;
         }
+
 
         try {
             dto.setSalary(txtSalary.getText().isEmpty() ? 0.0 : Double.parseDouble(txtSalary.getText()));
@@ -245,6 +246,7 @@ public class EmployeeFormController implements Initializable {
             showMessage("Hire date is required.", false);
             return null;
         }
+        dto.setEmail(txtEmail.getText() == null ? "" : txtEmail.getText().trim());
         dto.setHireDate(dpHireDate.getValue());
         dto.setActive(chkBoxStatus.isSelected());
 

@@ -1,5 +1,7 @@
 package repository;
 
+import Entity.Supplier;
+
 import java.sql.SQLException;
 import java.util.List;
 

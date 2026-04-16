@@ -1,7 +1,7 @@
 package dto;
 
 import lombok.AllArgsConstructor;
-import model.User;
+import Entity.User;
 
 @AllArgsConstructor
 public class LoginResult {

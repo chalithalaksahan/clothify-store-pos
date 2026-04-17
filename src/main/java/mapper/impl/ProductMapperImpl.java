@@ -4,11 +4,13 @@ import Entity.Category;
 import Entity.Inventory;
 import Entity.Product;
 import Entity.Variant;
+import dto.CategoryDTO;
 import dto.ProductDTO;
 import mapper.ProductMapper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductMapperImpl implements ProductMapper {
     @Override
@@ -95,6 +97,12 @@ public class ProductMapperImpl implements ProductMapper {
         dto.setDescription(product.getDescription());
         dto.setSupplier(product.getSupplier());
 
+        if(product.getCategory()!= null){
+            CategoryDTO categoryDTO = new CategoryDTO();
+            categoryDTO.setCategoryCode(product.getCategory().getCategoryCode());
+            categoryDTO.setCategoryName(product.getCategory().getCategoryName());
+            dto.setCategory(categoryDTO);
+        }
         // From Variant
         dto.setSkuCode(variant.getSku());
         dto.setColor(variant.getColor());
@@ -111,4 +119,44 @@ public class ProductMapperImpl implements ProductMapper {
 
         return dto;
     }
+
+    @Override
+    public List<ProductDTO> toDtoList(List<Product> all) {
+        List<ProductDTO> dtoList = new ArrayList<>();
+        for (Product product : all) {
+            for (Variant variant : product.getVariants()) {
+                Inventory inventory = variant.getInventory();
+                ProductDTO dto = toDto(product, variant, inventory);
+                dtoList.add(dto);
+            }
+        }
+        return dtoList;
+    }
+
+    @Override
+    public ProductDTO toDto(Product product) {
+
+        if (product == null) return null;
+
+        ProductDTO dto = new ProductDTO();
+        product.getVariants().forEach(variant -> {
+                    Inventory inventory = variant.getInventory();
+                    ProductDTO variantDto = toDto(product, variant, inventory);
+                    dto.setName(variantDto.getName());
+                    dto.setDescription(variantDto.getDescription());
+                    dto.setSupplier(variantDto.getSupplier());
+                    dto.setCategory(variantDto.getCategory());
+                    dto.setSkuCode(variantDto.getSkuCode());
+                    dto.setColor(variantDto.getColor());
+                    dto.setSize(variantDto.getSize());
+                    dto.setCostPrice(variantDto.getCostPrice());
+                    dto.setSellingPrice(variantDto.getSellingPrice());
+                    dto.setMinQty(variantDto.getMinQty());
+                    dto.setReOrderLvl(variantDto.getReOrderLvl());
+                });
+
+        return dto;
+    }
+
+
 }

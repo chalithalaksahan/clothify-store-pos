@@ -1,5 +1,6 @@
 package dto;
 
+import Entity.Category;
 import Entity.Supplier;
 import lombok.*;
 
@@ -20,4 +21,5 @@ public class ProductDTO {
     private String description;
     private String color;
     private String size;
+
 }

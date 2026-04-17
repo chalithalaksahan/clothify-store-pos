@@ -1,5 +1,8 @@
 package util;
 
+import Entity.Category;
+import com.jfoenix.controls.JFXComboBox;
+import dto.CategoryDTO;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -59,4 +62,5 @@ public class ComboBoxSearchUtil {
             });
         });
     }
+
 }

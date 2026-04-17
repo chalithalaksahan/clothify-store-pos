@@ -79,10 +79,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<Product> getAll() throws SQLException {
         Session session = HibernateUtil.getSession();
-        try {
-            return session.createQuery("FROM Product", Product.class).list();
-        } finally {
-            session.close();
-        }
+            String hql = "SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.variants";
+            return session.createQuery(hql, Product.class).list();
+
     }
 }

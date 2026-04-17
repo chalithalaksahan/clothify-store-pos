@@ -12,7 +12,6 @@ import service.custom.ProductService;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -82,19 +81,31 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public boolean deleteProduct(String skuCode) {
+        Variant variant = variantRepository.findBySku(skuCode);
+        if (variant == null) {
+            return false;
+        }
+            Product product = variant.getProduct();
+        return productRepository.deleteById(String.valueOf(product.getId()));
+    }
 
-@Override
-public boolean deleteProduct(String skuCode) {
-    return false;
-}
+    @Override
+    public ProductDTO searchProduct(String skuCode) {
+        Variant variant = variantRepository.findBySku(skuCode);
+        if (variant == null) {
+            return null;
+        }
+        Product product = variant.getProduct();
+        return productMapper.toDto(product);
+    }
 
-@Override
-public ProductDTO searchProduct(String skuCode) {
-    return null;
-}
-
-@Override
-public List<ProductDTO> getAllProducts() {
-    return List.of();
-}
+    @Override
+    public List<ProductDTO> getAllProducts() throws SQLException {
+        productRepository.getAll(). stream()
+                .flatMap(product -> product.getVariants().stream())
+                .forEach(variant -> System.out.println("Variant SKU: " + variant.getSku()));
+        return  productMapper.toDtoList(productRepository.getAll());
+    }
 }

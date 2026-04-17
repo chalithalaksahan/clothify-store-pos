@@ -1,5 +1,6 @@
 package controller.product;
 
+import Entity.Category;
 import Entity.Supplier;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
@@ -7,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 import dto.CategoryDTO;
 import dto.ProductDTO;
 import jakarta.inject.Inject;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +28,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 public class ProductFormController implements Initializable {
     @FXML
@@ -57,7 +58,7 @@ public class ProductFormController implements Initializable {
     private JFXComboBox<Supplier> cmbProdSupplier;
 
     @FXML
-    private TableColumn<?, ?> colAddCategory;
+    private TableColumn<ProductDTO, String> colAddCategory;
 
     @FXML
     private TableColumn<?, ?> colAddCost;
@@ -72,7 +73,7 @@ public class ProductFormController implements Initializable {
     private TableColumn<?, ?> colAddSku;
 
     @FXML
-    private TableColumn<?, ?> colAddSupplier;
+    private TableColumn<ProductDTO, String> colAddSupplier;
 
     @FXML
     private JFXTextField txtSearchProduct;
@@ -319,6 +320,7 @@ public class ProductFormController implements Initializable {
     }
 
     private void setTextToValuesForProduct(ProductDTO product) {
+        txtSkuCode.setText(product.getSkuCode());
         txtProdName.setText(product.getName());
         cmbProdCategory.setValue(product.getCategory());
         cmbProdSupplier.setValue(product.getSupplier());
@@ -458,14 +460,30 @@ public class ProductFormController implements Initializable {
         colCatListStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colCatListDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        colAddSku.setCellValueFactory(new PropertyValueFactory<>("sku"));
+        colAddSku.setCellValueFactory(new PropertyValueFactory<>("skuCode"));
         colAddName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colAddSupplier.setCellValueFactory(new PropertyValueFactory<>("company_name"));
-        colAddCategory.setCellValueFactory(new PropertyValueFactory<>("category_name"));
-        colAddCost.setCellValueFactory(new PropertyValueFactory<>("unit_cost"));
-        colAddPrice.setCellValueFactory(new PropertyValueFactory<>("unit_price"));
-        colAddMinQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        colAddReOrderLvl.setCellValueFactory(new PropertyValueFactory<>("reorder_level"));
+        colAddSupplier.setCellValueFactory(cellData -> {
+            // We grab the whole Supplier object
+            ProductDTO rowData = cellData.getValue();
+
+            if (rowData.getSupplier() != null) {
+                return new SimpleStringProperty(rowData.getSupplier().getCompanyName());
+            }
+            return new SimpleStringProperty("N/A");
+        });
+        colAddCategory.setCellValueFactory(cellData -> {
+
+            ProductDTO rowData = cellData.getValue();
+
+            if (rowData.getCategory() != null) {
+                return new SimpleStringProperty(rowData.getCategory().getCategoryName());
+            }
+            return new SimpleStringProperty("N/A");
+        });
+        colAddCost.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
+        colAddPrice.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
+        colAddMinQty.setCellValueFactory(new PropertyValueFactory<>("minQty"));
+        colAddReOrderLvl.setCellValueFactory(new PropertyValueFactory<>("reOrderLvl"));
         colAddDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colAddColor.setCellValueFactory(new PropertyValueFactory<>("color"));
         colAddSize.setCellValueFactory(new PropertyValueFactory<>("size"));

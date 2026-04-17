@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import service.custom.CategoryService;
 import service.custom.ProductService;
 import service.custom.SupplierService;
@@ -49,6 +48,9 @@ public class ProductFormController implements Initializable {
 
     @FXML
     public TableColumn<?, ?> colAddDescription;
+
+    @FXML
+    public TableColumn<?, ?> colAddQtyOnHand;
 
     @FXML
     private JFXComboBox<String> cmbParentCat;
@@ -148,6 +150,9 @@ public class ProductFormController implements Initializable {
 
     @FXML
     private JFXTextField txtCostPrice;
+
+    @FXML
+    public JFXTextField txtQtyOnHand;
 
     @FXML
     private JFXTextField txtMinQty;
@@ -305,10 +310,19 @@ public class ProductFormController implements Initializable {
     private void clearProductFields() {
         txtSkuCode.setText("");
         txtProdName.setText("");
+
+        cmbProdSupplier.getSelectionModel().clearSelection();
         cmbProdSupplier.setValue(null);
+        cmbProdSupplier.setPromptText("Select Supplier");
+
+        // 2. Reset Category ComboBox
+        cmbProdCategory.getSelectionModel().clearSelection();
         cmbProdCategory.setValue(null);
+        cmbProdCategory.setPromptText("Select Category");
+
         txtCostPrice.setText("");
         txtSellingPrice.setText("");
+        txtQtyOnHand.setText("");
         txtMinQty.setText("");
         txtReorderLevel.setText("");
         txtProdDesc.setText("");
@@ -340,6 +354,7 @@ public class ProductFormController implements Initializable {
         cmbProdSupplier.setValue(product.getSupplier());
         txtCostPrice.setText(product.getCostPrice());
         txtSellingPrice.setText(product.getSellingPrice());
+        txtQtyOnHand.setText(product.getQtyOnHand());
         txtMinQty.setText(product.getMinQty());
         txtReorderLevel.setText(product.getReOrderLvl());
         txtProdDesc.setText(product.getDescription());
@@ -452,6 +467,7 @@ public class ProductFormController implements Initializable {
 
             product.setCostPrice(ValidationUtil.requireNumber(txtCostPrice.getText(), "Cost Price"));
             product.setSellingPrice(ValidationUtil.requireNumber(txtSellingPrice.getText(), "Selling Price"));
+            product.setQtyOnHand(ValidationUtil.requireNumber(txtQtyOnHand.getText(), "Quantity On Hand"));
             product.setMinQty(ValidationUtil.requireNumber(txtMinQty.getText(), "Minimum Quantity"));
             product.setReOrderLvl(ValidationUtil.requireNumber(txtReorderLevel.getText(), "Reorder Level"));
 
@@ -503,6 +519,7 @@ public class ProductFormController implements Initializable {
         });
         colAddCost.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
         colAddPrice.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
+        colAddQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
         colAddMinQty.setCellValueFactory(new PropertyValueFactory<>("minQty"));
         colAddReOrderLvl.setCellValueFactory(new PropertyValueFactory<>("reOrderLvl"));
         colAddDescription.setCellValueFactory(new PropertyValueFactory<>("description"));

@@ -83,6 +83,7 @@ public class ProductServiceImpl implements ProductService {
             existingVariant.setUnitCost(new BigDecimal(updatedDto.getCostPrice()));
             existingVariant.setRetailPrice(new BigDecimal(updatedDto.getSellingPrice()));
 
+            existingInventory.setQtyOnHand(Integer.parseInt(updatedDto.getQtyOnHand()));
             existingInventory.setMinQty(Integer.parseInt(updatedDto.getMinQty()));
             existingInventory.setReorderLevel(Integer.parseInt(updatedDto.getReOrderLvl()));
 

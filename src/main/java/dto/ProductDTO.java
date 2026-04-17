@@ -1,6 +1,5 @@
 package dto;
 
-import Entity.Category;
 import Entity.Supplier;
 import lombok.*;
 
@@ -16,6 +15,7 @@ public class ProductDTO {
     private Supplier supplier;
     private String costPrice;
     private String sellingPrice;
+    private String qtyOnHand;
     private String minQty;
     private String reOrderLvl;
     private String description;

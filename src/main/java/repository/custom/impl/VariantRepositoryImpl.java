@@ -3,6 +3,7 @@ package repository.custom.impl;
 import Entity.Supplier;
 import Entity.Variant;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import repository.custom.VariantRepository;
 import util.HibernateUtil;
 
@@ -63,9 +64,21 @@ public class VariantRepositoryImpl implements VariantRepository {
     public Variant findBySku(String skuCode) {
         Session session = HibernateUtil.getSession();
         try {
-            return session.createQuery("FROM Variant WHERE sku = :skuCode", Variant.class)
-                    .setParameter("skuCode", skuCode)
-                    .uniqueResult();
+            // OLD WAY: "FROM Variant WHERE sku = :sku" (Leaves Product and Inventory as Proxies)
+
+            // NEW WAY: Explicitly fetch the attached Product and Inventory in the same trip!
+            String hql = "SELECT v FROM Variant v " +
+                    "JOIN FETCH v.product " +
+                    "JOIN FETCH v.inventory " +
+                    "WHERE v.sku = :sku";
+
+            Query<Variant> query = session.createQuery(hql, Variant.class);
+            query.setParameter("sku", skuCode);
+
+            return query.uniqueResult(); // uniqueResult() safely returns the single Variant or null
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         } finally {
             session.close();
         }

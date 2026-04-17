@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import mapper.ProductMapper;
 import repository.custom.CategoryRepository;
 import repository.custom.ProductRepository;
+import repository.custom.SupplierRepository;
 import repository.custom.VariantRepository;
 import service.custom.ProductService;
 
@@ -26,6 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Inject
     CategoryRepository categoryRepository;
+
+    @Inject
+    SupplierRepository supplierRepository;
 
     @Override
     public boolean createProduct(ProductDTO product) throws SQLException {
@@ -64,6 +68,15 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setName(updatedDto.getName());
             existingProduct.setDescription(updatedDto.getDescription());
 
+            Category category = categoryRepository.getById(updatedDto.getCategory().getCategoryCode());
+            Supplier supplier = supplierRepository.getById(updatedDto.getSupplier().getSupplierId());
+
+            existingProduct.setCategory(category);
+            existingProduct.setSupplier(supplier);
+
+            existingProduct.setName(updatedDto.getName());
+            existingProduct.setDescription(updatedDto.getDescription());
+
             existingVariant.setColor(updatedDto.getColor());
             existingVariant.setSize(updatedDto.getSize());
             existingVariant.setUnitCost(new BigDecimal(updatedDto.getCostPrice()));
@@ -72,8 +85,11 @@ public class ProductServiceImpl implements ProductService {
             existingInventory.setMinQty(Integer.parseInt(updatedDto.getMinQty()));
             existingInventory.setReorderLevel(Integer.parseInt(updatedDto.getReOrderLvl()));
 
+            boolean isProductUpdated = productRepository.update(existingProduct);
+            boolean isVariantUpdated = variantRepository.update(existingVariant);
+
             // 3. Send it to the repository to be merged!
-            return productRepository.update(existingProduct);
+            return isProductUpdated && isVariantUpdated;
 
         } catch (Exception e) {
             e.printStackTrace();

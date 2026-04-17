@@ -34,6 +34,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         try (Session session = HibernateUtil.getSession()) {
             transaction = session.beginTransaction();
             session.merge(product);
+            session.flush();
             transaction.commit();
             return true;
         } catch (Exception e) {

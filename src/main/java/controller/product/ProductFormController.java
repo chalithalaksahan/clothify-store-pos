@@ -219,6 +219,7 @@ public class ProductFormController implements Initializable {
         if (catServiceType.creatCategory(category)) {
             loadCategoryTable();
             clearCategoryFields();
+            loadCategories();
             showMessage("Category created successfully", true);
         } else {
             showMessage("Failed to create category", false);
@@ -230,6 +231,7 @@ public class ProductFormController implements Initializable {
         if (catServiceType.deleteCategory(code)) {
             loadCategoryTable();
             clearCategoryFields();
+            loadCategories();
             showMessage("Category deleted successfully", true);
         } else {
             showMessage("Failed to delete category", false);
@@ -247,6 +249,7 @@ public class ProductFormController implements Initializable {
             if(catServiceType.updateCategory(category)) {
                 loadCategoryTable();
                 clearCategoryFields();
+                loadCategories();
                 showMessage("Category updated successfully", true);
             } else {
                 showMessage("Failed to update category", false);
@@ -342,8 +345,8 @@ public class ProductFormController implements Initializable {
         try {
             if(proServiceType.createProduct(product)){
                 showMessage("Product created successfully", true);
-                clearProductFields();
                 loadProductTable();
+                clearProductFields();
             }else{
                 showMessage("Failed to create product", false);
             }
@@ -358,6 +361,8 @@ public class ProductFormController implements Initializable {
             return;
         }
         if (proServiceType.updateProduct(product)){
+            loadProductTable();
+            clearProductFields();
             showMessage("Product updated successfully", true);
         }else{
             showMessage("Failed to update product", false);
@@ -368,6 +373,8 @@ public class ProductFormController implements Initializable {
         String skuCode = txtSkuCode.getText();
 
         if (proServiceType.deleteProduct(skuCode)){
+            loadProductTable();
+            clearProductFields();
             showMessage("Product deleted successfully", true);
         }else {
             showMessage("Failed to delete product", false);

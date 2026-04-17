@@ -5,6 +5,8 @@ import Entity.Product;
 import Entity.Variant;
 import dto.ProductDTO;
 
+import java.util.List;
+
 public interface ProductMapper {
     // 1. Extract Parent Product
     Product toProductEntity(ProductDTO dto);
@@ -17,4 +19,8 @@ public interface ProductMapper {
 
     // 4. Combine all three back into a UI DTO
     ProductDTO toDto(Product product, Variant variant, Inventory inventory);
+
+    List<ProductDTO> toDtoList(List<Product> all);
+
+    ProductDTO toDto(Product product);
 }

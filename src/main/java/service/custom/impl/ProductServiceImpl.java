@@ -6,13 +6,13 @@ import jakarta.inject.Inject;
 import mapper.ProductMapper;
 import repository.custom.CategoryRepository;
 import repository.custom.ProductRepository;
+import repository.custom.SupplierRepository;
 import repository.custom.VariantRepository;
 import service.custom.ProductService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class ProductServiceImpl implements ProductService {
 
@@ -27,6 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Inject
     CategoryRepository categoryRepository;
+
+    @Inject
+    SupplierRepository supplierRepository;
 
     @Override
     public boolean createProduct(ProductDTO product) throws SQLException {
@@ -65,6 +68,15 @@ public class ProductServiceImpl implements ProductService {
             existingProduct.setName(updatedDto.getName());
             existingProduct.setDescription(updatedDto.getDescription());
 
+            Category category = categoryRepository.getById(updatedDto.getCategory().getCategoryCode());
+            Supplier supplier = supplierRepository.getById(updatedDto.getSupplier().getSupplierId());
+
+            existingProduct.setCategory(category);
+            existingProduct.setSupplier(supplier);
+
+            existingProduct.setName(updatedDto.getName());
+            existingProduct.setDescription(updatedDto.getDescription());
+
             existingVariant.setColor(updatedDto.getColor());
             existingVariant.setSize(updatedDto.getSize());
             existingVariant.setUnitCost(new BigDecimal(updatedDto.getCostPrice()));
@@ -73,8 +85,11 @@ public class ProductServiceImpl implements ProductService {
             existingInventory.setMinQty(Integer.parseInt(updatedDto.getMinQty()));
             existingInventory.setReorderLevel(Integer.parseInt(updatedDto.getReOrderLvl()));
 
+            boolean isProductUpdated = productRepository.update(existingProduct);
+            boolean isVariantUpdated = variantRepository.update(existingVariant);
+
             // 3. Send it to the repository to be merged!
-            return productRepository.update(existingProduct);
+            return isProductUpdated && isVariantUpdated;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,19 +97,31 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public boolean deleteProduct(String skuCode) {
+        Variant variant = variantRepository.findBySku(skuCode);
+        if (variant == null) {
+            return false;
+        }
+            Product product = variant.getProduct();
+        return productRepository.deleteById(String.valueOf(product.getId()));
+    }
 
-@Override
-public boolean deleteProduct(String skuCode) {
-    return false;
-}
+    @Override
+    public ProductDTO searchProduct(String skuCode) {
+        Variant variant = variantRepository.findBySku(skuCode);
+        if (variant == null) {
+            return null;
+        }
+        Product product = variant.getProduct();
+        return productMapper.toDto(product);
+    }
 
-@Override
-public ProductDTO searchProduct(String skuCode) {
-    return null;
-}
-
-@Override
-public List<ProductDTO> getAllProducts() {
-    return List.of();
-}
+    @Override
+    public List<ProductDTO> getAllProducts() throws SQLException {
+        productRepository.getAll(). stream()
+                .flatMap(product -> product.getVariants().stream())
+                .forEach(variant -> System.out.println("Variant SKU: " + variant.getSku()));
+        return  productMapper.toDtoList(productRepository.getAll());
+    }
 }

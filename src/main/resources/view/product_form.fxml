@@ -60,14 +60,7 @@
                                     <JFXTextField fx:id="txtSearchProduct" prefHeight="35.0" prefWidth="500.0" promptText="Search by Name, SKU, or Category..." unFocusColor="#a6a6a6">
                                        <font><Font name="Times New Roman" size="18.0" /></font>
                                     </JFXTextField>
-                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <JFXButton prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #2D788A; -fx-background-radius: 6px;" text="Search" textFill="WHITE">
-                                             <font><Font name="Poppins SemiBold" size="16.0" /></font>
-                                             <graphic><ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"><image><Image url="@../img/icon/Search%20Property.png" /></image></ImageView></graphic>
-                                          </JFXButton>
-                                       </children>
-                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
 

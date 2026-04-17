@@ -3,6 +3,7 @@ package repository.custom.impl;
 import Entity.Product;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import repository.custom.ProductRepository;
 import util.HibernateUtil;
 
@@ -83,5 +84,23 @@ public class ProductRepositoryImpl implements ProductRepository {
             String hql = "SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.variants";
             return session.createQuery(hql, Product.class).list();
 
+    }
+
+    @Override
+    public List<Product> universalSearch(String search) {
+        try (Session session = HibernateUtil.getSession()) {
+            String hql = "SELECT DISTINCT p FROM Product p " +
+                    "JOIN FETCH p.variants v " +
+                    "JOIN FETCH v.inventory i " +
+                    "LEFT JOIN FETCH p.category c " +
+                    "WHERE v.sku LIKE :search " +
+                    "OR p.name LIKE :search " +
+                    "OR c.categoryName LIKE :search";
+
+            Query<Product> query = session.createQuery(hql, Product.class);
+            query.setParameter("search", "%" + search + "%");
+
+            return query.list();
+        }
     }
 }

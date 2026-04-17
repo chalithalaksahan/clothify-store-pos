@@ -11,11 +11,13 @@ import jakarta.inject.Inject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import service.custom.CategoryService;
 import service.custom.ProductService;
 import service.custom.SupplierService;
@@ -79,7 +81,7 @@ public class ProductFormController implements Initializable {
     private JFXTextField txtSearchProduct;
 
     @FXML
-    private TableColumn<?, ?> colAllProdCategory;
+    private TableColumn<ProductDTO, String> colAllProdCategory;
 
     @FXML
     private TableColumn<?, ?> colAllProdCost;
@@ -97,10 +99,10 @@ public class ProductFormController implements Initializable {
     private TableColumn<?, ?> colAllProdSku;
 
     @FXML
-    private TableColumn<?, ?> colAllProdStatus;
+    private TableColumn<ProductDTO, String> colAllProdStatus;
 
     @FXML
-    private TableColumn<?, ?> colAllProdSupplier;
+    private TableColumn<ProductDTO, String> colAllProdSupplier;
 
     @FXML
     private TableView<ProductDTO> tblAllProducts;
@@ -271,6 +273,15 @@ public class ProductFormController implements Initializable {
             List<ProductDTO> products = proServiceType.getAllProducts();
             tblAddProducts.setItems(FXCollections.observableArrayList(products));
         }catch (Exception e){
+            showMessage("Failed to load products: " + e.getMessage(), false);
+        }
+    }
+
+    private void loadAllProductsTable() {
+        try {
+            // This is the key! Updating masterData automatically updates the TableView
+            masterData.setAll(proServiceType.getAllProducts());
+        } catch (Exception e) {
             showMessage("Failed to load products: " + e.getMessage(), false);
         }
     }
@@ -453,6 +464,8 @@ public class ProductFormController implements Initializable {
         }
 
     }
+    private ObservableList<ProductDTO> masterData = FXCollections.observableArrayList();
+    private FilteredList<ProductDTO> filteredData;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -460,6 +473,7 @@ public class ProductFormController implements Initializable {
         loadSuppliers();
         loadProductTable();
         loadCategoryTable();
+        loadAllProductsTable();
 
         colCatListCode.setCellValueFactory(new PropertyValueFactory<>("categoryCode"));
         colCatListName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
@@ -495,6 +509,41 @@ public class ProductFormController implements Initializable {
         colAddColor.setCellValueFactory(new PropertyValueFactory<>("color"));
         colAddSize.setCellValueFactory(new PropertyValueFactory<>("size"));
 
+        colAllProdSku.setCellValueFactory(new PropertyValueFactory<>("skuCode"));
+        colAllProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAllProdSupplier.setCellValueFactory(cellData -> {
+            ProductDTO rowData = cellData.getValue();
+
+            if (rowData.getSupplier() != null) {
+                return new SimpleStringProperty(rowData.getSupplier().getCompanyName());
+            }
+            return new SimpleStringProperty("N/A");
+        });
+        colAllProdCategory.setCellValueFactory(cellData -> {
+            ProductDTO rowData = cellData.getValue();
+
+            if (rowData.getCategory() != null) {
+                return new SimpleStringProperty(rowData.getCategory().getCategoryName());
+            }
+            return new SimpleStringProperty("N/A");
+        });
+        colAllProdCost.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
+        colAllProdPrice.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
+        colAllProdQty.setCellValueFactory(new PropertyValueFactory<>("minQty"));
+        colAllProdStatus.setCellValueFactory(cellData -> {
+            ProductDTO rowData = cellData.getValue();
+
+            // Simple logic to determine status based on minQty
+            try {
+                int minQty = Integer.parseInt(rowData.getMinQty());
+                String status = minQty > 0 ? "In Stock" : "Out of Stock";
+                return new SimpleStringProperty(status);
+            } catch (NumberFormatException e) {
+                showMessage("Invalid quantity format for SKU: " + rowData.getSkuCode(), false);
+                return new SimpleStringProperty("Unknown");
+            }
+        });
+
 
 
 
@@ -512,5 +561,29 @@ public class ProductFormController implements Initializable {
                 setTextToValuesForProduct(t1);
             }
         });
+
+        try {
+            masterData.setAll(proServiceType.getAllProducts());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        filteredData = new FilteredList<>(masterData, p -> true);
+        tblAllProducts.setItems(filteredData);
+
+        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(product -> {
+                if (newValue == null || newValue.trim().isEmpty()) {
+                    return true; // This is what reloads the table when text is removed!
+                }
+
+                String filter = newValue.toLowerCase().trim();
+                return product.getSkuCode().toLowerCase().contains(filter) ||
+                        product.getName().toLowerCase().contains(filter) ||
+                        (product.getCategory() != null &&
+                                product.getCategory().getCategoryName().toLowerCase().contains(filter));
+            });
+        });
     }
+
 }

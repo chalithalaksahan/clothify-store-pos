@@ -16,4 +16,5 @@ public interface ProductService {
 
     List<ProductDTO> getAllProducts() throws SQLException;
 
+    List<ProductDTO> searchByAll(String query) throws SQLException;
 }

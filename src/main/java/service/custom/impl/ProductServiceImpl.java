@@ -12,6 +12,7 @@ import service.custom.ProductService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
@@ -123,5 +124,24 @@ public class ProductServiceImpl implements ProductService {
                 .flatMap(product -> product.getVariants().stream())
                 .forEach(variant -> System.out.println("Variant SKU: " + variant.getSku()));
         return  productMapper.toDtoList(productRepository.getAll());
+    }
+
+    @Override
+    public List<ProductDTO> searchByAll(String searchText) throws SQLException {
+        // If search is empty, just return all products
+        if (searchText == null || searchText.trim().isEmpty()) {
+            return getAllProducts();
+        }
+
+        List<Product> products = productRepository.universalSearch(searchText);
+        List<ProductDTO> dtoList = new ArrayList<>();
+
+        for (Product p : products) {
+            for (Variant v : p.getVariants()) {
+                // Mapping logic (use your existing mapper)
+                dtoList.add(productMapper.toDto(p, v,v.getInventory()));
+            }
+        }
+        return dtoList;
     }
 }

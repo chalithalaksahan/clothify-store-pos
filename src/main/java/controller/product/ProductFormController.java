@@ -187,12 +187,7 @@ public class ProductFormController implements Initializable {
     public void btnSearchCategoryOnAction(ActionEvent actionEvent) {
         String code = txtCatCode.getText();
 
-        CategoryDTO category = null;
-        try {
-            category = catServiceType.searchCategory(code);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        CategoryDTO category = catServiceType.searchCategory(code);
 
         if (category != null){
             setTextToValuesForCat(category);

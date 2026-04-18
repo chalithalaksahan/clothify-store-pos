@@ -56,8 +56,12 @@ public class ComboBoxSearchUtil {
                     return itemString != null && itemString.toLowerCase().contains(newValue.toLowerCase());
                 });
 
-                if (!filteredList.isEmpty() && !comboBox.isShowing()) {
-                    comboBox.show();
+                if (comboBox.getEditor().isFocused() && !newValue.isEmpty() && !filteredList.isEmpty()) {
+                    if (!comboBox.isShowing()) {
+                        comboBox.show();
+                    }
+                } else if (newValue.isEmpty()) {
+                    comboBox.hide(); // Hide it if we cleared the text
                 }
             });
         });

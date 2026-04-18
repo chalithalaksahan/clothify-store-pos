@@ -55,9 +55,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDTO searchCategory(String categoryCode) throws SQLException {
-        Category category = categoryRepository.getById(categoryCode);
-        return categoryMapper.toDto(category);
+    public CategoryDTO searchCategory(String categoryCode) {
+
+        try {
+            Category category = categoryRepository.getById(categoryCode);
+            return categoryMapper.toDto(category);
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error while searching for category: " + categoryCode, e);
+        }
+
 
     }
 

@@ -9,7 +9,7 @@ public interface CategoryService {
     boolean creatCategory(CategoryDTO categoryDTO);
     boolean updateCategory(CategoryDTO categoryDTO) throws SQLException;
     boolean deleteCategory(String categoryCode);
-    CategoryDTO searchCategory(String categoryCode) throws SQLException;
+    CategoryDTO searchCategory(String categoryCode);
     List<CategoryDTO> getAllCategories() throws SQLException;
 
 }

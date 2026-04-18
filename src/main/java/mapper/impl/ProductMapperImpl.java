@@ -69,7 +69,7 @@ public class ProductMapperImpl implements ProductMapper {
         inventory.setVariant(parentVariant); // Link to parent
 
         // A brand new product always starts with 0 physically on the shelf!
-        inventory.setQtyOnHand(0);
+        inventory.setQtyOnHand(dto.getQtyOnHand() != null && !dto.getQtyOnHand().isEmpty() ? Integer.parseInt(dto.getQtyOnHand()) : 0);
 
         // Safely parse String quantities into Integers
         try {
@@ -113,6 +113,7 @@ public class ProductMapperImpl implements ProductMapper {
 
         // From Inventory
         if (inventory != null) {
+            if(inventory.getQtyOnHand() != null) dto.setQtyOnHand(inventory.getQtyOnHand().toString());
             if (inventory.getMinQty() != null) dto.setMinQty(inventory.getMinQty().toString());
             if (inventory.getReorderLevel() != null) dto.setReOrderLvl(inventory.getReorderLevel().toString());
         }
@@ -151,6 +152,7 @@ public class ProductMapperImpl implements ProductMapper {
                     dto.setSize(variantDto.getSize());
                     dto.setCostPrice(variantDto.getCostPrice());
                     dto.setSellingPrice(variantDto.getSellingPrice());
+                    dto.setQtyOnHand(variantDto.getQtyOnHand());
                     dto.setMinQty(variantDto.getMinQty());
                     dto.setReOrderLvl(variantDto.getReOrderLvl());
                 });

@@ -11,6 +11,7 @@ import jakarta.inject.Inject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,6 +50,9 @@ public class ProductFormController implements Initializable {
     public TableColumn<?, ?> colAddDescription;
 
     @FXML
+    public TableColumn<?, ?> colAddQtyOnHand;
+
+    @FXML
     private JFXComboBox<String> cmbParentCat;
 
     @FXML
@@ -79,7 +83,7 @@ public class ProductFormController implements Initializable {
     private JFXTextField txtSearchProduct;
 
     @FXML
-    private TableColumn<?, ?> colAllProdCategory;
+    private TableColumn<ProductDTO, String> colAllProdCategory;
 
     @FXML
     private TableColumn<?, ?> colAllProdCost;
@@ -97,10 +101,10 @@ public class ProductFormController implements Initializable {
     private TableColumn<?, ?> colAllProdSku;
 
     @FXML
-    private TableColumn<?, ?> colAllProdStatus;
+    private TableColumn<ProductDTO, String> colAllProdStatus;
 
     @FXML
-    private TableColumn<?, ?> colAllProdSupplier;
+    private TableColumn<ProductDTO, String> colAllProdSupplier;
 
     @FXML
     private TableView<ProductDTO> tblAllProducts;
@@ -148,6 +152,9 @@ public class ProductFormController implements Initializable {
     private JFXTextField txtCostPrice;
 
     @FXML
+    public JFXTextField txtQtyOnHand;
+
+    @FXML
     private JFXTextField txtMinQty;
 
     @FXML
@@ -180,12 +187,7 @@ public class ProductFormController implements Initializable {
     public void btnSearchCategoryOnAction(ActionEvent actionEvent) {
         String code = txtCatCode.getText();
 
-        CategoryDTO category = null;
-        try {
-            category = catServiceType.searchCategory(code);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        CategoryDTO category = catServiceType.searchCategory(code);
 
         if (category != null){
             setTextToValuesForCat(category);
@@ -275,6 +277,15 @@ public class ProductFormController implements Initializable {
         }
     }
 
+    private void loadAllProductsTable() {
+        try {
+            // This is the key! Updating masterData automatically updates the TableView
+            masterData.setAll(proServiceType.getAllProducts());
+        } catch (Exception e) {
+            showMessage("Failed to load products: " + e.getMessage(), false);
+        }
+    }
+
     private void loadCategoryTable() {
         try {
             List<CategoryDTO> categories = catServiceType.getAllCategories();
@@ -294,10 +305,19 @@ public class ProductFormController implements Initializable {
     private void clearProductFields() {
         txtSkuCode.setText("");
         txtProdName.setText("");
+
+        cmbProdSupplier.getSelectionModel().clearSelection();
         cmbProdSupplier.setValue(null);
+        cmbProdSupplier.setPromptText("Select Supplier");
+
+        // 2. Reset Category ComboBox
+        cmbProdCategory.getSelectionModel().clearSelection();
         cmbProdCategory.setValue(null);
+        cmbProdCategory.setPromptText("Select Category");
+
         txtCostPrice.setText("");
         txtSellingPrice.setText("");
+        txtQtyOnHand.setText("");
         txtMinQty.setText("");
         txtReorderLevel.setText("");
         txtProdDesc.setText("");
@@ -329,6 +349,7 @@ public class ProductFormController implements Initializable {
         cmbProdSupplier.setValue(product.getSupplier());
         txtCostPrice.setText(product.getCostPrice());
         txtSellingPrice.setText(product.getSellingPrice());
+        txtQtyOnHand.setText(product.getQtyOnHand());
         txtMinQty.setText(product.getMinQty());
         txtReorderLevel.setText(product.getReOrderLvl());
         txtProdDesc.setText(product.getDescription());
@@ -441,6 +462,7 @@ public class ProductFormController implements Initializable {
 
             product.setCostPrice(ValidationUtil.requireNumber(txtCostPrice.getText(), "Cost Price"));
             product.setSellingPrice(ValidationUtil.requireNumber(txtSellingPrice.getText(), "Selling Price"));
+            product.setQtyOnHand(ValidationUtil.requireNumber(txtQtyOnHand.getText(), "Quantity On Hand"));
             product.setMinQty(ValidationUtil.requireNumber(txtMinQty.getText(), "Minimum Quantity"));
             product.setReOrderLvl(ValidationUtil.requireNumber(txtReorderLevel.getText(), "Reorder Level"));
 
@@ -453,6 +475,8 @@ public class ProductFormController implements Initializable {
         }
 
     }
+    private ObservableList<ProductDTO> masterData = FXCollections.observableArrayList();
+    private FilteredList<ProductDTO> filteredData;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -460,6 +484,7 @@ public class ProductFormController implements Initializable {
         loadSuppliers();
         loadProductTable();
         loadCategoryTable();
+        loadAllProductsTable();
 
         colCatListCode.setCellValueFactory(new PropertyValueFactory<>("categoryCode"));
         colCatListName.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
@@ -489,11 +514,47 @@ public class ProductFormController implements Initializable {
         });
         colAddCost.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
         colAddPrice.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
+        colAddQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
         colAddMinQty.setCellValueFactory(new PropertyValueFactory<>("minQty"));
         colAddReOrderLvl.setCellValueFactory(new PropertyValueFactory<>("reOrderLvl"));
         colAddDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colAddColor.setCellValueFactory(new PropertyValueFactory<>("color"));
         colAddSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+
+        colAllProdSku.setCellValueFactory(new PropertyValueFactory<>("skuCode"));
+        colAllProdName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAllProdSupplier.setCellValueFactory(cellData -> {
+            ProductDTO rowData = cellData.getValue();
+
+            if (rowData.getSupplier() != null) {
+                return new SimpleStringProperty(rowData.getSupplier().getCompanyName());
+            }
+            return new SimpleStringProperty("N/A");
+        });
+        colAllProdCategory.setCellValueFactory(cellData -> {
+            ProductDTO rowData = cellData.getValue();
+
+            if (rowData.getCategory() != null) {
+                return new SimpleStringProperty(rowData.getCategory().getCategoryName());
+            }
+            return new SimpleStringProperty("N/A");
+        });
+        colAllProdCost.setCellValueFactory(new PropertyValueFactory<>("costPrice"));
+        colAllProdPrice.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
+        colAllProdQty.setCellValueFactory(new PropertyValueFactory<>("minQty"));
+        colAllProdStatus.setCellValueFactory(cellData -> {
+            ProductDTO rowData = cellData.getValue();
+
+            // Simple logic to determine status based on minQty
+            try {
+                int minQty = Integer.parseInt(rowData.getMinQty());
+                String status = minQty > 0 ? "In Stock" : "Out of Stock";
+                return new SimpleStringProperty(status);
+            } catch (NumberFormatException e) {
+                showMessage("Invalid quantity format for SKU: " + rowData.getSkuCode(), false);
+                return new SimpleStringProperty("Unknown");
+            }
+        });
 
 
 
@@ -512,5 +573,29 @@ public class ProductFormController implements Initializable {
                 setTextToValuesForProduct(t1);
             }
         });
+
+        try {
+            masterData.setAll(proServiceType.getAllProducts());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        filteredData = new FilteredList<>(masterData, p -> true);
+        tblAllProducts.setItems(filteredData);
+
+        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(product -> {
+                if (newValue == null || newValue.trim().isEmpty()) {
+                    return true; // This is what reloads the table when text is removed!
+                }
+
+                String filter = newValue.toLowerCase().trim();
+                return product.getSkuCode().toLowerCase().contains(filter) ||
+                        product.getName().toLowerCase().contains(filter) ||
+                        (product.getCategory() != null &&
+                                product.getCategory().getCategoryName().toLowerCase().contains(filter));
+            });
+        });
     }
+
 }
